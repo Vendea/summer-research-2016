@@ -4,7 +4,7 @@ import numpy as np
 import sys
 
 try:
-    # Input Parameters
+    # Commandline Input Parameters
     total=len(sys.argv)
     cmdargs = str(sys.argv)
     learning_rate=float(cmdargs[1])
@@ -17,6 +17,8 @@ try:
     n_input = int(cmdargs[8]) # 2 n/2 bit input number
     nbit=int(cmdargs[9])
     n_classes = int(cmdargs[10])
+    training_size=int(cmdargs[11])
+    testing_size=int(cmdargs[12])
 except:
     # Default Parameters
     learning_rate = 0.001
@@ -29,8 +31,12 @@ except:
     n_input = 32 # 2 n/2 bit input number
     nbit=n_input/2
     n_classes = 16 # n bit output
+    training_size=50000
+    testing_size=1000
 
 def primes(n):
+    # this method returns all the primes under the integer value n using
+    # sieve method without the prime number 2
     ret=[]
     sieve = [True] * (n+1)
     for p in range(3, n+1):
@@ -41,6 +47,8 @@ def primes(n):
     return ret
 
 def shuffle_in_unison(a, b):
+    # this method shuffles the two arrays according to the same randomized
+    # index
     assert len(a) == len(b)
     shuffled_a = np.empty(a.shape, dtype=a.dtype)
     shuffled_b = np.empty(b.shape, dtype=b.dtype)
@@ -50,14 +58,19 @@ def shuffle_in_unison(a, b):
         shuffled_b[new_index] = b[old_index]
     return shuffled_a, shuffled_b
 
+# generates the primes and take 300 random prime numbers primes
 prime=np.array(primes(2**nbit))
 np.random.shuffle(prime)
-prime=prime[0:300]
+prime1=prime[0:300]
+prime2=prime[-301:-1]
 nop=len(prime)
+# sanity check, there should be 300 primes
 print "There are", nop, "primes in the range"
 
 
 def convert(number,bits):
+    # this method converts a number into an array containing
+    # bit2 values, a bit upper bound must be specified
     ret=[]
     for i in range(0,bits):
         ret.append(number%2)
@@ -66,25 +79,48 @@ def convert(number,bits):
 
 
 def min(x,y):
+    # find the smaller of the two number
     if x<y:
         return x
     else:
         return y
 
-input_data=[]
-output_data=[]
-for output1 in prime:
-    for output2 in prime:
-        input_data.append(min(convert(output1,16),convert(output2,16)))
-        output_data.append(convert(output1*output2,32))
-input_data=np.array(input_data)
-output_data=np.array(output_data)
-factorization,product=shuffle_in_unison(input_data, output_data)
-input_data,output_data=product[0:50000],factorization[0:50000]
-test_x,test_y=product[50001:51000],factorization[50001:51000]
-n_examples=len(input_data)
 
+# The product array contains the n bit semi-primes to be factored,
+# and the factor array contains the smaller of the two factors
+
+product=[]
+factor=[]
+for p1 in prime1:
+    for p2 in prime2:
+        product.append(convert(p1*p2,nbit*2))
+        factor.append(convert(min(p1,p2),nbit))
+product=np.array(product)
+factor=np.array(factor)
+
+# randomly select 50,000 semi-primes and their smaller factor to be
+# the training data, and a different set of 1000 as testing data
+
+product,factor=shuffle_in_unison(product, factor)
+train_x,train_y=product[0:training_size],factor[0:training_size]
+test_x,test_y=product[training_size+1:training_size+testing_size],\
+              factor[training_size+1:training_size+testing_size]
+
+# save the training and testing partition
+
+np.savetxt("train_x_1.csv",train_x,delimiter=",")
+np.savetxt("train_y_1.csv",train_y,delimiter=",")
+np.savetxt("test_x_1.csv", test_x, delimiter=",")
+np.savetxt("test_y_1.csv", test_y, delimiter=",")
+
+# sanity check: the number of training examples
+n_examples=len(train_x)
 print "there are", n_examples, "examples in the data"
+
+
+
+
+
 # tf Graph input
 x = tf.placeholder("float", [None, n_input])
 y = tf.placeholder("float", [None, n_classes])
@@ -97,9 +133,10 @@ def multilayer_perceptron(x, weights, biases):
     # Hidden layer with RELU activation
     layer_2 = tf.add(tf.matmul(layer_1, weights['h2']), biases['b2'])
     layer_2 = tf.nn.relu(layer_2)
-    # Output layer with linear activation
+    # Hidden layer with RELU activation
     layer_3 = tf.add(tf.matmul(layer_2, weights['h2']), biases['b2'])
     layer_3 = tf.nn.relu(layer_3)
+    # Output layer with linear activation
     out_layer = tf.matmul(layer_3, weights['out']) + biases['out']
     return out_layer
 
@@ -132,8 +169,8 @@ with tf.Session() as sess:
         avg_cost = 0.
         total_batch = int(n_examples/batch_size)
         for i in range(total_batch):
-            batch_x=input_data[i*batch_size:(i+1)*batch_size]
-            batch_y=output_data[i*batch_size:(i+1)*batch_size]
+            batch_x=train_x[i*batch_size:(i+1)*batch_size]
+            batch_y=train_y[i*batch_size:(i+1)*batch_size]
             _, c = sess.run([optimizer, cost], feed_dict={x: batch_x,
                                                           y: batch_y})
             avg_cost += c / total_batch
@@ -144,5 +181,5 @@ with tf.Session() as sess:
     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     print "Accuracy:", accuracy.eval({x: test_x, y: test_y})
-    save_path = saver.save(sess, "model.ckpt")
+    save_path = saver.save(sess, "model_1.ckpt")
     print("Model saved in file: %s" % save_path)
