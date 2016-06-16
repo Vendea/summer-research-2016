@@ -22,12 +22,12 @@ try:
 except:
     # Default Parameters
     learning_rate = 0.001
-    training_epochs = 10000
+    training_epochs = 100000
     batch_size = 1000
-    display_step = 1
-    n_hidden_1 = 256
-    n_hidden_2 = 256
-    n_hidden_3 = 256
+    display_step = 100
+    n_hidden_1 = 1024
+    n_hidden_2 = 1024
+    n_hidden_3 = 1024
     n_input = 32 # 2 n/2 bit input number
     nbit=n_input/2
     n_classes = 16 # n bit output
@@ -73,7 +73,10 @@ def convert(number,bits):
     # bit2 values, a bit upper bound must be specified
     ret=[]
     for i in range(0,bits):
-        ret.append(number%2)
+        if number%2==0:
+            ret.append(-1)
+        else:
+            ret.append(1)
         number=number/2
     return ret
 
@@ -91,10 +94,14 @@ def min(x,y):
 
 product=[]
 factor=[]
+p10=[]
+f10=[]
 for p1 in prime1:
     for p2 in prime2:
         product.append(convert(p1*p2,nbit*2))
+        p10.append(p1*p2)
         factor.append(convert(min(p1,p2),nbit))
+        f10.append(min(p1,p2))
 product=np.array(product)
 factor=np.array(factor)
 
@@ -105,6 +112,8 @@ product,factor=shuffle_in_unison(product, factor)
 train_x,train_y=product[0:training_size],factor[0:training_size]
 test_x,test_y=product[training_size+1:training_size+testing_size],\
               factor[training_size+1:training_size+testing_size]
+test10x,test10y=p10[training_size+1:training_size+testing_size],\
+                f10[training_size+1:training_size+testing_size]
 
 # save the training and testing partition
 
@@ -129,13 +138,13 @@ y = tf.placeholder("float", [None, n_classes])
 def multilayer_perceptron(x, weights, biases):
     # Hidden layer with RELU activation
     layer_1 = tf.add(tf.matmul(x, weights['h1']), biases['b1'])
-    layer_1 = tf.nn.relu(layer_1)
+    layer_1 = tf.nn.sigmoid(layer_1)
     # Hidden layer with RELU activation
     layer_2 = tf.add(tf.matmul(layer_1, weights['h2']), biases['b2'])
-    layer_2 = tf.nn.relu(layer_2)
+    layer_2 = tf.nn.sigmoid(layer_2)
     # Hidden layer with RELU activation
     layer_3 = tf.add(tf.matmul(layer_2, weights['h2']), biases['b2'])
-    layer_3 = tf.nn.relu(layer_3)
+    layer_3 = tf.nn.sigmoid(layer_3)
     # Output layer with linear activation
     out_layer = tf.matmul(layer_3, weights['out']) + biases['out']
     return out_layer
@@ -175,11 +184,38 @@ with tf.Session() as sess:
                                                           y: batch_y})
             avg_cost += c / total_batch
         if epoch % display_step == 0:
+            print "========================================"
             print "Epoch:", '%04d' % (epoch+1), "cost=", \
                 "{:.9f}".format(avg_cost)
+            print "testing cost", cost.eval({x: test_x, y: test_y})
+            result=pred.eval({x: train_x[0:1000], y: train_y[0:1000]})
+            counter=0
+            correct=0
+            for p in result:
+                r=[]
+                for n in p:
+                    if n>0:
+                        r.append(1)
+                    else:
+                        r.append(-1)
+                if np.inner(train_y[counter]-np.array(r),train_y[counter]-np.array(r))==0:
+                    correct=correct+1
+                counter=counter+1
+            print "Training correct:", correct
+            result=pred.eval({x: test_x, y: test_y})
+            counter=0
+            correct=0
+            for p in result:
+                r=[]
+                for n in p:
+                    if n>0:
+                        r.append(1)
+                    else:
+                        r.append(-1)
+                if np.inner(test_y[counter]-np.array(r),test_y[counter]-np.array(r))==0:
+                    correct=correct+1
+                counter=counter+1
+            print "Testing correct:", correct
     print "Optimization Finished!"
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: test_x, y: test_y})
     save_path = saver.save(sess, "model_1.ckpt")
     print("Model saved in file: %s" % save_path)
