@@ -178,14 +178,17 @@ biases = {
 
 pred = multilayer_perceptron(x, weights, biases)
 
-conversion_array = []
-for i in range(n_classes):
-    conversion_array.append(2**i)
-conversion_array = np.array(conversion_array)
+#conversion array
+c = np.zeros([16,1]).astype('float32')
+for i in range(16):
+    c[i, 0] = 2**i
+conv = tf.Variable(c)
 
-cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(tf.matmul(pred, conversion_array[0:n_classes],transpose_b=True), 
-    tf.matmul(y, conversion_array[0:n_classes], transpose_b=True)))))
-#tf.sqrt(tf.reduce_mean(tf.square(tf.sub(pred, y))))
+tpred = tf.nn.sigmoid(tf.mul(1000.0, pred))
+
+num1 = tf.matmul(tpred, conv)
+num2 = tf.matmul(y, conv)
+cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(num1, num2))))
 
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
