@@ -39,8 +39,10 @@ def generate_data(nbits):
     data_y = []
     for p1 in prime1:
         for p2 in prime2:
-            data_x.append(convert(min(p1, p2)))
-            data_y.append(convert(p1*p2))
+            data_y.append(convert(min(p1, p2),nbits))
+            data_x.append(convert(p1*p2,nbits*2))
+    data_x=np.array(data_x)
+    data_y=np.array(data_y)
     return shuffle_in_unison(data_x, data_y)
     
 def convert(number,bits):
