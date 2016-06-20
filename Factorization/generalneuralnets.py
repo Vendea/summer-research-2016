@@ -9,6 +9,9 @@ import tensorflow as tf
 import numpy as np
 from mpi4py import MPI
 import time
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 '''===============================================================================================
     Preprocessing and Configurations
    ===============================================================================================
@@ -79,7 +82,7 @@ test_x = data_x[-(testing_sizes + 1):-1]
 train_y = data_y[0:training_sizes]
 test_y = data_y[-(testing_sizes + 1):-1]
 
-print "Data preprocessing done in core", rank
+logger.info("Data preprocessing done in core"+str(rank))
 
 '''===============================================================================================
     Neural Network Model Tensorflow Replicas Construction
@@ -138,7 +141,7 @@ saver = tf.train.Saver()
 init = tf.initialize_all_variables()
 sess=tf.InteractiveSession()
 sess.run(init)
-print "Network initialization done in core", rank
+logger.info("Network initialization done in core"+str(rank))
 
 '''===============================================================================================
     Distributed Training and Model evaluation
@@ -175,7 +178,6 @@ if rank == master:
         avg_weight = np.average(weights_n, axis=0)
         avg_bias = np.average(biases_n, axis=0)
         data=(avg_weight,avg_bias)
-        print "Average computed for epoch", epoch
         # evaluating the training progress every display_step epochs
         if (epoch % display_step) == 0:
             for w,t in zip(avg_weight, weights):
@@ -218,7 +220,8 @@ if rank == master:
             print "epoch", epoch, "testing accuracy:", (correct + 0.0)/testing_sizes
         end_time = time.time()
         timer += end_time-start_time
-        print "time taken for epoch", epoch, ":", end_time-start_time
+        if (epoch % display_step) == 0:
+            logger.info("time taken for epoch"+str(epoch)+":"+str(end_time-start_time))
     print "avg time per epoch:", timer/training_epochs
     print "master is done"
 
@@ -233,7 +236,6 @@ else:
     for epoch in range(training_epochs):
         # waiting on weight initialization
         data_w,data_b = comm.recv(source=master,tag=11)
-        print rank,"received the data in epoch", epoch
         # apply the variables
         for w,t in zip(data_w, weights):
             sess.run(t.assign(w))
@@ -249,7 +251,6 @@ else:
         for w,b in zip(weights, biases):
             data_w.append(w.eval())
             data_b.append(b.eval())
-        print rank,"sending the data in epoch", epoch
         # return slave results
         comm.send((data_w, data_b), dest=master, tag=11)
 
