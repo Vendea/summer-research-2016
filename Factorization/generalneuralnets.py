@@ -64,7 +64,7 @@ else:
     cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(tf.matmul(tpred, conv), tf.matmul(y, conv)))))
 
 init = tf.initialize_all_variables()
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 saver = tf.train.Saver()
 
 sess=tf.InteractiveSession()
