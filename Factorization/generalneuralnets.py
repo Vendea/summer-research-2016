@@ -122,7 +122,7 @@ elif cost_func == 2:
         c[i, 0] = 2**i
     conv = tf.Variable(c)
     tpred = tf.nn.sigmoid(tf.mul(1000.0, pred))
-    cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(tf.matmul(tpred, conv), tf.matmul(y, conv))))) 
+    cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(tf.matmul(tpred, conv), tf.matmul(y, conv)))))
 else:
     c = np.ones([nbits,1]).astype('float32')
     conv = tf.Variable(c)
@@ -146,6 +146,7 @@ print "Network initialization done in core", rank
 '''
 # Master core code
 if rank == master:
+    timer = 0
     print "master started..."
     # Constructing the initial message
     data_w = []
@@ -156,6 +157,7 @@ if rank == master:
     data = (data_w, data_b)
     print "master core started..."
     for epoch in range(training_epochs):
+        start_time = time.time()
         avg_cost = 0
         total_batch = int(training_sizes/batch_size)
         # distributing tasks to the following slave cores
@@ -214,6 +216,10 @@ if rank == master:
                 if valid:
                     correct = correct +1
             print "epoch", epoch, "testing accuracy:", (correct + 0.0)/testing_sizes
+        end_time = time.time()
+        timer += end_time-start_time
+        print "time taken for epoch", epoch, ":", end_time-start_time
+    print "avg time per epoch:", timer/training_epochs
     print "master is done"
 
 # Slave core code
@@ -246,13 +252,5 @@ else:
         print rank,"sending the data in epoch", epoch
         # return slave results
         comm.send((data_w, data_b), dest=master, tag=11)
-        
+
     print "core", rank, "(slave) is done"
-      
-    
-    
-    
-    
-    
-    
-    
