@@ -8,7 +8,6 @@ import tensorflow as tf
 import numpy as np
 from mpi4py import MPI
 import time
-from Factorization.7layered40000test import batch_x
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -17,8 +16,8 @@ n_nodes = 256
 nbits = 16
 kernel = 0
 cost_func = 0
-training_sizes = 5
-testing_sizes = 4
+training_sizes = 50000
+testing_sizes = 40000
 data_x, data_y = prime.generate_data(nbits)
 train_x = data_x[0:training_sizes]
 test_x = data_x[-(testing_sizes + 1):-1]
@@ -28,16 +27,22 @@ activation = {0:tf.nn.sigmoid, 1:tf.nn.relu, 2:tf.nn.tanh, 3:tf.nn.softmax}
 learning_rate = .0001
 training_epochs = 10000
 batch_size = 1
-num_cores = 4
-l_cores = [0,1,2,3]
+num_cores = 2
+l_cores = [0,1]
+counter = 0
+display_step=100
+
+
 l_cores = sorted(l_cores)
 master = l_cores[0]
 slaves = l_cores[1:num_cores]
 core_dict = {}
-counter = 0
+
+
 for c in slaves:
     core_dict[c] = counter
     counter += 1
+print "Data preprocessing done in core", rank
 
 x = tf.placeholder('float', [None, nbits*2])
 y = tf.placeholder('float', [None, nbits])
@@ -84,36 +89,38 @@ saver = tf.train.Saver()
 
 sess=tf.InteractiveSession()
 sess.run(init)
-
+print "Network initialization done in core", rank
 # if this core is the master
-if rank%num_cores == master:
+if rank == master:
+    print "master started..."
     data_w = []
     data_b = []
     for w,b in zip(weights, biases):
         data_w.append(w.eval())
         data_b.append(b.eval())
-
     data = (data_w, data_b)
+    print "master distributing started..."
     for epoch in range(training_epochs):
         avg_cost = 0
         total_batch = int(training_sizes/batch_size)
         
-        for i in l_cores:
+        for i in slaves:
             comm.send(data, dest=i, tag=11)
         
         weights_n = []
         biases_n = []
         data_n = []
         
-        for i in l_cores:
+        for i in slaves:
             data = comm.recv(source=i, tag=11)
             weights_n.append(data[0])
             biases_n.append(data[1])
             
-        avg_weight = np.average(weights_n, axes=0)
-        avg_bias = np.average(biases_n, axes=0)
-                
-        if epoch % 100 == 0:
+        avg_weight = np.average(weights_n, axis=0)
+        avg_bias = np.average(biases_n, axis=0)
+        data=(avg_weight,avg_bias)
+        print "Average computed for epoch", epoch
+        if (epoch % display_step) == 0:
             for w,t in zip(avg_weight, weights):
                 sess.run(t.assign(w))
             for b,t in zip(avg_bias, biases):
@@ -124,12 +131,11 @@ if rank%num_cores == master:
             train_cost = sess.run(cost, {x:train_x, y:train_y})
             print "epoch",epoch,"train_cost:", train_cost
             train_pred = sess.run(pred, {x:train_x, y: train_y})
-                
             correct = 0
             for tp, ty in zip(train_pred, train_y):
                 valid = True
                 for tpe, tye in zip(tp, ty):
-                    if tpe > 0 and tye == 0:
+                    if tpe > 0 and tye == -1:
                         valid = False
                         break
                     elif tpe <= 0 and tye ==1:
@@ -143,7 +149,7 @@ if rank%num_cores == master:
             for tp, ty in zip(test_pred, test_y):
                 valid = True
                 for tpe, tye in zip(tp, ty):
-                    if tpe > 0 and tye == 0:
+                    if tpe > 0 and tye == -1:
                         valid = False
                         break
                     elif tpe <= 0 and tye ==1:
@@ -162,21 +168,22 @@ else:
     local_train_y = train_y[p*local_size:(p+1)*local_size]
     
     for epoch in range(training_epochs):
-        data = comm.recv(source=master,tag=11)
-        for w,t in zip(data[0], weights):
+        data_w,data_b = comm.recv(source=master,tag=11)
+        print rank,"received the data in epoch", epoch
+        for w,t in zip(data_w, weights):
             sess.run(t.assign(w))
-        for b,t in zip(data[1], biases):
+        for b,t in zip(data_b, biases):
             sess.run(t.assign(b))
-            
         for i in range(local_size/batch_size):
-            batch_x=train_x[i*batch_size:(i+1)*batch_size]
-            batch_y=train_y[i*batch_size:(i+1)*batch_size]
+            batch_x=local_train_x[i*batch_size:(i+1)*batch_size]
+            batch_y=local_train_y[i*batch_size:(i+1)*batch_size]
             _, c = sess.run([optimizer, cost], feed_dict={x: batch_x, y: batch_y})
         data_w = []
         data_b = []
         for w,b in zip(weights, biases):
             data_w.append(w.eval())
-            data_b.append(b.eval()) 
+            data_b.append(b.eval())
+        print rank,"sending the data in epoch", epoch
         comm.send((data_w, data_b), dest=master, tag=11)
         
     print "core", rank, "(slave) is done"
