@@ -70,8 +70,9 @@ class BFGSoptimizer:
             M=nmax
             success=0
             limit=-1
+            lc=0
             while (True):
-                while ((f2>f1+z1*rho*d1 or (d2 > -sig*d1) and (M > 0)) and lc<ls_limit):
+                while ((f2>f1+z1*rho*d1 or (d2 > -sig*d1) and (M > 0)) and lc<1):
                     lc=lc+1
                     limit=z1
                     if f2>f1:
@@ -86,6 +87,7 @@ class BFGSoptimizer:
                     z1=z1+z2
                     self.x=self.x+z2*s
                     f2,df2=self.getGradient(cost,self.x)
+                    print f2
                     evaluate=evaluate+1
                     M=M-1
                     d2=np.inner(df2,s)
@@ -143,6 +145,7 @@ class BFGSoptimizer:
                 df1=df0
                 if ls_failed==1:
                     self.x=self.x
+                    break
                 tmp=df1
                 df1=df2
                 df2=tmp
@@ -150,6 +153,7 @@ class BFGSoptimizer:
                 d1=-np.inner(s,s)
                 z1=1/(1-d1)
                 ls_failed =1
+            lc=lc+1
         self.assign_x(self.x)
 
 

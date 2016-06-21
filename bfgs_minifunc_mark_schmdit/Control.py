@@ -11,12 +11,10 @@ from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 import tensorflow as tf
-import time
-from BFGSoptimizer import BFGSoptimizer
 
 # Parameters
 learning_rate = 0.001
-training_epochs = 15
+training_epochs = 100
 batch_size = 100
 display_step = 1
 
@@ -66,24 +64,15 @@ optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
-sess.run(init)
-
-
-data_x, data_y = mnist.train.next_batch(10000)
-feed={x:data_x,y:data_y}
-mini=BFGSoptimizer(cost,feed,[biases,weights],sess)
-var=[]
-for tl in [biases,weights]:
-    for t in tl:
-        var.append(tl[t])
-
-start=time.time()
-mini.minimize(cost,100,0.001)
-end=time.time()
-print end-start
-print sess.run(cost, feed_dict={x: data_x, y: data_y})
-correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(pred,1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print(sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))
-
+with tf.Session() as sess:
+    sess.run(init)
+    data_x, data_y = mnist.train.next_batch(10000)
+    for epoch in range(training_epochs):
+        _, c = sess.run([optimizer, cost], feed_dict={x: data_x,
+                                                          y: data_y})
+        print c
+    # Test model
+    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    # Calculate accuracy
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+    print "Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels})
