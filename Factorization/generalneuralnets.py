@@ -1,6 +1,6 @@
 '''
 Created on Jun 17, 2016
-@author: Katherine Beine, Tray Hurley, Eyob Tsegaye, Mingsheng Wu
+@author: Katherine Beine, Trae Hurley, Eyob Tsegaye, Mingsheng Wu
 
 This is a distributed implementation of a neuralnets framework using tensorflow used to factorize large integers.
 '''
@@ -24,7 +24,7 @@ rank = comm.Get_rank()
 num_cores = 4
 #   3. specifying the core identification numbers
 l_cores = [0,1,2,3]
-#   3. determining the master/slave model
+#   4. determining the master/slave model
 counter = 0
 l_cores = sorted(l_cores)
 master = l_cores[0]
@@ -51,7 +51,7 @@ cost_func = 0
 #       0: sigmoid
 #       1: relu
 #       2: tanh
-#       3. softmax
+#       3: softmax
 kernel=0
 activation = {0:tf.nn.sigmoid, 1:tf.nn.relu, 2:tf.nn.tanh, 3:tf.nn.softmax}
 
