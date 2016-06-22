@@ -32,10 +32,8 @@ def minimize(x):
     ext=3.0
     nmax=20
     ratio=100
-    i=0
     red=1
     ls_failed=False
-    fx=[]
     f1,df1=rosen(x),rosen_der(x)
     evaluate=1
     s=-df1

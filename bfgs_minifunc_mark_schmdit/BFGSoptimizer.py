@@ -2,6 +2,7 @@ import math
 import numpy as np
 import tensorflow as tf
 import flatten
+import time
 
 class BFGSoptimizer:
     def __init__(self,cost,feed,var_t,sess):
@@ -18,8 +19,9 @@ class BFGSoptimizer:
                                                             # tensors
 
 
-    def getGradient(self,cost,x):                                # based on the current x, update the cost
+    def getGradient(self,cost,x):  # based on the current x, update the cost
         sess=self.sess
+
         self.assign_x(x)
         var_grad = tf.gradients(cost,self.var)
         vg=sess.run(var_grad, feed_dict=self.feed)
@@ -72,7 +74,7 @@ class BFGSoptimizer:
             limit=-1
             lc=0
             while (True):
-                while ((f2>f1+z1*rho*d1 or (d2 > -sig*d1) and (M > 0)) and lc<1):
+                while ((f2>f1+z1*rho*d1 or (d2 > -sig*d1) and (M > 0))):
                     lc=lc+1
                     limit=z1
                     if f2>f1:

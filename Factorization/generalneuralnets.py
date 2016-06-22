@@ -38,7 +38,7 @@ for c in slaves:
 #   1. predefined number of layers
 n_layer = 3
 #   2. predefined number of nodes per hidden layer
-n_nodes = 256
+n_nodes = 128
 #   3. cost function select
 #           (used to study how the different cost function
 #            can lead to different convergence properties):
@@ -62,18 +62,18 @@ learning_rate = .0001
 #   2. learning epochs
 training_epochs = 10000
 #   3. mini-batch sizes
-batch_size = 1000
+batch_size = 100
 #   4. evaluating frequency
-display_step=100
+display_step=1
 
 
 # Configuring Problem Specific Data Setup
 #   1. number of bits of the prime factors
 nbits = 16
 #   2. training size
-training_sizes = 50000
+training_sizes = 5000
 #   3. testing size
-testing_sizes = 40000
+testing_sizes = 4000
 #   4. obtaining the data
 data_x, data_y = prime.generate_data(nbits)
 #   5. splitting the training and testing data
@@ -186,7 +186,7 @@ if rank == master:
                 sess.run(t.assign(b))
             # evaluating on the cost function
             test_cost = sess.run(cost,{x:test_x, y:test_y})
-            print "epoch",epoch,"test_cost:", test_cost
+            #print "epoch",epoch,"test_cost:", test_cost
             train_cost = sess.run(cost, {x:train_x, y:train_y})
             print "epoch",epoch,"train_cost:", train_cost
             train_pred = sess.run(pred, {x:train_x, y: train_y})
@@ -203,7 +203,7 @@ if rank == master:
                         break
                 if valid:
                     correct = correct +1
-            print "epoch", epoch, "training accuracy:", (correct + 0.0)/training_sizes
+            #print "epoch", epoch, "training accuracy:", (correct + 0.0)/training_sizes
             test_pred = sess.run(pred, {x:test_x, y: test_y})
             correct = 0
             for tp, ty in zip(test_pred, test_y):
@@ -217,11 +217,11 @@ if rank == master:
                         break
                 if valid:
                     correct = correct +1
-            print "epoch", epoch, "testing accuracy:", (correct + 0.0)/testing_sizes
+            #print "epoch", epoch, "testing accuracy:", (correct + 0.0)/testing_sizes
         end_time = time.time()
         timer += end_time-start_time
-        if (epoch % display_step) == 0:
-            logger.info("time taken for epoch"+str(epoch)+":"+str(end_time-start_time))
+        #if (epoch % display_step) == 0:
+            #logger.info("time taken for epoch"+str(epoch)+":"+str(end_time-start_time))
     print "avg time per epoch:", timer/training_epochs
     print "master is done"
 

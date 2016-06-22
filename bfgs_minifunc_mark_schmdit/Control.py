@@ -9,7 +9,7 @@ Project: https://github.com/aymericdamien/TensorFlow-Examples/
 # Import MINST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
+import time
 import tensorflow as tf
 
 # Parameters
@@ -67,10 +67,12 @@ init = tf.initialize_all_variables()
 with tf.Session() as sess:
     sess.run(init)
     data_x, data_y = mnist.train.next_batch(10000)
+    start=time.time()
     for epoch in range(training_epochs):
         _, c = sess.run([optimizer, cost], feed_dict={x: data_x,
                                                           y: data_y})
-        print c
+    end=time.time()
+    print "Time elapsed:", end-start
     # Test model
     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     # Calculate accuracy
