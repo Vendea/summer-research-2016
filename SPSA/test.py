@@ -21,8 +21,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 256 # 1st layer number of features
-n_hidden_2 = 256 # 2nd layer number of features
+n_hidden_1 = 128 # 1st layer number of features
+n_hidden_2 = 128 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -60,7 +60,6 @@ pred = multilayer_perceptron(x, weights, biases)
 
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
 # Initializing the variables
 init = tf.initialize_all_variables()
@@ -73,7 +72,7 @@ sess.run(init)
 data_x, data_y = mnist.train.next_batch(10000)
 feed={x:data_x,y:data_y}
 mini=SPSA(cost,feed,[biases,weights],sess)
-for ep in range(100):
+for ep in range(1000):
     mini.minimize(cost,ep)
     print sess.run(cost,feed)
 

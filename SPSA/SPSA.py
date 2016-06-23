@@ -2,6 +2,8 @@ __author__ = 'billywu'
 
 import numpy as np
 from random import random
+from numpy.random import normal
+import math
 
 class SPSA:
     def __init__(self,cost,feed,var_t,sess):
@@ -15,9 +17,11 @@ class SPSA:
                 self.var_t.append(tl[t])
                 self.var.append(tl[t].eval(session=sess))
 
-    def minimize(self,cost,n,c=0.1,a=0.0001,A=0,alpha=0.602,gamma=0.101):
+    def minimize(self,cost,n,c=1,q=0.001,a=0.0001,A=100,alpha=0.602,gamma=0.101):
         cn=(c+0.0)/(n+1)**gamma
         an=a/(n+1+A)**alpha
+        qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
+        wk=normal()
         dv=[]
         sess=self.sess
         accept=False
@@ -53,10 +57,7 @@ class SPSA:
                     accept=True
                 else:
                     accept=False
-
-
-
-        self.var=update
+        self.var=np.array(update)+qk*wk
 
 
 
