@@ -4,6 +4,7 @@ import numpy as np
 from random import random
 from numpy.random import normal
 import math
+import distributions as dist
 
 class SPSA:
     def __init__(self,cost,feed,var_t,sess):
@@ -31,7 +32,7 @@ class SPSA:
                 shape=m.shape
                 nm=np.ones(shape=shape)
                 for x in np.nditer(nm, op_flags=['readwrite']):
-                    x[...]=(int(random() * 2) - 0.5) * 2 * cn
+                    x[...] = dist.bernoulli() * cn
                 dv.append(nm)
             for m,d,t in zip(self.var,dv,self.var_t):
                 sess.run(t.assign(m+d))
@@ -58,7 +59,3 @@ class SPSA:
                 else:
                     accept=False
         self.var=np.array(update)+qk*wk
-
-
-
-
