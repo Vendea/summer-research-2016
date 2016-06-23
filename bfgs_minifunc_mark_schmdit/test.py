@@ -16,13 +16,13 @@ from BFGSoptimizer import BFGSoptimizer
 
 # Parameters
 learning_rate = 0.001
-training_epochs = 15
+training_epochs = 10
 batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 256 # 1st layer number of features
-n_hidden_2 = 256 # 2nd layer number of features
+n_hidden_1 = 1024 # 1st layer number of features
+n_hidden_2 = 1024 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -79,9 +79,9 @@ for tl in [biases,weights]:
         var.append(tl[t])
 
 start=time.time()
-mini.minimize(cost,100,0.001,cap=50)
+mini.minimize(cost,10,0.001,cap=0)
 end=time.time()
-print end-start
+print (end-start)/10
 print sess.run(cost, feed_dict={x: data_x, y: data_y})
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(pred,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))

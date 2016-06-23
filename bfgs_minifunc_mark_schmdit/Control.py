@@ -14,13 +14,13 @@ import tensorflow as tf
 
 # Parameters
 learning_rate = 0.001
-training_epochs = 100
+training_epochs = 10
 batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 256 # 1st layer number of features
-n_hidden_2 = 256 # 2nd layer number of features
+n_hidden_1 = 1024 # 1st layer number of features
+n_hidden_2 = 1024 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -71,8 +71,9 @@ with tf.Session() as sess:
     for epoch in range(training_epochs):
         _, c = sess.run([optimizer, cost], feed_dict={x: data_x,
                                                           y: data_y})
+        #print sess.run(cost,{x: data_x,y: data_y})
     end=time.time()
-    print "Time elapsed:", end-start
+    print "Time elapsed:", (end-start)/10
     # Test model
     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     # Calculate accuracy

@@ -4,7 +4,6 @@ import numpy as np
 from random import random
 from numpy.random import normal
 import math
-import distributions as dist
 
 class SPSA:
     def __init__(self,cost,feed,var_t,sess):
@@ -18,21 +17,20 @@ class SPSA:
                 self.var_t.append(tl[t])
                 self.var.append(tl[t].eval(session=sess))
 
-    def minimize(self,cost,n,c=1,q=0.001,a=0.0001,A=100,alpha=0.602,gamma=0.101):
-        cn=(c+0.0)/(n+1)**gamma
+    def minimize(self,cost,n,c=1,q=0.00001,a=0.01,A=100,alpha=0.602,gamma=0.101,limit=10):
+        cn=(c+0.0)/(n+A)**gamma
         an=a/(n+1+A)**alpha
         qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
         wk=normal()
         dv=[]
         sess=self.sess
-        accept=False
-        f_orig=sess.run(cost,self.feed)
-        while not accept:
+        g=[]
+        for i in range(limit):
             for m in self.var:
                 shape=m.shape
                 nm=np.ones(shape=shape)
                 for x in np.nditer(nm, op_flags=['readwrite']):
-                    x[...] = dist.bernoulli() * cn
+                    x[...]=(int(random() * 2) - 0.5) * 2 * cn
                 dv.append(nm)
             for m,d,t in zip(self.var,dv,self.var_t):
                 sess.run(t.assign(m+d))
@@ -44,18 +42,15 @@ class SPSA:
             for m in dv:
                 for x in np.nditer(m, op_flags=['readwrite']):
                     x[...]=-(df+0.0)/x/2*an
-            update=[]
-            for m,d,t in zip(self.var,dv,self.var_t):
-                e=m+d
-                update.append(e)
-                sess.run(t.assign(e))
-            f=sess.run(cost,self.feed)
-            if f<f_orig:
-                accept=True
-            else:
-                prob=max(1-(f-f_orig)/f_orig,0)
-                if random() < prob:
-                    accept=True
-                else:
-                    accept=False
-        self.var=np.array(update)+qk*wk
+            g.append(dv)
+        dv=np.average(g,axis=0)
+        update=[]
+        for m,d,t in zip(self.var,dv,self.var_t):
+            e=m+d+qk*wk
+            update.append(e)
+            sess.run(t.assign(e))
+        self.var=update
+
+
+
+

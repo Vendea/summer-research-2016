@@ -89,7 +89,7 @@ class BFGSoptimizer:
                     z1=z1+z2
                     self.x=self.x+z2*s
                     f2,df2=self.getGradient(cost,self.x)
-                    print f2
+                    #print evaluate,f2
                     evaluate=evaluate+1
                     M=M-1
                     d2=np.inner(df2,s)
