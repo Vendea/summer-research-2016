@@ -146,9 +146,9 @@ class BFGSoptimizer:
                 return
             tmp = df1; self.df1 = df2; df2 = tmp
             self.s = -self.df1
-            d1 = -self.var_self_inner(self.s)
-            z1 = 1/(1-self.d1)
-            ls_failed = True
+            self.d1 = -self.var_self_inner(self.s)
+            self.z1 = 1/(1-self.d1)
+            self.ls_failed = True
         self.update()
         print self.sess.run(self.cost,self.feed)
 
