@@ -1,3 +1,4 @@
+__author__ = 'billywu'
 '''
 A Multilayer Perceptron implementation example using TensorFlow library.
 This example is using the MNIST database of handwritten digits
@@ -9,8 +10,10 @@ Project: https://github.com/aymericdamien/TensorFlow-Examples/
 # Import MINST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-import time
+
 import tensorflow as tf
+import time
+from BFGS_NL import BFGSoptimizer
 
 # Parameters
 learning_rate = 0.001
@@ -19,8 +22,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 1024 # 1st layer number of features
-n_hidden_2 = 1024 # 2nd layer number of features
+n_hidden_1 = 128 # 1st layer number of features
+n_hidden_2 = 128 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -64,20 +67,24 @@ optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 init = tf.initialize_all_variables()
 
 # Launch the graph
-with tf.Session() as sess:
-    sess.run(init)
-    data_x, data_y = mnist.train.next_batch(10000)
-    start=time.time()
-    for epoch in range(training_epochs):
-        _, c = sess.run([optimizer, cost], feed_dict={x: data_x,
-                                                          y: data_y})
-        print c
-        if c<10:
-            break
-    end=time.time()
-    print "Time elapsed:", (end-start)
-    # Test model
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    # Calculate accuracy
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels})
+sess=tf.Session()
+sess.run(init)
+
+
+data_x, data_y = mnist.train.next_batch(10000)
+feed={x:data_x,y:data_y}
+mini=BFGSoptimizer(cost,feed,[biases,weights],sess)
+var=[]
+for tl in [biases,weights]:
+    for t in tl:
+        var.append(tl[t])
+
+start=time.time()
+for i in range(1000):
+    mini.minimize()
+    print i
+end=time.time()
+print end-start
+
+
+

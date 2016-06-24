@@ -21,7 +21,6 @@ class BFGSoptimizer:
 
     def getGradient(self,cost,x):  # based on the current x, update the cost
         sess=self.sess
-
         self.assign_x(x)
         var_grad = tf.gradients(cost,self.var)
         vg=sess.run(var_grad, feed_dict=self.feed)
@@ -56,7 +55,7 @@ class BFGSoptimizer:
         lc=0
         ls_limit=5
         f2=f1
-        while evaluate<epoch and np.linalg.norm(df1)>0.0000001 and f2>cap:
+        while counter<epoch and np.linalg.norm(df1)>0.0000001 and f2>cap:
             counter=counter+1
             x0=self.x
             f0=f1
@@ -65,6 +64,7 @@ class BFGSoptimizer:
             self.result=self.x
             f2,df2=self.getGradient(cost,self.x)
             evaluate=evaluate+1
+            print evaluate,f2
             d2=np.inner(df2,s)
             f3=f1
             d3=d1
@@ -89,7 +89,6 @@ class BFGSoptimizer:
                     z1=z1+z2
                     self.x=self.x+z2*s
                     f2,df2=self.getGradient(cost,self.x)
-                    #print evaluate,f2
                     evaluate=evaluate+1
                     M=M-1
                     d2=np.inner(df2,s)
@@ -142,7 +141,7 @@ class BFGSoptimizer:
                 d1 = d2
                 ls_failed = 0
             else:
-                self.x=x0
+                self.x=self.result
                 f1=f0
                 df1=df0
                 if ls_failed==1:
