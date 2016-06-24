@@ -14,6 +14,6 @@ def u_shaped():
     # following normalized x^2 distribution
     cube = (2 * random() - 1)
     if cube < 0:
-        return cube ** (1.0 / 3)
-    else:
         return -((-cube) ** (1.0 / 3))
+    else:
+        return cube ** (1.0 / 3)
