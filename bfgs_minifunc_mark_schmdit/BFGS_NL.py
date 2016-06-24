@@ -1,8 +1,6 @@
 __author__ = 'billywu'
 
-import flatten
 import numpy as np
-import time
 import tensorflow as tf
 import math
 
@@ -61,9 +59,11 @@ class BFGSoptimizer:
         for t,v in zip(self.var_t,self.var_v):
             self.sess.run(t.assign(v))
 
+    def update_feed(self,feed):
+        self.feed=feed
+
 
     def minimize(self,alpha=0.0001):
-        # begin line search
         x0=self.var_v; f0=self.f1;df0=self.df1
         self.var_v=self.var_v+self.z1*self.s
         f2,df2=self.ComputeGradient(self.var_v)
@@ -150,7 +150,7 @@ class BFGSoptimizer:
             self.z1 = 1/(1-self.d1)
             self.ls_failed = True
         self.update()
-        print self.sess.run(self.cost,self.feed)
+
 
 
 

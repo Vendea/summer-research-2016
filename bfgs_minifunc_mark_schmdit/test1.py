@@ -22,8 +22,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 128 # 1st layer number of features
-n_hidden_2 = 128 # 2nd layer number of features
+n_hidden_1 = 1024 # 1st layer number of features
+n_hidden_2 = 1024 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -82,6 +82,7 @@ for tl in [biases,weights]:
 start=time.time()
 for i in range(1000):
     mini.minimize()
+    print sess.run(cost,self.feed)
     print i
 end=time.time()
 print end-start
