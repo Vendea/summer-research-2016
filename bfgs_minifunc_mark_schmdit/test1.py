@@ -82,7 +82,7 @@ for tl in [biases,weights]:
 start=time.time()
 for i in range(1000):
     mini.minimize()
-    print sess.run(cost,self.feed)
+    print sess.run(cost,feed)
     print i
 end=time.time()
 print end-start
