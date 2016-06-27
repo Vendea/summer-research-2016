@@ -13,7 +13,7 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 import tensorflow as tf
 import time
-from BFGS_NL import BFGSoptimizer
+from SandblasterMasterOptimizer import BFGSoptimizer
 
 # Parameters
 learning_rate = 0.001
@@ -22,8 +22,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 128 # 1st layer number of features
-n_hidden_2 = 128 # 2nd layer number of features
+n_hidden_1 = 256 # 1st layer number of features
+n_hidden_2 = 256 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -67,13 +67,16 @@ optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
+config = tf.ConfigProto(device_count={"CPU": 1},
+                        inter_op_parallelism_threads=5,
+                        intra_op_parallelism_threads=5)
+sess = tf.Session(config=config)
 sess.run(init)
 
 
-data_x, data_y = mnist.train.next_batch(10000)
+data_x, data_y = mnist.train.next_batch(mnist.train.num_examples)
 feed={x:data_x,y:data_y}
-mini=BFGSoptimizer(cost,feed,[biases,weights],sess)
+mini=BFGSoptimizer(cost,feed,[biases,weights],sess,workers=[0,1,2,3])
 var=[]
 for tl in [biases,weights]:
     for t in tl:

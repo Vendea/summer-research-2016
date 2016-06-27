@@ -71,9 +71,9 @@ sess.run(init)
 data_x, data_y = mnist.train.next_batch(10000)
 feed={x:data_x,y:data_y}
 mini=SPSA(cost,feed,[biases,weights],sess)
-mini.spawn(1)
+mini.spawn(4)
 for ep in range(1000):
-    mini.minimize(1,cost,ep)
+    mini.pminimize(1,cost,ep)
     print sess.run(cost,feed)
     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))

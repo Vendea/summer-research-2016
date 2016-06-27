@@ -55,6 +55,7 @@ cost_func = 0
 kernel=0
 activation = {0:tf.nn.sigmoid, 1:tf.nn.relu, 2:tf.nn.tanh, 3:tf.nn.softmax}
 
+activ_sin=tf.math.sin()
 
 # Configuring Learning Properties:
 #   1. learning rate

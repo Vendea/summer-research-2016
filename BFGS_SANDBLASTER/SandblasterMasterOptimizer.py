@@ -1,5 +1,8 @@
 __author__ = 'billywu'
 
+
+__author__ = 'billywu'
+
 import numpy as np
 import tensorflow as tf
 import math
@@ -13,10 +16,8 @@ nmax=20
 ratio=100
 red=1
 
-
-
 class BFGSoptimizer:
-    def __init__(self,cost,feed,var_t,sess):
+    def __init__(self,cost,feed,var_t,sess,workers):
         self.cost=cost
         self.feed=feed
         self.var_t=[]
@@ -33,13 +34,17 @@ class BFGSoptimizer:
         self.s=-self.df1
         self.d1=-self.var_self_inner(self.s)
         self.z1=red/(1-self.d1)
+        self.workers=workers
 
 
 
     def ComputeGradient(self,var_v):
         self.update()
+        start=time.time()
         c=self.sess.run(self.cost,self.feed)
         grad=np.array(self.sess.run(self.grad_t, feed_dict=self.feed))
+        end=time.time()
+        print "gradient computation",end-start
         return c,grad
 
     def var_self_inner(self,var_v1):
@@ -155,17 +160,3 @@ class BFGSoptimizer:
             self.z1 = 1/(1-self.d1)
             self.ls_failed = True
         self.update()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
