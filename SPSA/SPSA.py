@@ -1,9 +1,10 @@
 __author__ = 'billywu'
 
 import numpy as np
-from random import random
+import tensorflow as tf
 from numpy.random import normal
 import math
+import distributions as dist
 
 class SPSA:
     def __init__(self,cost,feed,var_t,sess):
@@ -17,7 +18,14 @@ class SPSA:
                 self.var_t.append(tl[t])
                 self.var.append(tl[t].eval(session=sess))
 
-    def minimize(self,cost,n,c=1,q=0.00001,a=0.01,A=100,alpha=0.602,gamma=0.101,limit=10):
+    def set_var(self,var):
+        self.var=var
+        l=[]
+        for v,t in zip(self.var,self.var_t):
+            l.append(t.assign(v))
+        self.sess.run(tf.group(*l))
+
+    def minimize(self,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
         cn=(c+0.0)/(n+A)**gamma
         an=a/(n+1+A)**alpha
         qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
@@ -25,31 +33,39 @@ class SPSA:
         dv=[]
         sess=self.sess
         g=[]
+        orig=self.var
         for i in range(limit):
             for m in self.var:
                 shape=m.shape
                 nm=np.ones(shape=shape)
                 for x in np.nditer(nm, op_flags=['readwrite']):
-                    x[...]=(int(random() * 2) - 0.5) * 2 * cn
+                    x[...]=dist.bernoulli() * 2 * cn
                 dv.append(nm)
+            l=[]
             for m,d,t in zip(self.var,dv,self.var_t):
-                sess.run(t.assign(m+d))
+                l.append(t.assign(m+d))
+            sess.run(tf.group(*l))
             f1=sess.run(cost,self.feed)
+            l=[]
             for m,d,t in zip(self.var,dv,self.var_t):
-                sess.run(t.assign(m-d))
+                l.append(t.assign(m-d))
+            sess.run(tf.group(*l))
             f0=sess.run(cost,self.feed)
             df=f1-f0
             for m in dv:
                 for x in np.nditer(m, op_flags=['readwrite']):
-                    x[...]=-(df+0.0)/x/2*an
+                    x[...]=-(df+0.0)/x/2
             g.append(dv)
         dv=np.average(g,axis=0)
         update=[]
+        l=[]
         for m,d,t in zip(self.var,dv,self.var_t):
-            e=m+d+qk*wk
+            e=m+d*an+qk*wk
             update.append(e)
-            sess.run(t.assign(e))
+            l.append(t.assign(e))
+        sess.run(tf.group(*l))
         self.var=update
+        return orig,update
 
 
 
