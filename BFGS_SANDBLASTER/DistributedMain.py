@@ -1,11 +1,16 @@
 __author__ = 'billywu'
 
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
 import tensorflow as tf
 from SandblasterMasterOptimizer import BFGSoptimizer
+from OperationServer import SandblasterOpServer
+from mpi4py import MPI
+import numpy as np
 
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 # Parameters
 learning_rate = 0.001
@@ -60,16 +65,35 @@ init = tf.initialize_all_variables()
 
 # Launch the graph
 config = tf.ConfigProto(device_count={"CPU": 1},
-                        inter_op_parallelism_threads=5,
-                        intra_op_parallelism_threads=5)
+                        inter_op_parallelism_threads=1,
+                        intra_op_parallelism_threads=1)
 sess = tf.Session(config=config)
 sess.run(init)
 
 
 data_x, data_y = mnist.train.next_batch(mnist.train.num_examples)
-feed={x:data_x,y:data_y}
-mini=BFGSoptimizer(cost,feed,[biases,weights],sess)
-
-
-
+global_feed={x:data_x,y:data_y}
+if rank==0:
+    feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
+    mini=BFGSoptimizer(cost,feed,[biases,weights],sess,rank,"xdat",comm)
+    for ep in range(3):
+        mini.minimize(alpha=0.0001)
+        print sess.run(cost,global_feed)
+    comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
+    print "Average Gradient Computation Time:", mini.get_average_grad_time()
+else:
+    feed={x:data_x[len(data_x)/size*rank:len(data_x)/size*(rank+1)],y:data_y[len(data_x)/size*rank:len(data_x)/size*(rank+1)]}
+    Operator=SandblasterOpServer(rank, "xdat", feed, sess, cost, [biases,weights],comm)
+    while (True):
+        data="None"
+        data=comm.scatter(["GP" for x in range(comm.Get_size())],root=0)
+        if data=="None":
+            continue
+        elif data=="GP":
+            g=Operator.Compute_Gradient()
+            c=Operator.Compute_Cost()
+            new_data = comm.gather((g,c),root=0)
+        elif data=="KILL":
+            break
+    print "Core", rank, "finished."
 
