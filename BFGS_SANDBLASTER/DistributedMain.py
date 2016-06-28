@@ -76,11 +76,15 @@ global_feed={x:data_x,y:data_y}
 if rank==0:
     feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
     mini=BFGSoptimizer(cost,feed,[biases,weights],sess,rank,"xdat",comm)
-    for ep in range(3):
+    for ep in range(100):
         mini.minimize(alpha=0.0001)
         print sess.run(cost,global_feed)
+        correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+        print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
     comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
     print "Average Gradient Computation Time:", mini.get_average_grad_time()
+    print "Core 0 finished."
 else:
     feed={x:data_x[len(data_x)/size*rank:len(data_x)/size*(rank+1)],y:data_y[len(data_x)/size*rank:len(data_x)/size*(rank+1)]}
     Operator=SandblasterOpServer(rank, "xdat", feed, sess, cost, [biases,weights],comm)
