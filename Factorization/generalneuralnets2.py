@@ -146,6 +146,7 @@ logger.info("Network initialization done in core"+str(rank))
     Distributed Training and Model evaluation
    ===============================================================================================
 '''
+
 # Master core code
 if rank == master:
     timer = 0
@@ -163,20 +164,22 @@ if rank == master:
         avg_cost = 0
         total_batch = int(training_sizes/batch_size)
         # distributing tasks to the following slave cores
-        for i in slaves:
-            comm.send(data, dest=i, tag=11)
+        comm.bcast(data, root=0)
         # collecting the weights and biases obtained from each slave cores
         weights_n = []
         biases_n = []
         data_n = []
-        for i in slaves:
-            data = comm.recv(source=i, tag=11)
-            weights_n.append(data[0])
-            biases_n.append(data[1])
-        # averaging the changes
-        avg_weight = np.average(weights_n, axis=0)
-        avg_bias = np.average(biases_n, axis=0)
-        data=(avg_weight,avg_bias)
+        empty_weight = [np.zeros([nbits*2, n_nodes])]
+        empty_bias = []
+        for _ in range(1, n_layer):
+            empty_weight.append(np.zeros([n_nodes, n_nodes]))
+            empty_bias.append(np.zeros(n_nodes))
+        empty_weight.append(np.zeros([n_nodes, nbits]))
+        empty_bias.append(np.zeros(n_nodes))
+        empty_bias.append(np.zeros(nbits))
+        data = tuple(comm.reduce(np.array([empty_weight, empty_bias]), op=MPI.SUM, root=0) / len(slaves))
+
+        avg_weight,avg_bias = data
         # evaluating the training progress every display_step epochs
         if (epoch % display_step) == 0:
             for w,t in zip(avg_weight, weights):
@@ -234,7 +237,9 @@ else:
 
     for epoch in range(training_epochs):
         # waiting on weight initialization
-        data_w,data_b = comm.recv(source=master,tag=11)
+        data = None
+        data = comm.bcast(data, root=0)
+        data_w,data_b = data
         # apply the variables
         for w,t in zip(data_w, weights):
             sess.run(t.assign(w))
@@ -251,6 +256,7 @@ else:
             data_w.append(w.eval())
             data_b.append(b.eval())
         # return slave results
-        comm.send((data_w, data_b), dest=master, tag=11)
+        comm.reduce(np.array([data_w, data_b]), op=MPI.SUM, root=0)
+        #comm.send((data_w, data_b), dest=master, tag=11)
 
     print "core", rank, "(slave) is done"
