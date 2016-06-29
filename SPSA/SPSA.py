@@ -7,16 +7,14 @@ import math
 import distributions as dist
 
 class SPSA:
-    def __init__(self,cost,feed,var_t,sess):
+    def __init__(self,cost,feed,sess):
         self.cost=cost                  # cost function to be minimized
         self.feed=feed                  # feed variables
-        self.var_t=[]                   # list of dictionary containing the trainable variables
+        self.var_t=tf.trainable_variables()                   # list of dictionary containing the trainable variables
         self.var=[]                     # this part will convert the variables(tensors) into a list of real numbers(x)
         self.sess=sess
-        for tl in var_t:
-            for t in tl:
-                self.var_t.append(tl[t])
-                self.var.append(tl[t].eval(session=sess))
+        for tl in self.var_t:
+            self.var.append(tl.eval(session=sess))
 
     def set_var(self,var):
         self.var=var
@@ -25,7 +23,7 @@ class SPSA:
             l.append(t.assign(v))
         self.sess.run(tf.group(*l))
 
-    def minimize(self,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
+    def minimize(self,cost,n,c=1,q=0.0001,a=0.0001,A=100,alpha=0.602,gamma=0.101,limit=1):
         cn=(c+0.0)/(n+A)**gamma
         an=a/(n+1+A)**alpha
         qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
