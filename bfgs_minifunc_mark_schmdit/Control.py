@@ -19,8 +19,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 1024 # 1st layer number of features
-n_hidden_2 = 1024 # 2nd layer number of features
+n_hidden_1 = 128 # 1st layer number of features
+n_hidden_2 = 128 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -66,18 +66,15 @@ init = tf.initialize_all_variables()
 # Launch the graph
 with tf.Session() as sess:
     sess.run(init)
-    data_x, data_y = mnist.train.next_batch(10000)
+    data_x, data_y = mnist.train.next_batch(1000)
     start=time.time()
     for epoch in range(training_epochs):
         _, c = sess.run([optimizer, cost], feed_dict={x: data_x,
                                                           y: data_y})
-        print c
-        if c<10:
-            break
+        correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+        print "Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels})
     end=time.time()
     print "Time elapsed:", (end-start)
     # Test model
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    # Calculate accuracy
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels})
+

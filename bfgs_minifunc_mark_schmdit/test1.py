@@ -22,8 +22,8 @@ batch_size = 100
 display_step = 1
 
 # Network Parameters
-n_hidden_1 = 1024 # 1st layer number of features
-n_hidden_2 = 1024 # 2nd layer number of features
+n_hidden_1 = 128 # 1st layer number of features
+n_hidden_2 = 128 # 2nd layer number of features
 n_input = 784 # MNIST data input (img shape: 28*28)
 n_classes = 10 # MNIST total classes (0-9 digits)
 
@@ -83,7 +83,9 @@ start=time.time()
 for i in range(1000):
     mini.minimize()
     print sess.run(cost,feed)
-    print i
+    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+    print "Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels},session=sess)
 end=time.time()
 print end-start
 

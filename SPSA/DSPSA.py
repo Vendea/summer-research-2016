@@ -26,14 +26,15 @@ class SPSA:
         for v,t in zip(self.var,self.var_t):
             l.append(t.assign(v))
         self.sess.run(tf.group(*l))
+
     def spawn(self,children):
         self.children = children
         self.comm = MPI.COMM_WORLD.Spawn(sys.executable,args=["DSPSA.py"],maxprocs=children)
 
-    def minimize(self,steps,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
+    def pminimize(self,steps,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
         k,shape,data = [],[],[]
         for i in range(self.children):
-            for key in feed:
+            for key in self.feed:
                 k.append(key.name)
                 shape.append(key.shape)
                 data.append(feed[key])
@@ -42,8 +43,8 @@ class SPSA:
                 steps,n,c,q,a,A,alpha,gamma,limit,data], dest=i, tag=11)
         ls = []
         lowest = self.sess.run(cost)
-        n1 = minimize(cost,n,c,q,a,A,alpha,gamma,limit)
-        for i in range(children):
+        n1 = self.minimize(cost,n,c,q,a,A,alpha,gamma,limit)
+        for i in range(self.children):
             ls.append(comm.recv(source=i,tag=11))
         for c,n in ls:
             if c < lowest:
@@ -52,9 +53,10 @@ class SPSA:
 
         self.set_var(n1)
         
-    def kill():
+    def kill(self):
         for i in range(self.children):
             self.comm.send(True, dest=i, tag=10)
+
     def minimize(self,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
         cn=(c+0.0)/(n+A)**gamma
         an=a/(n+1+A)**alpha
