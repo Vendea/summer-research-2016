@@ -1,0 +1,5 @@
+from sys import path
+from os import getcwd
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
