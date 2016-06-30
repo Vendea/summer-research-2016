@@ -1,20 +1,21 @@
 __author__ = 'billywu'
 
-from mpi4py import MPI
+
 import numpy as np
 import tensorflow as tf
 
 class SandblasterOpServer:
-    def __init__(self, rank, x_dir, feed, sess, cost, var_t,comm):
+    def __init__(self, rank, x_dir, feed, sess, cost, comm):
         self.rank=rank
         self.sess=sess
         self.feed=feed
+        self.var_t=tf.trainable_variables()
+        self.var_v=[]
         vv=[]
-        self.var_t=[]
-        for tl in var_t:
-            for t in tl:
-                self.var_t.append(tl[t])
-                vv.append(self.sess.run(tl[t]))
+        self.sess=sess
+        self.line_search_fail=False
+        for tl in self.var_t:
+            vv.append(self.sess.run(tl))
         self.var_v=np.array(vv)
         try:
             self.x=np.load(x_dir)
