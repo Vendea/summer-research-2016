@@ -1,9 +1,13 @@
 __author__ = 'billywu'
 
-import numpy as np
-import tensorflow as tf
 import math
 import time
+
+import numpy as np
+import tensorflow as tf
+
+
+#Global parameters
 
 rho=0.01
 sig=0.5
@@ -14,7 +18,23 @@ ratio=100
 red=1
 
 class BFGSoptimizer:
-    def __init__(self,cost,feed,var_t,sess,rank, x_dir,comm):
+
+    ''' Initializing the Optimizer Object
+        Param:
+            grad_compute_time_accumulator:              how much time is spent so far on computing the gradient
+            grad_counter:                               how many times the gradient is so far computed
+            cost:                                       cost/loss/objective function to be minimized
+            feed:                                       what feed to use when getting the function value
+            rank:                                       On which core this object is initialized
+            x_dir:                                      The shared location for the parameters
+            comm:                                       The MPI communicator
+            size:                                       Total MPI processes number
+            var_t:                                      parameters tensors
+            var_v:                                      parameters values
+            grad_t:                                     gradient tensor
+            f1,df1,s,z1:                                lbfgs variables
+    '''
+    def __init__(self,cost,feed,sess,rank, x_dir,comm):
         self.grad_compute_time_accumulator=0
         self.grad_counter=0
         self.cost=cost
@@ -23,15 +43,13 @@ class BFGSoptimizer:
         self.x_dir=x_dir
         self.comm=comm
         self.size=comm.Get_size()
-        self.var_t=[]
+        self.var_t=tf.trainable_variables()
         self.var_v=[]
         vv=[]
         self.sess=sess
         self.line_search_fail=False
-        for tl in var_t:
-            for t in tl:
-                self.var_t.append(tl[t])
-                vv.append(self.sess.run(tl[t]))
+        for tl in self.var_t:
+            vv.append(self.sess.run(tl))
         self.var_v=np.array(vv)
         np.save(x_dir,self.var_v)
         self.grad_t = tf.gradients(cost,self.var_t)
@@ -39,6 +57,9 @@ class BFGSoptimizer:
         self.s=-self.df1
         self.d1=-self.var_self_inner(self.s)
         self.z1=red/(1-self.d1)
+
+    # Distributed Computation of the Gradient, offering a 15% speedup than tensorflow's distributed method when
+    # using the same resources
 
     def ComputeGradient(self,var_v):
         start=time.time()
@@ -53,24 +74,28 @@ class BFGSoptimizer:
             gr=gr+new_data[i][0]
             ct=ct+new_data[i][1]
         end=time.time()
-        print "Cost function:", ct
-        print "Computation Time:", end-start
+        #print "Cost function:", ct
+        #print "Computation Time:", end-start
         self.grad_compute_time_accumulator=self.grad_compute_time_accumulator+end-start
         self.grad_counter=self.grad_counter+1
         return ct,gr
 
+    # reporting gradient computational time
     def get_average_grad_time(self):
         return self.grad_compute_time_accumulator/self.grad_counter
 
+    # Compute the partial gradient on the main core
     def Compute_Gradient(self):
         self.Assign_Gradient(self.x_dir)
         g=np.array(self.sess.run(self.grad_t,self.feed))
         return g
 
+    # Compute the partial cost function on the main core
     def Compute_Cost(self):
         c=np.array(self.sess.run(self.cost,self.feed))
         return c
 
+    # Apply the parameters stored in the shared location
     def Assign_Gradient(self, x_dir):
         self.x=np.load('xdat.npy')
         l=[]
@@ -78,6 +103,7 @@ class BFGSoptimizer:
             l.append(t.assign(v))
         self.sess.run(tf.group(*l))
 
+    # Numpy unstructured inner product of a vector and itself
     def var_self_inner(self,var_v1):
         v=[]
         for m in var_v1:
@@ -86,6 +112,7 @@ class BFGSoptimizer:
         s=np.inner(v,v)
         return s
 
+    # Numpy unstructured inner product
     def var_inner(self,var_v1,var_v2):
         v1=[]
         v2=[]
@@ -94,13 +121,15 @@ class BFGSoptimizer:
             v2=v2+[x for x in np.nditer(m2, op_flags=['readwrite'])]
         return np.inner(v1,v2)
 
+    # update the shared parameters
     def update(self):
         np.save(self.x_dir,self.var_v)
 
+    # update the feed
     def update_feed(self,feed):
         self.feed=feed
 
-
+    # stand alone lbfgs inspired by mark schmidt's minifunc, using a linesearch as well as a learning rate
     def minimize(self,alpha=0.0001):
         x0=self.var_v; f0=self.f1;df0=self.df1
         self.var_v=self.var_v+self.z1*self.s
