@@ -85,7 +85,7 @@ if rank==0:
     data_logger=l.DataLogger("lbfgs",2,256)
     feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
     mini=BFGSoptimizer(cost,feed,sess,rank,"xdat",comm)
-    for ep in range(100):
+    for ep in range(50):
         start=time.time()
         mini.minimize(alpha=0.0001)
         end=time.time()
@@ -117,4 +117,3 @@ else:
             break
     print "Core,", rank, "Computation Cost:", total_time
     print "Core", rank, "finished."
-
