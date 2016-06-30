@@ -48,11 +48,11 @@ def multilayer_perceptron(x, weights, biases):
         layer.append(tf.nn.sigmoid(tf.add(tf.matmul(layer[i-1], weights[i-1]), biases[i-1])))
         aes, bes = tf.split(1, 2, layer[-1])
         if i%2 == 1:
-            for am, a, b in zip(add_layer, aes, bes):
-                layer.append(am.ex(a, b))
+            for i in range(n_nodes/2):
+                layer.append(add_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1])))
         else:
-            for im, a, b in zip(inc_layer, aes, bes):
-                layer.append(im.ex(a, b))
+            for i in range(n_nodes/2):
+                layer.append(inc_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1])))
     return layer[-1]
 
 # Defining the output
