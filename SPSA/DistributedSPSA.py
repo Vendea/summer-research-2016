@@ -1,108 +1,74 @@
 __author__ = 'billywu'
 
-from mpi4py import MPI
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
-import tensorflow as tf
-import time
 import numpy as np
-from SPSA import SPSA
+import tensorflow as tf
+from numpy.random import normal
+import math
+import distributions as dist
 
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
+class SPSA:
+    def __init__(self,cost,feed,var_t,sess):
+        self.cost=cost                  # cost function to be minimized
+        self.feed=feed                  # feed variables
+        self.var_t=var_t                  # list of dictionary containing the trainable variables
+        self.var=[]                     # this part will convert the variables(tensors) into a list of real numbers(x)
+        self.sess=sess
+        for t in var_t:
+            self.var.append(t.eval(session=sess))
 
-learning_rate = 0.001
-training_epochs = 15
-batch_size = 100
-display_step = 1
+    def set_var(self,var):
+        self.var=var
+        l=[]
+        for v,t in zip(self.var,self.var_t):
+            l.append(t.assign(v))
+        self.sess.run(tf.group(*l))
 
-# Network Parameters
-n_hidden_1 = 256 # 1st layer number of features
-n_hidden_2 = 256 # 2nd layer number of features
-n_input = 784 # MNIST data input (img shape: 28*28)
-n_classes = 10 # MNIST total classes (0-9 digits)
+    def nabla(self,cost,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101):
+        cn=(c+0.0)/(n+A)**gamma
+        an=a/(n+1+A)**alpha
+        qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
+        wk=normal()
+        dv=[]
+        sess=self.sess
+        g=[]
+        orig=self.var
+        for m in self.var:
+            shape=m.shape
+            nm=np.ones(shape=shape)
+            for x in np.nditer(nm, op_flags=['readwrite']):
+                x[...]=dist.bernoulli() * 2 * cn
+            dv.append(nm)
+        l=[]
+        for m,d,t in zip(self.var,dv,self.var_t):
+            l.append(t.assign(m+d))
+        sess.run(tf.group(*l))
+        f1=sess.run(cost,self.feed)
+        l=[]
+        for m,d,t in zip(self.var,dv,self.var_t):
+            l.append(t.assign(m-d))
+        sess.run(tf.group(*l))
+        f0=sess.run(cost,self.feed)
+        df=f1-f0
+        for m in dv:
+            for x in np.nditer(m, op_flags=['readwrite']):
+                x[...]=-(df+0.0)/x/2
+        return dv
 
-# tf Graph input
-x = tf.placeholder("float", [None, n_input])
-y = tf.placeholder("float", [None, n_classes])
-
-
-# Create model
-def multilayer_perceptron(x, weights, biases):
-    # Hidden layer with RELU activation
-    layer_1 = tf.add(tf.matmul(x, weights['h1']), biases['b1'])
-    layer_1 = tf.nn.relu(layer_1)
-    # Hidden layer with RELU activation
-    layer_2 = tf.add(tf.matmul(layer_1, weights['h2']), biases['b2'])
-    layer_2 = tf.nn.relu(layer_2)
-    # Output layer with linear activation
-    out_layer = tf.matmul(layer_2, weights['out']) + biases['out']
-    return out_layer
-
-# Store layers weight & bias
-weights = {
-    'h1': tf.Variable(tf.random_normal([n_input, n_hidden_1])),
-    'h2': tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2])),
-    'out': tf.Variable(tf.random_normal([n_hidden_2, n_classes]))
-}
-biases = {
-    'b1': tf.Variable(tf.random_normal([n_hidden_1])),
-    'b2': tf.Variable(tf.random_normal([n_hidden_2])),
-    'out': tf.Variable(tf.random_normal([n_classes]))
-}
-
-
-# Construct model
-pred = multilayer_perceptron(x, weights, biases)
-
-correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-
-# Define loss and optimizer
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
-
-# Initializing the variables
-init = tf.initialize_all_variables()
-
-# Launch the graph
-sess=tf.Session()
-sess.run(init)
-
-
-data_x, data_y = mnist.train.next_batch(20000)
-feed={x:data_x,y:data_y}
-mini=SPSA(cost,feed,sess)
-simulation_steps=10
-num_offsrping=2
-ep=0
-
-while True:
-    for i in range(simulation_steps):
-        o,n=mini.minimize(cost,ep)
-        ep=ep+1
-    f=accuracy.eval(feed,session=sess)
-    fs = np.array(comm.gather(f,root=0))
-    if rank==0:
-        msg=[]
-        best=np.argmax(fs)
-        for i in range(size):
-            msg.append(best)
-    else:
-        msg=[]
-    best=comm.scatter(msg,root=0)
-    if best==rank:
-        msg=[n for i in range(size)]
-    else:
-        msg=[]
-    msg=comm.scatter(msg,root=best)
-    mini.set_var(msg)
-    if rank==3:
-        print sess.run(cost,feed)
-        print "Accuracy:", accuracy.eval(feed,session=sess)
-
-
+    def minimize(self,g,n,c=1,q=0.001,a=0.001,A=100,alpha=0.602,gamma=0.101):
+        an=a/(n+1+A)**alpha
+        qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
+        wk=normal()
+        dv=np.average(g,axis=0)
+        update=[]
+        l=[]
+        for m,d,t in zip(self.var,dv[0],self.var_t):
+                      
+            e=m+d*an+qk*wk
+            update.append(e)
+            l.append(t.assign(e))
+        self.sess.run(tf.group(*l))
+        self.var=update
+        return None,update
 
 
 
