@@ -8,11 +8,12 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 from mpi4py import MPI
 
-from SandblasterMasterOptimizer import BFGSoptimizer
-from OperationServer import SandblasterOpServer
+from ParamServer import ParamServer
+from ModelReplica import DPSGD
 
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
+
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -66,6 +67,8 @@ pred = multilayer_perceptron(x, weights, biases)
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 
+train_step = tf.train.GradientDescentOptimizer(0.0001).minimize(cost)
+
 # Initializing the variables
 init = tf.initialize_all_variables()
 
@@ -77,47 +80,23 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-
-
-
 data_x, data_y = mnist.train.next_batch(10000)
-global_feed={x:data_x,y:data_y}
+param=[]
 
+
+for t in tf.trainable_variables():
+    param.append(t.eval(session=sess))
 if rank==0:
-    feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
-    mini=BFGSoptimizer(cost,feed,sess,rank,"xdat",comm)
-    start=time.time()
-    for ep in range(100):
-        start=time.time()
-        mini.minimize(alpha=0.0001)
-        end=time.time()
-        #test_c=cost.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
-        #train_c=cost.eval({x: data_x, y:data_y},session=sess)
-        test_acc=accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
-        train_acc=accuracy.eval({x: data_x, y:data_y},session=sess)
-        now=time.time()
-        print now-start, train_acc,test_acc
-    comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
-    print "Average Gradient Computation Time:", mini.get_average_grad_time()
-    print "Core 0 finished."
+    server=ParamServer(param,comm)
+    while True:
+        core,data=server.next_request([1])
+        server.handle_request(core,data)
 else:
-    feed={x:data_x[len(data_x)/size*rank:len(data_x)/size*(rank+1)],y:data_y[len(data_x)/size*rank:len(data_x)/size*(rank+1)]}
-    Operator=SandblasterOpServer(rank, "xdat", feed, sess, cost,comm)
-    total_time=0
-    while (True):
-        data="None"
-        data=comm.scatter(["GP" for x in range(comm.Get_size())],root=0)
-        if data=="None":
-            continue
-        elif data=="GP":
-            start=time.time()
-            g=Operator.Compute_Gradient()
-            c=Operator.Compute_Cost()
-            new_data = comm.gather((g,c),root=0)
-            end=time.time()
-            total_time=total_time+end-start
-        elif data=="KILL":
-            break
-    print "Core,", rank, "Computation Cost:", total_time
-    print "Core", rank, "finished."
-
+    data=data_x[10000/(size-1)*(rank-1):10000/(size-1)*(rank)],data_y[10000/(size-1)*(rank-1):10000/(size-1)*(rank)]
+    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: mnist.test.images, y:mnist.test.labels})
+    start=time.time()
+    while True:
+        for i in range(10):
+            worker.optimize()
+        now=time.time()
+        print now-start, worker.publish()
