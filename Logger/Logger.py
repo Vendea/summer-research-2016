@@ -1,6 +1,6 @@
 import os.path
 import datetime
- 
+
 
 class DataLogger:
 	def __init__(self,ExperimentTitle,layers,nodes,testing,header):
@@ -17,3 +17,4 @@ class DataLogger:
 		data = data[:-1]
 		self.f.write(data+"\n")
 		self.f.flush()
+
