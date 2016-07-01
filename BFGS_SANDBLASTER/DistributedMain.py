@@ -13,7 +13,6 @@ from OperationServer import SandblasterOpServer
 
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
-import Logger as l
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -73,7 +72,10 @@ init = tf.initialize_all_variables()
 correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 # Launch the graph
-sess=tf.Session()
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
 sess.run(init)
 
 
@@ -82,18 +84,19 @@ data_x, data_y = mnist.train.next_batch(10000)
 global_feed={x:data_x,y:data_y}
 
 if rank==0:
-    data_logger=l.DataLogger("lbfgs",2,256)
     feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
     mini=BFGSoptimizer(cost,feed,sess,rank,"xdat",comm)
-    for ep in range(50):
+    start=time.time()
+    for ep in range(100):
         start=time.time()
         mini.minimize(alpha=0.0001)
         end=time.time()
-        test_c=cost.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
-        train_c=cost.eval({x: data_x, y:data_y},session=sess)
+        #test_c=cost.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+        #train_c=cost.eval({x: data_x, y:data_y},session=sess)
         test_acc=accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
         train_acc=accuracy.eval({x: data_x, y:data_y},session=sess)
-        data_logger.writeData(ep,train_c,test_c,end-start,train_acc,test_acc)
+        now=time.time()
+        print now-start, train_acc,test_acc
     comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
     print "Average Gradient Computation Time:", mini.get_average_grad_time()
     print "Core 0 finished."
@@ -117,3 +120,4 @@ else:
             break
     print "Core,", rank, "Computation Cost:", total_time
     print "Core", rank, "finished."
+
