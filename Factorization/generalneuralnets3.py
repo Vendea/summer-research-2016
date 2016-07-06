@@ -191,6 +191,15 @@ if rank == master:
         weights_n = []
         biases_n = []
         data_n = []
+        '''        empty_weight = [np.zeros([nbits*2, n_nodes])]
+        empty_bias = []
+        for _ in range(1, n_layer):
+            empty_weight.append(np.zeros([n_nodes, n_nodes]))
+            empty_bias.append(np.zeros(n_nodes))
+        empty_weight.append(np.zeros([n_nodes, nbits]))
+        empty_bias.append(np.zeros(n_nodes))
+        empty_bias.append(np.zeros(nbits))
+        #data = tuple(comm.reduce(np.array([empty_weight, empty_bias]), op=MPI.SUM, root=0) / len(slaves))'''
 
 
         # act as slave
@@ -213,7 +222,7 @@ if rank == master:
         data = tuple(comm.reduce(np.array([data_w, data_b]), op=MPI.SUM, root=0) / len(slaves))
 
         avg_weight,avg_bias = data
-        '''# evaluating the training progress every display_step epochs
+        # evaluating the training progress every display_step epochs
         if (epoch % display_step) == 0:
             for w,t in zip(avg_weight, weights):
                 sess.run(t.assign(w))
