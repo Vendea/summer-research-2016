@@ -1,15 +1,6 @@
-'''
-A Multilayer Perceptron implementation example using TensorFlow library.
-This example is using the MNIST database of handwritten digits
-(http://yann.lecun.com/exdb/mnist/)
-Author: Aymeric Damien
-Project: https://github.com/aymericdamien/TensorFlow-Examples/
-'''
 
-# Import MINST data
+#Gets the imports for the system
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
 import tensorflow as tf
 import time
 from DistributedSPSA import SPSA
@@ -21,14 +12,14 @@ p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
 import Logger as l
 
-args = len(sys.argv)
-comm_children = None
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)  # gets the Data set
+args = len(sys.argv)                                           # gets the number of command line arguments used to differeniate between workers and masters
+#Sets up variables to be used for communication and logging
+comm_children = None                                           
 comm_parent   = None
-train_cost    = None
-test_cost     = None
 correct_prediction,accuracy = None,None
 train_cost,train_accuracy = [],[]
-test_cost,test_accuracy = [],[]
+test_accuracy = []
 # Network Parameters
 learning_rate = 0.001
 training_epochs = 600
@@ -37,19 +28,20 @@ n_layer      = 2
 n_nodes      = 256
 n_input      = 784 # MNIST data input (img shape: 28*28)
 n_classes    = 10 # MNIST total classes (0-9 digits)
-n_workers    = 2
-gen_size     = 1
-train_size   = 4000
-start_worker = "worker"
+n_workers    = 2 # number of workers each master has to help calculate gradients 
+gen_size     = 1 # number of networks to save each generation 
+train_size   = 4000# number of elements in the train and testing netowrks 
+start_worker = "worker" # random keyword used so signify a worker thread
 #random stuff
-weights = []
-biases = []
-pred = None
+weights = [] # list of wieghts
+biases = [] # list of biases
+pred = None # varibale used to store the last layer of network
 # tf Graph input
-x = tf.placeholder("float", [None, n_input])
-y = tf.placeholder("float", [None, n_classes])
+x = tf.placeholder("float", [None, n_input]) # variable used to store the input
+y = tf.placeholder("float", [None, n_classes])# used to store true value
 
 if args == 1:
+    # starts master theads and spawns the relavent workers and creates communicators from the masters to workers
     comm_global = MPI.COMM_WORLD
     rank = comm_global.Get_rank()
     size = comm_global.Get_size()
@@ -60,8 +52,14 @@ if args == 1:
     start=n_workers*rank
     end = start+n_workers -1
     if rank == 0:
-        f = l.DataLogger("SPSA",n_layer,n_nodes)
+        # on root starts a logger to save results 
+        f = l.DataLogger("SPSA"
+            ,n_layer
+            ,n_nodes
+            ,header="Epoch,(cost,accuracy),Computation_Time,Train_Accuracy,Test_Accuracy",
+            testing=True)
 else:
+    # starts comminicator for worker
     comm_global = MPI.COMM_WORLD
     comm_parent = MPI.Comm.Get_parent()
     rank = comm_parent.Get_rank()
@@ -72,9 +70,10 @@ def multilayer_perceptron():
     for w,b in zip(weights,biases):
         prevlayer = tf.nn.relu(tf.add(tf.matmul(prevlayer, w), b))
     return prevlayer
+
 def build_network_master():
     global pred,accuracy
-  
+    # Builds master and sends its description to all other nodes so they all start at the same intial point
     # Defining and initializing the trainable Variables
     weights.append(tf.Variable(tf.random_normal([n_input, n_nodes])))
     for i in range(1, n_layer):
@@ -92,23 +91,24 @@ def build_network_master():
     for w,b in zip(weights, biases):
         data_w.append(w.eval())
         data_b.append(b.eval())
-
+    #sends data to all masters that are not root and to roots children
     data = zip(data_w, data_b)
     for i in range(1,size):
         comm_global.send(data, dest=i,tag=11)
     for i in range(start,end):
         comm_children.send(data, dest=i,tag=11)
+    # builds the operations and the accuaracy functions 
     pred = multilayer_perceptron()
-
     correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))   
 def build_network_slaves():
+    # buids network for masters that are not root and send s the data to all of there children
     global pred,accuracy
     data = None
     data = comm_global.recv(source=0,tag =11)
     for i in range(start,end):
         comm_children.send(data, dest=i,tag=11)
-
+    # builds the variables 
     # Defining and initializing the trainable Variables
     for w,b in data:
         biases.append(tf.Variable(b))
@@ -135,27 +135,30 @@ def build_network_children():
     # Launch the graph
     sess.run(init)
 
-def update_weights_slaves(c,update):
-    comm_global.send([c,update,], dest=0, tag=11)
+def update_weights_slaves(c,accu,update):
+    comm_global.send([c,accu,update,], dest=0, tag=11)
     data = comm_global.recv(source=0, tag=11)
     mini.set_var(data)
     update_weights_parent(data)
 
-def update_weights_master(c,update):
+def update_weights_master(c,accu,update):
     data,ls = [],[]
     del train_cost[:]
     for i in range(1,size):
             ls.append(comm_global.recv(source=i, tag=11))
-    update_cost,update_values = zip(*ls)
+    update_cost,update_accu,update_values = zip(*ls)
     update_cost = list(update_cost)
+    update_accu = list(update_accu)
     update_values = list(update_values)
     update_cost.append(c)
+    update_accu.append(accu)
     update_values.append(update)
     while len(data) < gen_size:
-        i = update_cost.index(max(update_cost))
-        train_cost.append(update_cost.pop(i))
-        data.append(update_values[i])
-        update_values.pop(i)
+        i = update_accu.index(max(update_accu))
+        train_cost.append(
+            (update_cost.pop(i),update_accu.pop(i))
+            )
+        data.append(update_values.pop(i))
     for i in range(size):
         if i != 0:
             comm_global.send(data[i%gen_size],dest=i, tag=11)
@@ -193,7 +196,10 @@ with tf.Session() as sess:
     for ep in range(training_epochs):
         timer = 0
         start_time = time.time()
+        t = time.time()
         g = mini.nabla(cost,ep)
+        if rank == 0 and args == 1:
+                print( "gradient computation",time.time()- t)
         if comm_parent != None:
             update_weights_children(g)
         else:
@@ -201,21 +207,28 @@ with tf.Session() as sess:
             for i in range(start,end):
                 dv.append(comm_children.recv(source=i,tag=11))
             orginal,update = mini.minimize(dv,ep)
-            c=sess.run(accuracy,feed)
+            t = time.time()
+            c,accu=sess.run([cost,accuracy],feed)
+            if rank == 0 and args == 1:
+                print("cost and accuarcy computation",time.time()- t)
             if rank != 0:
-                update_weights_slaves(c,update)
+                update_weights_slaves(c,accu,update)
             else:
-                update_weights_master(c,update)
-            
+                t = time.time()
+                update_weights_master(c,accu,update)
+                if rank == 0 and args == 1:
+                    print("update step",time.time()- t)
         end_time = time.time()
         if args == 1 and rank == 0:
+            t = time.time()
             _,train_accuracy= sess.run([cost,accuracy],{x:data_x,y:data_y})
             _,test_accuracy = sess.run([cost,accuracy],{x:test_x,y:test_y})
-            f.writeData(ep,
+            if rank == 0 and args == 1:
+                print( "final accuarcy check",time.time()- t)
+            f.writeData((ep,
                         train_cost,
-                        test_cost,
                         end_time-start_time,
                         train_accuracy,
-                        test_accuracy)
+                        test_accuracy))
             timer += end_time-start_time
             print("time taken for epoch"+str(ep)+":"+str(end_time-start_time))

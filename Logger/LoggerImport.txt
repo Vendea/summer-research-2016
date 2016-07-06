@@ -3,3 +3,5 @@ from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
 import Logger
+
+"Epoch,Cost,Computation_Time,Train_Accuracy,Test_Accuracy"

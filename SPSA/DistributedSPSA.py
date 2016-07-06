@@ -38,12 +38,12 @@ class SPSA:
             for x in np.nditer(nm, op_flags=['readwrite']):
                 x[...]=dist.bernoulli() * 2 * cn
             dv.append(nm)
-        l=[]
+        del l=[:]
         for m,d,t in zip(self.var,dv,self.var_t):
             l.append(t.assign(m+d))
         sess.run(tf.group(*l))
         f1=sess.run(cost,self.feed)
-        l=[]
+        del l=[:]
         for m,d,t in zip(self.var,dv,self.var_t):
             l.append(t.assign(m-d))
         sess.run(tf.group(*l))
