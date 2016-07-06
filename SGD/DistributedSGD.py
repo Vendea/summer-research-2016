@@ -1,18 +1,24 @@
-'''
-A Multilayer Perceptron implementation example using TensorFlow library.
-This example is using the MNIST database of handwritten digits
-(http://yann.lecun.com/exdb/mnist/)
-Author: Aymeric Damien
-Project: https://github.com/aymericdamien/TensorFlow-Examples/
-'''
+__author__ = 'billywu'
 
-# Import MINST data
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
-import tensorflow as tf
 import time
-from SPSA import SPSA
+from sys import path
+from os import getcwd
+
+from tensorflow.examples.tutorials.mnist import input_data
+import tensorflow as tf
+from mpi4py import MPI
+
+from ParamServer import ParamServer
+from ModelReplica import DPSGD
+
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 # Parameters
 learning_rate = 0.001
@@ -61,36 +67,36 @@ pred = multilayer_perceptron(x, weights, biases)
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 
+train_step = tf.train.GradientDescentOptimizer(0.0001).minimize(cost)
+
 # Initializing the variables
 init = tf.initialize_all_variables()
 
+correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 # Launch the graph
-sess=tf.Session()
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
 sess.run(init)
-
-
 data_x, data_y = mnist.train.next_batch(10000)
-feed={x:data_x,y:data_y}
-mini=SPSA(cost,feed,[biases,weights],sess)
-for ep in range(1000):
-    o1,n1=mini.minimize(cost,ep)
-    f1=sess.run(cost,feed)
-    mini.set_var(o1)
-    o2,n2=mini.minimize(cost,ep)
-    f2=sess.run(cost,feed)
-    mini.set_var(o2)
-    o3,n3=mini.minimize(cost,ep)
-    f3=sess.run(cost,feed)
-    if f1<=f2 and f1<=f3:
-        mini.set_var(n1)
-    elif f2<=f3 and f2<=f1:
-        mini.set_var(n2)
-    else:
-        mini.set_var(n3)
-    print sess.run(cost,feed)
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+param=[]
 
 
-
+for t in tf.trainable_variables():
+    param.append(t.eval(session=sess))
+if rank==0:
+    server=ParamServer(param,comm)
+    while True:
+        core,data=server.next_request([1])
+        server.handle_request(core,data)
+else:
+    data=data_x[10000/(size-1)*(rank-1):10000/(size-1)*(rank)],data_y[10000/(size-1)*(rank-1):10000/(size-1)*(rank)]
+    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: mnist.test.images, y:mnist.test.labels})
+    start=time.time()
+    while True:
+        for i in range(10):
+            worker.optimize()
+        now=time.time()
+        print now-start, worker.publish()

@@ -4,6 +4,10 @@ Created on Jun 17, 2016
 
 This is a distributed implementation of a neuralnets framework using tensorflow used to factorize large integers.
 '''
+# Import MINST data
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+
 import sys
 import prime
 import tensorflow as tf
@@ -11,6 +15,13 @@ import numpy as np
 from mpi4py import MPI
 import time
 import logging
+
+from sys import path
+from os import getcwd
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+from Logger import DataLogger
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 '''===============================================================================================
@@ -37,9 +48,9 @@ for c in slaves:
 
 # Configuring NN Structure:
 #   1. predefined number of layers
-n_layer = 5
+n_layer = 2
 #   2. predefined number of nodes per hidden layer
-n_nodes = 128
+n_nodes = 256
 #   3. cost function select
 #           (used to study how the different cost function
 #            can lead to different convergence properties):
@@ -47,13 +58,13 @@ n_nodes = 128
 #       1: Cross Entropy
 #       2: Absolute factor differences
 #       3: bitwise differences
-cost_func = 0
+cost_func = 1
 #   4. kernel select:
 #       0: sigmoid
 #       1: relu
 #       2: tanh
 #       3: softmax
-kernel=0
+kernel=1
 activation = {0:tf.nn.sigmoid, 1:tf.nn.relu, 2:tf.nn.tanh, 3:tf.nn.softmax}
 
 # Configuring Learning Properties:
@@ -75,7 +86,7 @@ training_sizes = eval(sys.argv[1])
 #   3. testing size
 testing_sizes = 4000
 #   4. obtaining the data
-data_x, data_y = prime.generate_data(nbits)
+data_x, data_y = mnist.train.next_batch(20000) #prime.generate_data(nbits)
 #   5. splitting the training and testing data
 train_x = data_x[0:training_sizes]
 test_x = data_x[-(testing_sizes + 1):-1]
@@ -90,19 +101,19 @@ test_y = data_y[-(testing_sizes + 1):-1]
 '''
 
 # Specifying the inputs into the graph
-x = tf.placeholder('float', [None, nbits*2])
-y = tf.placeholder('float', [None, nbits])
+x = tf.placeholder('float', [None, 784])
+y = tf.placeholder('float', [None, 10])
 
 # Defining and initializing the trainable Variables
-weights = [tf.Variable(tf.random_normal([nbits*2, n_nodes]))]
+weights = [tf.Variable(tf.random_normal([784, n_nodes]))]
 biases = []
 for i in range(1, n_layer):
     biases.append(tf.Variable(tf.random_normal([n_nodes])))
     weights.append(tf.Variable(tf.random_normal([n_nodes, n_nodes])))
 
-weights.append(tf.Variable(tf.random_normal([n_nodes, nbits])))
+weights.append(tf.Variable(tf.random_normal([n_nodes, 10])))
 biases.append(tf.Variable(tf.random_normal([n_nodes])))
-biases.append(tf.Variable(tf.random_normal([nbits])))
+biases.append(tf.Variable(tf.random_normal([10])))
 
 # Constructing the hidden and output layers
 def multilayer_perceptron(x, weights, biases):
@@ -118,7 +129,7 @@ pred = multilayer_perceptron(x, weights, biases)
 if cost_func == 0:
     cost = tf.sqrt(tf.reduce_mean(tf.square(tf.sub(y, pred))))
 elif cost_func == 1:
-    cost = tf.reduce_mean(-tf.reduce_sum(y * tf.log(pred), reduction_indices=[1]))
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 elif cost_func == 2:
     c = np.zeros([nbits,1]).astype('float32')
     for i in range(nbits):
@@ -156,6 +167,10 @@ sess.run(init)
 
 # Master core code
 if rank == master:
+    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+
+    logger2 = DataLogger("SGD", 2, 256)
     timer = 0
     #print "master started..."
     # Constructing the initial message
@@ -208,7 +223,7 @@ if rank == master:
 
         avg_weight,avg_bias = data
         # evaluating the training progress every display_step epochs
-        '''if (epoch % display_step) == 0:
+        if (epoch % display_step) == 0:
             for w,t in zip(avg_weight, weights):
                 sess.run(t.assign(w))
             for b,t in zip(avg_bias, biases):
@@ -217,7 +232,7 @@ if rank == master:
             test_cost = sess.run(cost,{x:test_x, y:test_y})
             #print "epoch",epoch,"test_cost:", test_cost
             train_cost = sess.run(cost, {x:train_x, y:train_y})
-            print "epoch",epoch,"train_cost:", train_cost
+            #print "epoch",epoch,"train_cost:", train_cost
             train_pred = sess.run(pred, {x:train_x, y: train_y})
             # evaluating on the actual accuracy
             correct = 0
@@ -232,6 +247,7 @@ if rank == master:
                         break
                 if valid:
                     correct = correct +1
+            train_acu = accuracy.eval({x: train_x, y: train_y},session=sess)
             #print "epoch", epoch, "training accuracy:", (correct + 0.0)/training_sizes
             test_pred = sess.run(pred, {x:test_x, y: test_y})
             correct = 0
@@ -246,11 +262,18 @@ if rank == master:
                         break
                 if valid:
                     correct = correct +1
+            #test_acu = (correct+0.0)/testing_sizes
+            test_acu = accuracy.eval({x: test_x, y: test_y},session=sess)
             #print "epoch", epoch, "testing accuracy:", (correct + 0.0)/testing_sizes'''
+        test_cost=cost.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+        train_cost=cost.eval({x: data_x, y:data_y},session=sess)
+        test_acu=accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+        train_acu=accuracy.eval({x: data_x, y:data_y},session=sess)
         end_time = time.time()
         timer += end_time-start_time
         #if (epoch % display_step) == 0:
             #logger.info("time taken for epoch"+str(epoch)+":"+str(end_time-start_time))
+        logger2.writeData(epoch, train_cost, test_cost, end_time-start_time, train_acu, test_acu)
     print "avg time per epoch:", timer/training_epochs
     #print "master is done"
 
