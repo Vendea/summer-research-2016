@@ -80,14 +80,14 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-
+print sys.argv[1]
 
 
 data_x, data_y = mnist.train.next_batch(10000)
 global_feed={x:data_x,y:data_y}
 
 if rank==0:
-    logger = DataLogger("BFGS"+sys.argsv[1]
+    logger = DataLogger("BFGS"+sys.argv[1]
                     ,2
                     ,256
                     ,header="Computation_Time,Train_Accuracy,Test_Accuracy")
