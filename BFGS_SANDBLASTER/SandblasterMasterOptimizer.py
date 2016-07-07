@@ -34,13 +34,12 @@ class BFGSoptimizer:
             grad_t:                                     gradient tensor
             f1,df1,s,z1:                                lbfgs variables
     '''
-    def __init__(self,cost,feed,sess,rank, x_dir,comm):
+    def __init__(self,cost,feed,sess,rank, comm):
         self.grad_compute_time_accumulator=0
         self.grad_counter=0
         self.cost=cost
         self.feed=feed
         self.rank=rank
-        self.x_dir=x_dir
         self.comm=comm
         self.size=comm.Get_size()
         self.var_t=tf.trainable_variables()
@@ -51,7 +50,6 @@ class BFGSoptimizer:
         for tl in self.var_t:
             vv.append(self.sess.run(tl))
         self.var_v=np.array(vv)
-        np.save(x_dir,self.var_v)
         self.grad_t = tf.gradients(cost,self.var_t)
         self.f1,self.df1=self.ComputeGradient(self.var_v)
         self.s=-self.df1
@@ -63,9 +61,8 @@ class BFGSoptimizer:
 
     def ComputeGradient(self,var_v):
         start=time.time()
-        self.update()
-        self.comm.scatter(["GP" for x in range(self.size)],root=self.rank)
-        g=self.Compute_Gradient()
+        self.comm.scatter([self.var_v for x in range(self.size)],root=self.rank)
+        g=self.Compute_Gradient(self.var_v)
         c=self.Compute_Cost()
         new_data = self.comm.gather((g,c),root=0)
         gr=new_data[0][0]
@@ -85,8 +82,8 @@ class BFGSoptimizer:
         return self.grad_compute_time_accumulator/self.grad_counter
 
     # Compute the partial gradient on the main core
-    def Compute_Gradient(self):
-        self.Assign_Gradient(self.x_dir)
+    def Compute_Gradient(self,var):
+        self.Assign_Gradient(var)
         g=np.array(self.sess.run(self.grad_t,self.feed))
         return g
 
@@ -96,8 +93,8 @@ class BFGSoptimizer:
         return c
 
     # Apply the parameters stored in the shared location
-    def Assign_Gradient(self, x_dir):
-        self.x=np.load('xdat.npy')
+    def Assign_Gradient(self, var):
+        self.x=var
         l=[]
         for t,v in zip(self.var_t,self.x):
             l.append(t.assign(v))
@@ -120,10 +117,6 @@ class BFGSoptimizer:
             v1=v1+[x for x in np.nditer(m1, op_flags=['readwrite'])]
             v2=v2+[x for x in np.nditer(m2, op_flags=['readwrite'])]
         return np.inner(v1,v2)
-
-    # update the shared parameters
-    def update(self):
-        np.save(self.x_dir,self.var_v)
 
     # update the feed
     def update_feed(self,feed):
@@ -209,11 +202,9 @@ class BFGSoptimizer:
             self.var_v = x0; self.f1 = f0; df1 = df0
             if self.line_search_fail:
                 self.var_v=self.var_v+df1*alpha
-                self.update()
                 return
             tmp = df1; self.df1 = df2; df2 = tmp
             self.s = -self.df1
             self.d1 = -self.var_self_inner(self.s)
             self.z1 = 1/(1-self.d1)
             self.ls_failed = True
-        self.update()
