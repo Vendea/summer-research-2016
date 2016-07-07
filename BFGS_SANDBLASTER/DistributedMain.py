@@ -10,14 +10,12 @@ from mpi4py import MPI
 from SandblasterMasterOptimizer import BFGSoptimizer
 from OperationServer import SandblasterOpServer
 from sys import path
+import sys
 from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
-<<<<<<< Updated upstream
 from Logger import DataLogger
-=======
-import Logger as l
->>>>>>> Stashed changes
+
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -89,14 +87,10 @@ data_x, data_y = mnist.train.next_batch(10000)
 global_feed={x:data_x,y:data_y}
 
 if rank==0:
-<<<<<<< Updated upstream
-    logger = DataLogger("BFGS"
+    logger = DataLogger("BFGS"+sys.argsv[1]
                     ,2
                     ,256
                     ,header="Computation_Time,Train_Accuracy,Test_Accuracy")
-=======
-    datal=l.DataLogger("BFGS",2,256,'time,train,test')
->>>>>>> Stashed changes
     feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
     mini=BFGSoptimizer(cost,feed,sess,rank,comm)
     start=time.time()
@@ -107,11 +101,7 @@ if rank==0:
         test_acc=accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
         train_acc=accuracy.eval({x: data_x, y:data_y},session=sess)
         now=time.time()
-<<<<<<< Updated upstream
-        logger.writeData((now-start, train_acc,test_acc))
-=======
-        datal.writeData([now-start, train_acc,test_acc])
->>>>>>> Stashed changes
+        logger.writeData((now, train_acc,test_acc))
     comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
     print "Average Gradient Computation Time:", mini.get_average_grad_time()
     print "Core 0 finished."

@@ -9,9 +9,9 @@ class DataLogger:
 			ExperimentTitle+ dt.datetime.now().strftime("%Y%m%d%H%M%S")+".csv",
 			'w')
 		self.ExperimentTitle = ExperimentTitle
-		self.f.write("Layers: "+str(layers)+"\n")
-		self.f.write("Nodes: "+str(nodes)+"\n")
-		self.f.write("========================================================"+"\n")
+		# self.f.write("Layers: "+str(layers)+"\n")
+		# self.f.write("Nodes: "+str(nodes)+"\n")
+		# self.f.write("========================================================"+"\n")
 		self.f.write(header+"\n")
 		self.f.flush()
 	def writeData(self,cols):
