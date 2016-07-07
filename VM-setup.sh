@@ -6,6 +6,9 @@ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorf
 sudo pip install --upgrade $TF_BINARY_URL
 sudo apt-get install openmpi-bin openmpi-doc libopenmpi-dev
 sudo pip install mpi4py
+git config --global user.email "tdhst231@mail.rmu.edu"
+git config --global user.name "Trae Hurley"
+cd
 cd .ssh 
 ssh-keygen -t dsa
 
