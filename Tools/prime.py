@@ -30,7 +30,10 @@ def sieve (nbits):
     return ret
 
 def generate_data(nbits):
-    primes = sieve(nbits)
+    arr = np.around(np.random.rand(nbits))
+    return arr
+
+'''    primes = sieve(nbits)
     primes = np.array(primes)
     np.random.shuffle(primes)
     prime1=primes[0:300]
@@ -43,7 +46,7 @@ def generate_data(nbits):
             data_x.append(convert(p1*p2,nbits*2))
     data_x=np.array(data_x)
     data_y=np.array(data_y)
-    return shuffle_in_unison(data_x, data_y)
+    return shuffle_in_unison(data_x, data_y)'''
     
 def convert(number,bits):
     # this method converts a number into an array containing
