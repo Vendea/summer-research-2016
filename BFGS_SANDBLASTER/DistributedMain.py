@@ -90,10 +90,10 @@ if rank==0:
     logger = DataLogger("BFGS"+sys.argv[1]
                     ,2
                     ,256
-                    ,header="Computation_Time,Train_Accuracy,Test_Accuracy")
+                    ,header="Step_Time,Total_Time,Train_Accuracy,Test_Accuracy")
     feed={x:data_x[0:len(data_x)/size],y:data_y[0:len(data_x)/size]}
     mini=BFGSoptimizer(cost,feed,sess,rank,comm)
-    start=time.time()
+    start=time.time();prev=0
     for ep in range(100):
         mini.minimize(alpha=0.0001)
         #test_c=cost.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
@@ -101,7 +101,8 @@ if rank==0:
         test_acc=accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
         train_acc=accuracy.eval({x: data_x, y:data_y},session=sess)
         now=time.time()
-        logger.writeData((now, train_acc,test_acc))
+	prev= prev+now-start
+        logger.writeData((now-start,prev, train_acc,test_acc))
     comm.scatter(["KILL" for x in range(comm.Get_size())],root=0)
     print "Average Gradient Computation Time:", mini.get_average_grad_time()
     print "Core 0 finished."
