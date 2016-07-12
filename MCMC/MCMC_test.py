@@ -1,12 +1,22 @@
-__author__ = 'billywu'
+'''
+A Multilayer Perceptron implementation example using TensorFlow library.
+This example is using the MNIST database of handwritten digits
+(http://yann.lecun.com/exdb/mnist/)
+Author: Aymeric Damien
+Project: https://github.com/aymericdamien/TensorFlow-Examples/
+'''
 
+# Import MINST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-import matplotlib.pyplot as plt
 
 import tensorflow as tf
 import time
-from lbfgs_optimizer import lbfgs_optimizer
+from Multi_try_Metropolis import MCMC
+import matplotlib.pyplot as plt
+from mpi4py import MPI
+
+master = MPI.COMM_WORLD.Get_rank() == 0
 
 # Parameters
 learning_rate = 0.001
@@ -52,30 +62,44 @@ biases = {
 # Construct model
 pred = multilayer_perceptron(x, weights, biases)
 
-
-
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
-correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 # Initializing the variables
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session(config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
-                            inter_op_parallelism_threads=8,
-                            intra_op_parallelism_threads=8))
+sess=tf.Session()
 sess.run(init)
-batch_xs, batch_ys = mnist.train.next_batch(2000)
-trainer=lbfgs_optimizer(learning_rate, cost,{x: batch_xs, y: batch_ys},sess,3)
 
 
-start=time.time()
-batch_xs, batch_ys = mnist.train.next_batch(10000)
-for i in range(100):
-    trainer.feed={x: batch_xs, y: batch_ys}
-    s=trainer.minimize()
-    print(time.time()-start, sess.run(cost, feed_dict={x: batch_xs, y: batch_ys}),sess.run(cost, feed_dict={x: mnist.test.images, y: mnist.test.labels}),
-          sess.run(accuracy, feed_dict={x: batch_xs, y: batch_ys}),sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))
+data_x, data_y = mnist.train.next_batch(10000)
+feed={x:data_x,y:data_y}
+correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+#mini=MCMC(cost,feed,sess)
+mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
+costs = []
+costs.append(mini.prev_cost)
+timestamps = [0]
+start = time.time()
+for ep in range(1000):
+    mini.optimize(stdev=0.04)
+    timestamps.append(time.time() - start)
+    costs.append(mini.prev_cost)
+    if master:
+        print time.time()-start, mini.prev_cost
+    if time.time()-start > 300:
+        break
+    #print sess.run(cost, feed)
+    #correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    #accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+    #print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+
+#print timestamps
+#print costs
+if master:
+    plt.plot(timestamps, costs, label='')
+    plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
+    plt.grid(True)
+    plt.show()

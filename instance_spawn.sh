@@ -42,5 +42,6 @@ gcloud compute instances create $instances \
 	--image-project ubuntu-os-cloud \
 	--custom-cpu $cpu_count \
 	--custom-memory $ram_size \
-    --metadata-from-file startup-script=./start_up.sh
+    --metadata-from-file startup-script=./start_up.sh \
 	--zone us-east1-c
+
