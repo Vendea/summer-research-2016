@@ -1,12 +1,19 @@
 __author__ = 'billywu'
+__author__ = 'billywu'
 
+from mpi4py import MPI
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 import matplotlib.pyplot as plt
 
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+
 import tensorflow as tf
 import time
 from lbfgs_optimizer import lbfgs_optimizer
+from Opserver import Opserver
 
 # Parameters
 learning_rate = 0.001
@@ -65,17 +72,22 @@ init = tf.initialize_all_variables()
 
 # Launch the graph
 sess=tf.Session(config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
-                            inter_op_parallelism_threads=8,
-                            intra_op_parallelism_threads=8))
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1))
 sess.run(init)
-batch_xs, batch_ys = mnist.train.next_batch(2000)
-trainer=lbfgs_optimizer(learning_rate, cost,{x: batch_xs, y: batch_ys},sess,3)
+tx,ty=batch_xs, batch_ys = mnist.train.next_batch(20000)
+bsize=20000/size
+batch_xs, batch_ys=batch_xs[rank:(rank+1)*bsize], batch_ys[rank:(rank+1)*bsize]
+if rank==0:
+    trainer=lbfgs_optimizer(learning_rate, cost,{x: batch_xs, y: batch_ys},sess,3,comm,size,rank)
+    for i in range(100):
+        trainer.minimize()
+        #print trainer.getFunction(trainer.var)
+        print sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels}),sess.run(accuracy,{x:tx,y:ty}),sess.run(cost,{x:mnist.test.images,y:mnist.test.labels}),sess.run(cost,{x:tx,y:ty})
+    trainer.kill()
+else:
+    opServer=Opserver(learning_rate, cost,{x: batch_xs, y: batch_ys},sess,comm,size,rank,0)
+    opServer.run()
 
 
-start=time.time()
-batch_xs, batch_ys = mnist.train.next_batch(10000)
-for i in range(100):
-    trainer.feed={x: batch_xs, y: batch_ys}
-    s=trainer.minimize()
-    print(time.time()-start, sess.run(cost, feed_dict={x: batch_xs, y: batch_ys}),sess.run(cost, feed_dict={x: mnist.test.images, y: mnist.test.labels}),
-          sess.run(accuracy, feed_dict={x: batch_xs, y: batch_ys}),sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))
+
