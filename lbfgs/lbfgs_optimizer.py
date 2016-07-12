@@ -17,7 +17,7 @@ class lbfgs_optimizer:
         self.gradient=tf.gradients(cost,tf.trainable_variables())
         v=[]
         for t in tf.trainable_variables():
-            v.append(sess.run(t))
+            v.append(t.eval(session=self.sess))
         self.var=np.array(v)
         self.learningRate=learning_rate
         self.old_grad=None
