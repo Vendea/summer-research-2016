@@ -78,7 +78,7 @@ feed={x:data_x,y:data_y}
 correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 #mini=MCMC(cost,feed,sess)
-mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},maximize=True)
+mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
 costs = []
 costs.append(mini.prev_cost)
 timestamps = [0]
