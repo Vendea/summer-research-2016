@@ -35,12 +35,12 @@ startup="#! /bin/bash\n\nsudo apt-get install git\n\ngit clone https://github.co
 echo -e $startup>>"start_up.sh"
 chmod +x ./start_up.sh
 
-
+ram_size=$ram_size"GiB"
 
 gcloud compute instances create $instances \
 	--image-family ubuntu-1404-lts \
 	--image-project ubuntu-os-cloud \
 	--custom-cpu $cpu_count \
-	--custom-memory $ram_sizeGiB \
-    --metadata-from-file startup-script=./start_up.sh
+	--custom-memory $ram_size \
+        --metadata-from-file startup-script=./start_up.sh \
 	--zone us-east1-c
