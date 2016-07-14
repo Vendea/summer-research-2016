@@ -211,10 +211,10 @@ class lbfgs_optimizer:
                             bracket[HiPos] = bracket[LoPos]
                             bracketF[HiPos] = bracketF[LoPos]
                             bracketG[HiPos] = bracketG[LoPos]
-                    bracket[LoPos] = z1
-                    bracketF[LoPos] = f_new
-                    bracketG[LoPos] = g_new
-                    Tpos = LoPos
+                        bracket[LoPos] = z1
+                        bracketF[LoPos] = f_new
+                        bracketG[LoPos] = g_new
+                        Tpos = LoPos
                 f_Lo=np.min(bracketF)
                 LoPos=np.argmin(bracketF)
                 z1=bracket[LoPos]
