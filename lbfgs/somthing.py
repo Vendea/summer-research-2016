@@ -84,7 +84,7 @@ test_labels =[]
 for x in range(len(test)):
 	temp = []
 	for y in test[x]["labels"]:
-		temp.append(tf.sparse_to_dense([0,int(y)],[10],[1]))
+		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
 	test_labels.append(temp)
 test_labels = tf.reshape(test_labels,[-1])
 test_labels = tf.reshape(test_labels,[10000,10])
@@ -209,9 +209,9 @@ bsize=50000/size
 train_size=50000
 tx = train_data.eval(session=sess)
 ty = train_labels.eval(session=sess)
-testx =  test_data
-testy =  test_labels
-print(tx[0].shape)
+testx =  test_data.eval(session=sess)
+testy =  test_labels.eval(session=sess)
+
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
     for b in range(1):
@@ -223,9 +223,9 @@ if rank==0:
             c = trainer.minimize()
             if i%2==0:
                 train = sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000]})
-                test  = sess.run(accuracy,{x:test_data[0:1000],y:test_labels[0:1000]})
+                test  = sess.run(accuracy,{x:testx[0:1000],y:testy[0:1000]})
                 trainc=sess.run(cost,{x:tx[0:1000],y:ty[0:1000]})
-                testc= sess.run(cost,{x:test_data[0:1000],y:test_labels[0:1000]})
+                testc= sess.run(cost,{x:testx[0:1000],y:testy[0:1000]})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval
