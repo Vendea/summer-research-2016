@@ -7,6 +7,10 @@ from mpi4py import MPI
 import time
 from sys import path
 from os import getcwd
+from lbfgs_optimizer2 import lbfgs_optimizer
+from Opserver2 import Opserver
+
+
 def unpickle(file):
     fo = open(file, 'rb')
     dict = cPickle.load(fo)
@@ -18,8 +22,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 NUM_CLASSES = 10
 
-from lbfgs_optimizer2 import lbfgs_optimizer
-from Opserver2 import Opserver
+
 datadir = getcwd()[0:getcwd().rfind("/")]+"/cifar10/cifar-10-batches-py"
 train  = [f for f in listdir(datadir) if isfile(join(datadir, f))]
 train.pop(train.index("batches.meta"))
@@ -148,8 +151,7 @@ with tf.variable_scope('conv1') as scope:
     # norm1
     norm1 = tf.nn.lrn(pool1, 4, bias=1.0, alpha=0.001 / 9.0, beta=0.75,
                     name='norm1')
-
-  # conv2
+# conv2
 with tf.variable_scope('conv2') as scope:
     kernel = _variable_with_weight_decay('weights', shape=[5, 5, 64, 64],
                                          stddev=1e-4, wd=0.0)
@@ -165,7 +167,7 @@ with tf.variable_scope('conv2') as scope:
     pool2 = tf.nn.max_pool(norm2, ksize=[1, 3, 3, 1],
                          strides=[1, 2, 2, 1], padding='SAME', name='pool2')
 
-  # local3
+# local3
 with tf.variable_scope('local3') as scope:
     # Move everything into depth so we can perform a single matrix multiply.
     reshape = tf.reshape(pool2, [-1, 8*8*64])
@@ -175,17 +177,14 @@ with tf.variable_scope('local3') as scope:
                                           stddev=0.04, wd=0.004)
     biases = _variable_on_cpu('biases', [384], tf.constant_initializer(0.1))
     local3 = tf.nn.relu(tf.matmul(reshape, weights) + biases, name=scope.name)
-    
-
-  # local4
+# local4
 with tf.variable_scope('local4') as scope:
     weights = _variable_with_weight_decay('weights', shape=[384, 192],
                                           stddev=0.04, wd=0.004)
     biases = _variable_on_cpu('biases', [192], tf.constant_initializer(0.1))
     local4 = tf.nn.relu(tf.matmul(local3, weights) + biases, name=scope.name)
-    
 
-  # softmax, i.e. softmax(WX + b)
+# softmax, i.e. softmax(WX + b)
 with tf.variable_scope('softmax_linear') as scope:
     weights = _variable_with_weight_decay('weights', [192, NUM_CLASSES],
                                           stddev=1/192.0, wd=0.0)
@@ -205,12 +204,11 @@ init = tf.initialize_all_variables()
 # Launch the graph
 sess=tf.Session()
 sess.run(init)
-bsize=50000/size
-train_size=50000
-tx = train_data.eval(session=sess)
-ty = train_labels.eval(session=sess)
-testx =  test_data.eval(session=sess)
-testy =  test_labels.eval(session=sess)
+bsize=400
+tx = train_data.eval(session=sess)[0:400]
+ty = train_labels.eval(session=sess)[0:400]
+testx =  test_data.eval(session=sess)[0:400]
+testy =  test_labels.eval(session=sess)[0:400]
 
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
@@ -222,14 +220,14 @@ if rank==0:
         for i in range(50):
             c = trainer.minimize()
             if i%2==0:
-                train = sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000]})
-                test  = sess.run(accuracy,{x:testx[0:1000],y:testy[0:1000]})
-                trainc=sess.run(cost,{x:tx[0:1000],y:ty[0:1000]})
-                testc= sess.run(cost,{x:testx[0:1000],y:testy[0:1000]})
+                train = sess.run(accuracy,{x:tx[0:400],y:ty[0:400]})
+                test  = sess.run(accuracy,{x:testx[0:400],y:testy[0:400]})
+                trainc=sess.run(cost,{x:tx[0:400],y:ty[0:400]})
+                testc= sess.run(cost,{x:testx[0:400],y:testy[0:400]})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval
-                print i, f, g, train, test
+                print i, f, g, train, test, trainc, testc
 
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
