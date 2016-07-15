@@ -86,4 +86,8 @@ data_y=[]
 data_x.append(prime.generate_data(nbits*2))
 data_y.append(prime.generate_data(nbits))
 feed={x:data_x,y:data_y}
-sess.run(pred,feed)
+#sess.run(pred,feed)
+
+correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+print(sess.run(accuracy, feed_dict=feed))
