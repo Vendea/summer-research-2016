@@ -92,7 +92,7 @@ pred = conv_net(x, weights, biases, keep_prob)
 
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
-optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
+#optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
 
 # Evaluate model
 correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
@@ -108,20 +108,22 @@ sess=tf.Session(config=config)
 sess.run(init)
 train_size=20000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=1000
+bsize=20000
 
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(50):
+    for b in range(1):
         data_x=tx[bsize*b:bsize*(b+1)]%train_size
         data_y=ty[bsize*b:bsize*(b+1)]%train_size
         trainer.update(data_x,data_y,x,y,keep_prob)
         start=time.time()
-        for i in range(10):
+        for i in range(50):
             c= trainer.minimize()
             if i%2==0:
                 train=sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
-                test= sess.run(accuracy,{x:mnist.test.images[0:250],y:mnist.test.labels[0:250],keep_prob:1.0})
+                test= sess.run(accuracy,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
+                trainc=sess.run(cost,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
+                testc= sess.run(cost,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval

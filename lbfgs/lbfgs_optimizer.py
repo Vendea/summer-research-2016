@@ -5,7 +5,7 @@ import numpy as np
 import math
 import time
 import flatten
-import gc
+
 
 class lbfgs_optimizer:
     def __init__(self,learning_rate, cost,feed,sess,m,comm,size,rank):
@@ -29,14 +29,10 @@ class lbfgs_optimizer:
         self.assign_placeholders=[]
         assign_op=[]
         for t in tf.trainable_variables():
-<<<<<<< HEAD
             v.append(sess.run(t))
             self.assign_placeholders.append(tf.placeholder(shape=v[-1].shape,dtype="float32"))
             assign_op.append(t.assign(self.assign_placeholders[-1]))
         self.assign=tf.group(*assign_op)
-=======
-            v.append(t.eval(session=self.sess))
->>>>>>> origin/master
         self.var=np.array(v)
         np.save('var',self.var)
         comm.scatter(['Init' for i in range(size)],root=rank)
@@ -191,9 +187,9 @@ class lbfgs_optimizer:
                 self.old_grad=self.getGradient(self.var)
             else:
                 self.old_grad=self.old_grad
-            self.var=self.var-0.00001*self.old_grad
+            self.var=self.var-0.000001*self.old_grad
             grad=self.getGradient(self.var)
-            s=np.array(flatten.flatten(-0.00001*grad)[0])
+            s=np.array(flatten.flatten(-0.000001*grad)[0])
             y=np.array(flatten.flatten(grad-self.old_grad)[0])
             self.S.append(s)
             self.Y.append(y)
@@ -297,11 +293,7 @@ class lbfgs_optimizer:
                         bracket[LoPos] = z1
                         bracketF[LoPos] = f_new
                         bracketG[LoPos] = g_new
-<<<<<<< HEAD
                         Tpos=LoPos
-=======
-                        Tpos = LoPos
->>>>>>> origin/master
                 f_Lo=np.min(bracketF)
                 LoPos=np.argmin(bracketF)
                 z1=bracket[LoPos]
