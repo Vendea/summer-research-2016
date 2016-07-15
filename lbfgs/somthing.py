@@ -4,7 +4,9 @@ from os.path import isfile, join
 import cPickle
 import numpy as np
 from mpi4py import MPI
-
+import time
+from sys import path
+from os import getcwd
 def unpickle(file):
     fo = open(file, 'rb')
     dict = cPickle.load(fo)
@@ -16,7 +18,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 NUM_CLASSES = 10
 
-from lbfgs_optimizer import lbfgs_optimizer
+from lbfgs_optimizer2 import lbfgs_optimizer
 from Opserver2 import Opserver
 datadir = getcwd()[0:getcwd().rfind("/")]+"/cifar10/cifar-10-batches-py"
 train  = [f for f in listdir(datadir) if isfile(join(datadir, f))]
@@ -48,8 +50,8 @@ test_data = tf.transpose(tf.reshape(test_data,[10000,3, 32, 32]),[0,3,2,1])
 
 reshaped_image = tf.cast(train_data, tf.float32)
 test_data = tf.cast(test_data, tf.float32)
-height = IMAGE_SIZE
-width = IMAGE_SIZE
+height = 24
+width = 24
 # Image processing for training the network. Note the many random
 # distortions applied to the image.
 
@@ -69,7 +71,7 @@ width = IMAGE_SIZE
 # # # Subtract off the mean and divide by the variance of the pixels.
 # train_data = tf.image.per_image_whitening(distorted_image)
 
-i = 0
+
 train_labels = []
 for x in range(len(train)):
 	temp = []
@@ -77,14 +79,15 @@ for x in range(len(train)):
 		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
 	train_labels.append(temp)
 train_labels = tf.reshape(train_labels,[-1])
-train_labels = tf.reshape(train_labels,[total_size,10])
+train_labels = tf.reshape(train_labels,[50000,10])
 test_labels =[]
 for x in range(len(test)):
 	temp = []
 	for y in test[x]["labels"]:
 		temp.append(tf.sparse_to_dense([0,int(y)],[10],[1]))
 	test_labels.append(temp)
-
+test_labels = tf.reshape(test_labels,[-1])
+test_labels = tf.reshape(test_labels,[10000,10])
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -165,7 +168,8 @@ with tf.variable_scope('conv2') as scope:
   # local3
 with tf.variable_scope('local3') as scope:
     # Move everything into depth so we can perform a single matrix multiply.
-    reshape = tf.reshape(pool2, [-1, -1])
+    reshape = tf.reshape(pool2, [-1, 8*8*64])
+    #print(reshape.get_shape)
     dim = reshape.get_shape()[1].value
     weights = _variable_with_weight_decay('weights', shape=[dim, 384],
                                           stddev=0.04, wd=0.004)
@@ -207,12 +211,12 @@ tx = train_data.eval(session=sess)
 ty = train_labels.eval(session=sess)
 testx =  test_data
 testy =  test_labels
-
+print(tx[0].shape)
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
     for b in range(1):
-        data_x=tx[bsize*b:bsize*(b+1)]%train_size
-        data_y=ty[bsize*b:bsize*(b+1)]%train_size
+        data_x=tx[bsize*b:bsize*(b+1)]
+        data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
         for i in range(50):
@@ -228,7 +232,7 @@ if rank==0:
                 print i, f, g, train, test
 
 else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,None)
+    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
     opServer.run()
 
 
