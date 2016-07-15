@@ -1,0 +1,306 @@
+Successfully downloaded train-images-idx3-ubyte.gz 9912422 bytes.
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Successfully downloaded train-labels-idx1-ubyte.gz 28881 bytes.
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Successfully downloaded t10k-images-idx3-ubyte.gz 1648877 bytes.
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Successfully downloaded t10k-labels-idx1-ubyte.gz 4542 bytes.
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 7, in <module>
+    import matplotlib.pyplot as plt
+ImportError: No module named matplotlib.pyplot
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+Traceback (most recent call last):
+  File "parallel_test.py", line 6, in <module>
+    mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py", line 186, in read_data_sets
+    SOURCE_URL + TRAIN_IMAGES)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/learn/python/learn/datasets/base.py", line 99, in maybe_download
+    gfile.Copy(temp_file_name, filepath)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/gfile.py", line 442, in Copy
+    raise OSError(errno.EEXIST, os.strerror(errno.EEXIST), newpath)
+OSError: [Errno 17] File exists: '/tmp/data/train-images-idx3-ubyte.gz'
+--------------------------------------------------------------------------
+mpirun noticed that the job aborted, but has no info as to the process
+that caused that situation.
+--------------------------------------------------------------------------

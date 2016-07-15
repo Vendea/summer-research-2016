@@ -1,0 +1,792 @@
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+New Batch
+Gradient Time: 11.1636309624
+Gradient Time: 11.1388919353
+0 0 2 0.12005 0.123 63661.9 63285.0
+Hessian Update: 1.89499402046
+Function Time 3.6904489994
+Inner Time 2.62887883186
+Function Time 3.69061398506
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+New Batch
+Gradient Time: 14.572644949
+Inner Time 3.69934201241
+Inner Time 3.07745099068
+Inner Time 2.42970180511
+Function Time 3.47967100143
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+New Batch
+Gradient Time: 11.0508108139
+Gradient Time: 10.7829961777
+0 0 2 0.0678 0.074 90490.1 88489.3
+Hessian Update: 1.73427700996
+Function Time 3.39533901215
+Inner Time 2.75846815109
+Function Time 3.440294981
+Gradient Time: 10.6947820187
+Inner Time 2.43595600128
+Inner Time 2.4747440815
+Inner Time 2.79805493355
+Function Time 3.60659790039
+Gradient Time: 10.8670871258
+Inner Time 2.72026085854
+Gradient Time: 10.8073348999
+Hessian Update: 1.56451487541
+Function Time 3.44801306725
+Inner Time 3.09842896461
+Function Time 3.92824196815
+Gradient Time: 10.5968058109
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+New Batch
+Gradient Time: 11.6344809532
+Gradient Time: 11.4518339634
+0 0 2 0.09 0.076 68919.1 58867.9
+Hessian Update: 1.83593392372
+Function Time 3.72261810303
+Inner Time 2.6148622036
+Function Time 3.73701906204
+Gradient Time: 11.3949010372
+Inner Time 2.61510300636
+Inner Time 2.7236521244
+Inner Time 2.66924405098
+Function Time 3.70606207848
+Gradient Time: 11.7657809258
+Inner Time 2.62633395195
+Gradient Time: 11.4410541058
+Hessian Update: 1.89160203934
+Function Time 3.64881682396
+Inner Time 2.6853351593
+Function Time 3.77115178108
+Gradient Time: 11.7546920776
+Inner Time 2.62517809868
+Inner Time 2.57096004486
+Inner Time 2.57252812386
+Function Time 3.79380393028
+Gradient Time: 11.1761498451
+Inner Time 2.6428258419
+Inner Time 2.6170759201
+Inner Time 2.65030407906
+Function Time 3.63131189346
+Gradient Time: 11.329600811
+Inner Time 2.51081299782
+Gradient Time: 11.422203064
+13 7 9 0.164 0.219 58798.9 49343.0
+Hessian Update: 1.67086911201
+Function Time 3.7459218502
+Inner Time 2.70090317726
+Function Time 3.70385193825
+Gradient Time: 11.5956730843
+Inner Time 2.45822000504
+Inner Time 2.7131550312
+Inner Time 2.73266792297
+Function Time 3.76821899414
+Gradient Time: 11.4222579002
+Inner Time 2.67720389366
+Gradient Time: 11.3923180103
+Hessian Update: 1.78454399109
+Function Time 3.55170297623
+Inner Time 2.57543706894
+Function Time 3.54394006729
+Gradient Time: 10.706895113
+Inner Time 2.56436014175
+Inner Time 2.73642992973
+Inner Time 2.57437396049
+Function Time 3.55266308784
+Gradient Time: 10.9635891914
+Inner Time 2.64513087273
+Gradient Time: 10.9657371044
+23 13 15 0.234 0.211 41595.6 44278.9
+Hessian Update: 1.68135213852
+Function Time 3.50768995285
+Inner Time 2.63271999359
+Function Time 3.51386499405
+Gradient Time: 11.0732638836
+Inner Time 2.52367210388
+Inner Time 2.70215916634
+Inner Time 2.58059620857
+Function Time 3.48876905441
+Gradient Time: 10.8070211411
+Inner Time 2.42642498016
+Gradient Time: 10.887748003
+Hessian Update: 1.67707085609
+Function Time 3.62985992432
+Inner Time 2.73373985291
+Function Time 3.45337915421
+Gradient Time: 10.9138150215
+Inner Time 2.43749308586
+Inner Time 2.57693886757
+Inner Time 2.71785402298
+Function Time 3.4518020153
+Gradient Time: 10.8766610622
+Inner Time 2.80786299706
+Gradient Time: 10.6705710888
+33 19 21 0.289 0.289 20136.6 19022.7
+Hessian Update: 1.85508203506
+Function Time 3.57158398628
+Inner Time 2.51214885712
+Function Time 3.56166005135
+Gradient Time: 10.9516670704
+Inner Time 2.61959195137
+Inner Time 2.6665430069
+Inner Time 2.41492199898
+Function Time 3.53234386444
+Gradient Time: 10.8619749546
+Inner Time 2.51779103279
+Gradient Time: 10.8555150032
+Hessian Update: 1.71151590347
+Function Time 3.58641886711
+Inner Time 2.43224906921
+Function Time 3.55924391747
+Gradient Time: 11.0945429802
+Inner Time 2.47980594635
+Inner Time 2.73821401596
+Inner Time 2.54448795319
+Function Time 3.4544980526
+Gradient Time: 11.0399720669
+Inner Time 2.59413695335
+Gradient Time: 11.0106320381
+43 25 27 0.352 0.297 8498.56 9971.41
+Hessian Update: 1.58686995506
+Function Time 3.5860850811
+Inner Time 2.6304090023
+Function Time 3.60678005219
+Gradient Time: 11.1168560982
+Inner Time 2.63145899773
+Inner Time 2.59846901894
+Inner Time 2.56386804581
+Function Time 3.60581707954
+Gradient Time: 10.7457671165
+Inner Time 2.62221598625
+Gradient Time: 10.8737158775
+Hessian Update: 1.71590518951
+Function Time 3.51986718178
+Inner Time 2.54708695412
+Function Time 3.62517285347
+Gradient Time: 11.1985580921
+Inner Time 2.68697714806
+Inner Time 2.66720700264
+Inner Time 2.52524709702
+Function Time 3.60103607178
+Gradient Time: 10.8458771706
+Inner Time 2.29019021988
+Gradient Time: 11.1729168892
+53 31 33 0.42 0.457 4648.71 4673.07
+Hessian Update: 2.23709177971
+Function Time 3.69985795021
+Inner Time 2.6144888401
+Function Time 3.56598901749
+Gradient Time: 10.9261879921
+Inner Time 2.61850214005
+Inner Time 2.50667977333
+Inner Time 2.73198103905
+Function Time 3.54122495651
+Gradient Time: 11.2497580051
+Inner Time 2.44273495674
+Gradient Time: 11.0041429996
+Hessian Update: 1.72410488129
+Function Time 3.74680900574
+Inner Time 2.64867305756
+Function Time 3.78264904022
+Gradient Time: 10.9589288235
+Inner Time 2.78211808205
+Inner Time 2.8482439518
+Inner Time 2.71046185493
+Function Time 3.50731682777
+Gradient Time: 11.0684809685
+Inner Time 2.46697902679
+Gradient Time: 10.9640829563
+63 37 39 0.542 0.52 3064.04 3146.74
+Hessian Update: 1.84392499924
+Function Time 3.89601612091
+Inner Time 2.60998797417
+Function Time 3.42254710197
+Gradient Time: 11.0890800953
+Inner Time 2.80700993538
+Inner Time 2.85388207436
+Inner Time 2.7006380558
+Function Time 3.51679992676
+Gradient Time: 11.0991179943
+Inner Time 2.61770701408
+Gradient Time: 11.0570850372
+Hessian Update: 1.86372089386
+Function Time 3.50032901764
+Inner Time 2.70344209671
+Function Time 3.62462115288
+Gradient Time: 11.2955210209
+Inner Time 2.79461288452
+Inner Time 2.49796199799
+Inner Time 2.61645698547
+Function Time 3.49596118927
+Gradient Time: 10.9641089439
+Inner Time 2.7044839859
+Gradient Time: 11.0168759823
+73 43 45 0.56 0.522 2498.91 3152.37
+Hessian Update: 1.86662387848
+Function Time 3.7165620327
+Inner Time 2.64804887772
+Function Time 3.53744101524
+Gradient Time: 11.0829370022
+Inner Time 2.6844599247
+Function Time 4.02962589264
+Gradient Time: 10.8191070557
+Inner Time 2.71842288971
+Inner Time 2.78704404831
+Inner Time 2.79046607018
+Function Time 3.59415984154
+Gradient Time: 11.1786239147
+Inner Time 2.84172415733
+Gradient Time: 11.0752680302
+Hessian Update: 1.68702793121
+Function Time 3.6160800457
+Inner Time 2.64618110657
+Function Time 3.67395186424
+Gradient Time: 11.1172308922
+Inner Time 2.6983499527
+Inner Time 2.57569384575
+Inner Time 2.57722997665
+Function Time 3.62750816345
+Gradient Time: 11.2027769089
+Inner Time 2.68977093697
+Gradient Time: 11.0709078312
+84 50 52 0.613 0.535 2144.37 2676.38
+Hessian Update: 1.74278783798
+Function Time 3.49490904808
+Inner Time 2.39550018311
+Function Time 3.5477669239
+Gradient Time: 11.2239339352
+Inner Time 2.63469600677
+Inner Time 2.47783398628
+Inner Time 2.58494305611
+Function Time 3.75567698479
+Gradient Time: 11.2165470123
+Inner Time 2.64635705948
+Gradient Time: 11.1649501324
+Hessian Update: 1.3856959343
+Function Time 3.58012604713
+Inner Time 3.00247383118
+Function Time 3.58041000366
+Gradient Time: 10.9231991768
+Inner Time 2.62530303001
+Inner Time 2.32820296288
+Inner Time 2.29646015167
+Function Time 3.5310959816
+Gradient Time: 10.9744980335
+Inner Time 2.63959407806
+Gradient Time: 11.0124959946
+94 56 58 0.66 0.615 1668.66 2085.04
+Hessian Update: 1.71523404121
+Function Time 3.5623960495
+Inner Time 2.89648985863
+Function Time 3.59970402718
+Gradient Time: 11.094094038
+Inner Time 2.6386680603
+Inner Time 2.74396491051
+Inner Time 2.71451401711
+Function Time 3.53261613846
+Gradient Time: 11.0396649837
+Inner Time 2.74482584
+Gradient Time: 10.9903101921
+Hessian Update: 1.72814702988
+Function Time 3.61326384544
+Inner Time 2.70526409149
+Function Time 3.64910292625
+Gradient Time: 11.0045320988
+Inner Time 2.62489080429
+Inner Time 2.67515301704
+Inner Time 2.78680086136
+Function Time 3.6781539917
+Gradient Time: 11.1891129017
+Inner Time 2.67263507843
+Gradient Time: 10.9730010033
+104 62 64 0.674 0.608 1540.72 2076.7
+Hessian Update: 1.67363405228
+Function Time 3.54332900047
+Inner Time 2.54968690872
+Function Time 3.5559899807
+Gradient Time: 11.5869998932
+Inner Time 2.692029953
+Function Time 3.55526995659
+Gradient Time: 11.1648240089
+Inner Time 2.83630108833
+Inner Time 2.58874106407
+Inner Time 2.65245103836
+Function Time 3.73551988602
+Gradient Time: 11.2061460018
+Inner Time 2.69048500061
+Gradient Time: 11.0274710655
+Hessian Update: 1.8721241951
+Function Time 3.78656792641
+Inner Time 2.59156107903
+Function Time 3.58732581139
+Gradient Time: 11.1499230862
+Inner Time 2.63739609718
+Inner Time 2.79755592346
+Inner Time 2.68995594978
+Function Time 3.60677409172
+Gradient Time: 11.3901400566
+Inner Time 2.69707298279
+Gradient Time: 11.1507730484
+115 69 71 0.686 0.62 1471.57 1813.12
+Hessian Update: 1.57624983788
+Function Time 3.64720201492
+Inner Time 2.69561386108
+Function Time 3.70582604408
+Gradient Time: 11.2474389076
+Inner Time 2.83240699768
+Inner Time 2.56383490562
+Inner Time 2.87847805023
+Function Time 3.66327404976
+Gradient Time: 11.2243921757
+Inner Time 2.71116518974
+Gradient Time: 11.1327419281
+Hessian Update: 1.52329301834
+Function Time 3.6307861805
+Inner Time 2.75503802299
+Function Time 3.54467988014
+Gradient Time: 11.0626220703
+Inner Time 2.63216495514
+Inner Time 2.60621881485
+Inner Time 2.75384807587
+Function Time 3.59090209007
+Gradient Time: 11.2169010639
+Inner Time 2.85092186928
+Gradient Time: 10.9069600105
+125 75 77 0.715 0.646 1288.93 1759.64
+Hessian Update: 1.82373809814
+Function Time 3.67773079872
+Inner Time 2.69111704826
+Function Time 3.56187295914
+Gradient Time: 10.982667923
+Inner Time 2.55545401573
+Inner Time 2.63651013374
+Inner Time 2.54775905609
+Function Time 3.60435199738
+Gradient Time: 11.1586260796
+Inner Time 2.76286792755
+Gradient Time: 10.995319128
+Hessian Update: 1.60795807838
+Function Time 3.4646282196
+Inner Time 2.62766218185
+Function Time 3.5667181015
+Gradient Time: 11.3339729309
+Inner Time 2.62945604324
+Inner Time 2.42890191078
+Inner Time 2.7865729332
+Function Time 3.65358400345
+Gradient Time: 10.9252309799
+Inner Time 2.57980489731
+Gradient Time: 11.2581050396
+135 81 83 0.7 0.637 1306.63 1685.37
+Hessian Update: 1.69425106049
+Function Time 3.59502792358
+Inner Time 2.43309402466
+Function Time 3.75082206726
+Gradient Time: 11.0848181248
+Inner Time 2.67454504967
+Function Time 3.41906285286
+Gradient Time: 10.9427731037
+Inner Time 2.67062401772
+Inner Time 2.74378800392
+Inner Time 2.74202108383
+Function Time 3.54656505585
+Gradient Time: 11.2050549984
+Inner Time 2.72045087814
+Gradient Time: 10.8833258152
+Hessian Update: 1.62686014175
+Function Time 3.54578280449
+Inner Time 2.6342420578
+Function Time 3.47125697136
+Gradient Time: 11.0448539257
+Inner Time 2.78671598434
+Inner Time 2.70630598068
+Inner Time 2.68377804756
+Function Time 3.60276508331
+Gradient Time: 10.9706988335
+Inner Time 2.66358804703
+Gradient Time: 11.0189740658
+146 88 90 0.713 0.677 1226.52 1434.63
+Hessian Update: 1.66448688507
+Function Time 3.59436011314
+Inner Time 2.66232299805
+Function Time 3.54983210564
+Gradient Time: 10.9911510944
+Inner Time 2.74780607224
+Inner Time 2.68533706665
+Inner Time 2.72015309334
+Function Time 3.68467402458
+Gradient Time: 11.0741288662
+Inner Time 2.61340117455
+Gradient Time: 11.0358099937
+Hessian Update: 1.74155592918
+Function Time 3.57941007614
+Inner Time 2.7730948925
+Function Time 3.72505807877
+Gradient Time: 11.2097849846
+Inner Time 2.728992939
+Inner Time 2.72022485733
+Inner Time 2.59496307373
+Function Time 3.48109698296
+Gradient Time: 11.2380189896
+Inner Time 2.50773596764
+Gradient Time: 10.9090189934
+156 94 96 0.761 0.71 905.602 1186.85
+Hessian Update: 1.52915000916
+Function Time 3.46712589264
+Inner Time 2.54425406456
+Function Time 3.75328993797
+Gradient Time: 10.9924890995
+Inner Time 2.61528015137
+Inner Time 2.59292006493
+Inner Time 2.8345580101
+Function Time 3.58789300919
+Gradient Time: 10.9590439796
+Inner Time 2.675812006
+Gradient Time: 11.0135259628
+Hessian Update: 1.78357815742
+Function Time 3.58499288559
+Inner Time 2.60970711708
+Function Time 3.52344703674
+Gradient Time: 11.2008459568
+Inner Time 2.89847111702
+Function Time 3.61766195297
+Gradient Time: 10.8643670082
+Inner Time 2.7407271862
+Inner Time 2.63811397552
+Inner Time 2.56011795998
+Function Time 3.51462817192
+Gradient Time: 10.8966870308
+Inner Time 2.72897982597
+Gradient Time: 11.1064269543
+167 101 103 0.755 0.713 933.99 1155.92

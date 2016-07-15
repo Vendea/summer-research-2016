@@ -83,7 +83,7 @@ class lbfgs_optimizer:
             self.comm.scatter(data,root=self.rank)
             ss=np.inner(data[self.rank][1],data[self.rank][1])
             ss=self.comm.gather(ss,root=self.rank)
-            #print "Self Inner Time",time.time()-start
+            print "Self Inner Time",time.time()-start
             return np.sum(ss)
 
     # Numpy unstructured inner product
@@ -100,7 +100,7 @@ class lbfgs_optimizer:
             e=time.time()
             ret=np.inner(v1,v2)
             #print "Inner product:", e-s
-            #print "Inner Time",time.time()-start
+            print "Inner Time",time.time()-start
             return ret
         else:
             v1=flatten.flatten(var_v1)[0]
@@ -134,7 +134,7 @@ class lbfgs_optimizer:
         for i in range(self.memorySize):
             be[i]=(np.inner(self.Y[i],d))/self.YS[i]
             d=d+self.S[i]*(al[i]-be[i])
-        #print "Hessian Update:", time.time()-s
+        print "Hessian Update:", time.time()-s
         return np.array(flatten.unflatten((d,sh)))
 
 
@@ -160,7 +160,7 @@ class lbfgs_optimizer:
         for i in range(1,len(gradients)):
             ret=np.add(ret,gradients[i])
         e=time.time()
-        #print "Gradient Time:",e-s
+        print "Gradient Time:",e-s
         return ret/self.size
 
     def kill(self):
@@ -177,7 +177,7 @@ class lbfgs_optimizer:
         for i in range(1,len(costs)):
             ret=np.add(ret,costs[i])
         e=time.time()
-        #print "Function Time", e-s
+        print "Function Time", e-s
         return ret/self.size
 
 
@@ -215,22 +215,25 @@ class lbfgs_optimizer:
                 gtd_prev=gtd0
                 done=False
                 while lsIter<lsIterMax:
-                    if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
-                        bracket=np.array([z_prev,z1])
-                        bracketF=np.array([f_prev,f1])
-                        bracketG=np.array([g_prev,g1])
-                        break
-                    elif abs(gtd1)<=-0.9*gtd1:
-                        bracket=z1
-                        bracketF=f1
-                        bracketG=g1
-                        done=True
-                        break
-                    elif gtd1>0:
-                        bracket=np.array([z_prev,z1])
-                        bracketF=np.array([f_prev,f1])
-                        bracketG=np.array([g_prev,g1])
-                        break
+		    if np.isnan(f1):
+			z1=z1/10
+                    else:
+                    	if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
+                       	    bracket=np.array([z_prev,z1])
+                            bracketF=np.array([f_prev,f1])
+                            bracketG=np.array([g_prev,g1])
+                            break
+                        elif abs(gtd1)<=-0.9*gtd1:
+                            bracket=z1
+                            bracketF=f1
+                            bracketG=g1
+                            done=True
+                            break
+                        elif gtd1>0:
+                            bracket=np.array([z_prev,z1])
+                            bracketF=np.array([f_prev,f1])
+                            bracketG=np.array([g_prev,g1])
+                            break
                     temp=z_prev
                     z_prev=z1
                     minStep=z1+0.01*(z1-temp)

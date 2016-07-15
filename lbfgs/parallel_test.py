@@ -4,8 +4,6 @@ __author__ = 'billywu'
 from mpi4py import MPI
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-import matplotlib.pyplot as plt
-
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -113,21 +111,22 @@ bsize=20000
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
     for b in range(1):
-        data_x=tx[bsize*b:bsize*(b+1)]%train_size
-        data_y=ty[bsize*b:bsize*(b+1)]%train_size
+        data_x=tx[bsize*b:bsize*(b+1)]
+        data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y,keep_prob)
-        start=time.time()
-        for i in range(50):
+        print "New Batch"
+	start=time.time()
+        for i in range(200):
             c= trainer.minimize()
             if i%2==0:
-                train=sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
+                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000],keep_prob:1.0})
                 test= sess.run(accuracy,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
-                trainc=sess.run(cost,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
+                trainc=sess.run(cost,{x:data_x[0:1000],y:data_y[0:1000],keep_prob:1.0})
                 testc= sess.run(cost,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval
-                print i, f, g, train, test
+                print i, f, g, train, test, trainc, testc
 
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob)

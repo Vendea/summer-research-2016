@@ -1,0 +1,144 @@
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+New Batch
+0 0 2 0.105 0.122 80134.8 85926.0
+16 8 10 0.132 0.095 59658.7 57677.5
+26 14 16 0.184 0.227 39033.3 40108.8
+36 20 22 0.284 0.309 26944.4 27893.8
+46 26 28 0.372 0.308 13118.6 13529.4
+56 32 34 0.524 0.434 6941.12 8853.01
+66 38 40 0.628 0.507 4545.64 6394.69
+76 44 46 0.645 0.534 3639.88 4899.31
+86 50 52 0.675 0.532 3346.58 5175.36
+96 56 58 0.69 0.574 2968.35 4524.26
+New Batch
+106 62 64 0.641 0.578 3739.22 4251.76
+116 68 70 0.658 0.589 3294.07 4037.19
+126 74 76 0.653 0.617 2886.99 3774.57
+136 80 82 0.704 0.631 2606.27 3346.31
+146 86 88 0.691 0.633 2400.7 3496.76
+156 92 94 0.705 0.645 2218.08 3281.47
+166 98 100 0.726 0.651 2025.55 2980.96
+176 104 106 0.731 0.655 1811.82 3252.63
+186 110 112 0.756 0.659 1629.19 2856.35
+196 116 118 0.767 0.672 1507.63 2765.02
+New Batch
+206 122 124 0.703 0.673 2543.29 2807.34
+216 128 130 0.712 0.677 2313.89 2802.67
+226 134 136 0.743 0.684 1852.92 2578.04
+236 140 142 0.757 0.717 1589.52 2391.55
+246 146 148 0.763 0.719 1485.42 2116.01
+256 152 154 0.777 0.709 1351.2 2334.37
+266 158 160 0.788 0.724 1217.57 2155.64
+276 164 166 0.809 0.732 1129.91 2030.15
+286 170 172 0.807 0.732 1058.36 2177.31
+296 176 178 0.822 0.743 950.991 1942.05
+New Batch
+306 182 184 0.736 0.736 2039.48 1990.53
+316 188 190 0.747 0.723 1876.91 2070.23
+326 194 196 0.78 0.745 1605.0 1831.15
+336 200 202 0.79 0.74 1425.97 1886.18
+346 206 208 0.79 0.74 1342.01 1807.33
+356 212 214 0.795 0.758 1258.02 1740.53
+366 218 220 0.817 0.747 1145.15 1817.92
+376 224 226 0.809 0.751 1056.2 1724.52
+386 230 232 0.818 0.753 1004.33 1688.63
+396 236 238 0.825 0.74 963.262 1727.52
+New Batch
+406 242 244 0.787 0.763 1543.22 1655.06
+416 248 250 0.794 0.732 1352.39 2113.08
+426 254 256 0.829 0.765 1106.6 1660.68
+436 260 262 0.837 0.775 954.506 1520.39
+446 266 268 0.851 0.769 780.697 1691.9
+456 272 274 0.869 0.784 652.166 1370.21
+466 278 280 0.858 0.792 599.412 1442.77
+476 284 286 0.895 0.785 471.003 1396.46
+486 290 292 0.906 0.805 405.163 1237.66
+496 296 298 0.895 0.799 377.615 1348.75
+New Batch
+530 310 312 0.842 0.798 991.193 1242.08
+541 317 319 0.847 0.775 951.765 1523.25
+551 323 325 0.857 0.808 699.808 1245.1
+561 329 331 0.884 0.817 593.251 1161.29
+573 337 339 0.875 0.799 542.308 1203.93
+583 343 345 0.914 0.823 402.98 1087.91
+593 349 351 0.91 0.822 373.566 1096.41
+603 355 357 0.918 0.814 305.327 1112.34
+613 361 363 0.934 0.82 256.035 1052.13
+626 368 370 0.938 0.817 250.592 1078.69
+New Batch
+663 383 385 0.846 0.824 1080.33 1042.35
+687 407 409 0.108 0.085 nan nan
+711 431 433 0.108 0.085 nan nan
+735 455 457 0.108 0.085 nan nan
+759 479 481 0.108 0.085 nan nan
+783 503 505 0.108 0.085 nan nan
+807 527 529 0.108 0.085 nan nan
+831 551 553 0.108 0.085 nan nan
+855 575 577 0.108 0.085 nan nan
+879 599 601 0.108 0.085 nan nan
+New Batch
+903 623 625 0.093 0.085 nan nan
+927 647 649 0.093 0.085 nan nan
