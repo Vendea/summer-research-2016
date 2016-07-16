@@ -72,6 +72,7 @@ class lbfgs_optimizer:
             v=np.array(v)
 
             s=np.inner(v,v)
+            print "Inner Time",time.time()-start
             return s
         else:
             v=np.array(flatten.flatten(var_v1)[0])
@@ -99,8 +100,7 @@ class lbfgs_optimizer:
                 v2=v2+[x for x in np.nditer(m2, op_flags=['readwrite'])]
             e=time.time()
             ret=np.inner(v1,v2)
-            #print "Inner product:", e-s
-            #print "Inner Time",time.time()-start
+            print "Inner Time",time.time()-start
             return ret
         else:
             v1=flatten.flatten(var_v1)[0]
@@ -134,7 +134,7 @@ class lbfgs_optimizer:
         for i in range(self.memorySize):
             be[i]=(np.inner(self.Y[i],d))/self.YS[i]
             d=d+self.S[i]*(al[i]-be[i])
-        #print "Hessian Update:", time.time()-s
+        print "Hessian Update:", time.time()-s
         return np.array(flatten.unflatten((d,sh)))
 
 
@@ -160,7 +160,7 @@ class lbfgs_optimizer:
         for i in range(1,len(gradients)):
             ret=np.add(ret,gradients[i])
         e=time.time()
-        #print "Gradient Time:",e-s
+        print "Gradient Time:",e-s
         return ret/self.size
 
     def kill(self):
@@ -177,7 +177,7 @@ class lbfgs_optimizer:
         for i in range(1,len(costs)):
             ret=np.add(ret,costs[i])
         e=time.time()
-        #print "Function Time", e-s
+        print "Function Time", e-s
         return ret/self.size
 
 
