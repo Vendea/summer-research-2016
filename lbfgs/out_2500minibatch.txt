@@ -1,0 +1,2850 @@
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Gradient Time: 1.84266495705
+Gradient Time: 1.73007893562
+All Performance
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/train-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Extracting /tmp/data/t10k-labels-idx1-ubyte.gz
+Gradient Time: 1.82701897621
+Gradient Time: 1.77565217018
+All Performance
+0 0 2 0.048 0.087 0 66107.5 0
+Hessian Update: 2.02385497093
+Function Time 0.52826499939
+Inner Time 2.63236498833
+Function Time 0.538009166718
+Gradient Time: 1.74760603905
+Inner Time 2.8328139782
+Inner Time 2.78043580055
+Inner Time 2.74701499939
+Function Time 0.532525777817
+Gradient Time: 1.76398777962
+Inner Time 2.7796561718
+Inner Time 2.63030695915
+Inner Time 2.71886992455
+Function Time 0.536857843399
+Gradient Time: 1.71909809113
+Inner Time 2.79169607162
+Gradient Time: 1.80685710907
+All Performance
+8 4 6 0.212 0.212 1.51201496492e-05 69318.9 45999.755
+Hessian Update: 1.79104304314
+Function Time 0.533003091812
+Inner Time 2.63601613045
+Function Time 0.537728071213
+Gradient Time: 1.71609902382
+Inner Time 2.64009404182
+Inner Time 2.62013316154
+Inner Time 2.71147608757
+Function Time 0.560214042664
+Gradient Time: 1.70495796204
+Inner Time 2.61329293251
+Gradient Time: 1.77371001244
+All Performance
+13 7 9 0.151 0.114 5.05574553096e-05 45932.0 35110.435
+Hessian Update: 1.83066892624
+Function Time 0.536950826645
+Inner Time 2.67584300041
+Function Time 0.534019947052
+Gradient Time: 1.7237610817
+Inner Time 2.73211407661
+Inner Time 2.6632540226
+Inner Time 2.80682086945
+Function Time 0.536254882812
+Gradient Time: 1.72747015953
+Inner Time 2.73725390434
+Gradient Time: 1.77174377441
+All Performance
+18 10 12 0.181 0.155 5.72092643869e-05 38325.5 29760.22
+Hessian Update: 1.73606419563
+Function Time 0.538630962372
+Inner Time 2.72427606583
+Function Time 0.533647060394
+Gradient Time: 1.76814889908
+Inner Time 2.56542611122
+Inner Time 2.597853899
+Inner Time 2.64551711082
+Function Time 0.532243967056
+Gradient Time: 1.70694994926
+Inner Time 2.7487950325
+Gradient Time: 1.75927019119
+All Performance
+23 13 15 0.221 0.183 6.25654561767e-05 28578.4 20833.8625
+Hessian Update: 1.91664004326
+Function Time 0.526134967804
+Inner Time 2.7924349308
+Function Time 0.527284145355
+Gradient Time: 1.73446583748
+Inner Time 2.72181987762
+Inner Time 2.72400283813
+Inner Time 2.72447085381
+Function Time 0.519034147263
+Gradient Time: 1.74086880684
+Inner Time 2.69733405113
+Gradient Time: 1.72639417648
+All Performance
+28 16 18 0.239 0.254 5.19041222503e-05 23164.3 18197.69
+Hessian Update: 2.01944684982
+Function Time 0.535187959671
+Inner Time 2.65158891678
+Function Time 0.522732973099
+Gradient Time: 1.72294211388
+Inner Time 2.79380393028
+Inner Time 2.69617414474
+Inner Time 2.62445807457
+Function Time 0.531347036362
+Gradient Time: 1.73441696167
+Inner Time 2.88259482384
+Gradient Time: 1.72310900688
+Hessian Update: 1.82906198502
+Function Time 0.526072978973
+Inner Time 2.71717715263
+Function Time 0.538539171219
+Gradient Time: 1.72791409492
+Inner Time 2.71949291229
+Function Time 0.540765047073
+Gradient Time: 1.67279100418
+Inner Time 2.66556501389
+Inner Time 2.89578390121
+Inner Time 2.62762999535
+Function Time 0.540033102036
+Gradient Time: 1.74584007263
+Inner Time 2.78527617455
+Gradient Time: 1.73737406731
+Hessian Update: 1.83117485046
+Function Time 0.543020009995
+Inner Time 2.72066307068
+Function Time 0.525139093399
+Gradient Time: 1.7117459774
+Inner Time 2.59591603279
+Inner Time 2.73671197891
+Inner Time 2.64393901825
+Function Time 0.526558876038
+Gradient Time: 1.6988928318
+Inner Time 2.6695189476
+Gradient Time: 1.71186804771
+Hessian Update: 1.80852794647
+Function Time 0.534049034119
+Inner Time 2.556235075
+Function Time 0.531198978424
+Gradient Time: 1.72718501091
+Inner Time 2.72171092033
+Inner Time 2.67529797554
+Inner Time 2.66669797897
+Function Time 0.541054010391
+Gradient Time: 1.68540716171
+Inner Time 2.73908019066
+Gradient Time: 1.70780992508
+Hessian Update: 2.02612996101
+Function Time 0.520304203033
+Inner Time 2.64823102951
+Function Time 0.544347047806
+Gradient Time: 1.70208597183
+Inner Time 2.73423194885
+Inner Time 2.68652701378
+Inner Time 2.64114093781
+Function Time 0.523212194443
+Gradient Time: 1.72051405907
+Inner Time 2.85176897049
+Gradient Time: 1.74884390831
+All Performance
+54 32 34 0.356 0.375 0.000148803594794 7199.52 3751.316875
+Hessian Update: 2.15636396408
+Function Time 0.590245008469
+Inner Time 2.75303602219
+Function Time 0.523243904114
+Gradient Time: 1.69116091728
+Inner Time 2.61868190765
+Inner Time 2.65543413162
+Inner Time 2.84207892418
+Function Time 0.525879859924
+Gradient Time: 1.70769786835
+Inner Time 2.82168006897
+Gradient Time: 1.73176503181
+Hessian Update: 1.88918399811
+Function Time 0.533492088318
+Inner Time 2.59493708611
+Function Time 0.543601036072
+Gradient Time: 1.74145197868
+Inner Time 2.73445081711
+Inner Time 2.74404287338
+Inner Time 2.75442481041
+Function Time 0.538203001022
+Gradient Time: 1.71438193321
+Inner Time 2.66262197495
+Gradient Time: 1.72338008881
+Hessian Update: 1.87262797356
+Function Time 0.537672996521
+Inner Time 2.75367712975
+Function Time 0.538064956665
+Gradient Time: 1.69671392441
+Inner Time 2.77983379364
+Inner Time 2.8756301403
+Inner Time 2.84824991226
+Function Time 0.532238006592
+Gradient Time: 1.7181289196
+Inner Time 2.88296818733
+Gradient Time: 1.7230348587
+Hessian Update: 1.84382414818
+Function Time 0.525118112564
+Inner Time 2.56284785271
+Function Time 0.564564943314
+Gradient Time: 1.75300002098
+Inner Time 2.70703101158
+Inner Time 2.77284216881
+Inner Time 2.75422787666
+Function Time 0.51815199852
+Gradient Time: 1.71314907074
+Inner Time 2.58739805222
+Gradient Time: 1.71792697906
+Hessian Update: 1.85053706169
+Function Time 0.533015966415
+Inner Time 2.7836830616
+Function Time 0.547224998474
+Gradient Time: 1.77180695534
+Inner Time 2.83039188385
+Inner Time 2.58662509918
+Inner Time 2.76740694046
+Function Time 0.518663883209
+Gradient Time: 1.71572208405
+Inner Time 2.64867711067
+Gradient Time: 1.72466301918
+Hessian Update: 1.73654913902
+Function Time 0.535549163818
+Inner Time 2.60733795166
+Function Time 0.531229972839
+Gradient Time: 1.72204589844
+Inner Time 2.83384108543
+Inner Time 2.64702892303
+Inner Time 2.61539506912
+Function Time 0.536390066147
+Gradient Time: 1.70760893822
+Inner Time 2.68657302856
+Gradient Time: 1.68469905853
+Hessian Update: 1.80865502357
+Function Time 0.527089118958
+Inner Time 2.77483296394
+Function Time 0.521208047867
+Gradient Time: 1.70439004898
+Inner Time 2.69070291519
+Inner Time 2.66578197479
+Inner Time 2.59430503845
+Function Time 0.523756980896
+Gradient Time: 1.69118380547
+Inner Time 2.70322394371
+Gradient Time: 1.71460485458
+Hessian Update: 1.93471503258
+Function Time 0.53829407692
+Inner Time 2.61718416214
+Function Time 0.526751995087
+Gradient Time: 1.65015101433
+Inner Time 2.52339220047
+Inner Time 2.79497504234
+Inner Time 2.68083810806
+Function Time 0.537929058075
+Gradient Time: 1.74177503586
+Inner Time 2.79538583755
+Gradient Time: 1.71116876602
+Hessian Update: 1.93884110451
+Function Time 0.537772893906
+Inner Time 2.72905993462
+Function Time 0.528990030289
+Gradient Time: 1.71634507179
+Inner Time 2.58730792999
+Inner Time 2.77971100807
+Inner Time 2.80923295021
+Function Time 0.537961959839
+Gradient Time: 1.72089219093
+Inner Time 2.71243619919
+Gradient Time: 1.71687102318
+Hessian Update: 1.75147795677
+Function Time 0.549913167953
+Inner Time 2.79212093353
+Function Time 0.532159090042
+Gradient Time: 1.66264414787
+Inner Time 2.62645697594
+Inner Time 2.57290005684
+Inner Time 2.71464300156
+Function Time 0.521378993988
+Gradient Time: 1.71442604065
+Inner Time 2.68893718719
+Gradient Time: 1.7158601284
+All Performance
+104 62 64 0.713 0.621 7.90613980382e-05 2683.48 1858.76109375
+Hessian Update: 1.83254790306
+Function Time 0.525250911713
+Inner Time 2.75394892693
+Function Time 0.562883853912
+Gradient Time: 1.69076395035
+Inner Time 2.89185404778
+Inner Time 2.51798987389
+Inner Time 2.6364979744
+Function Time 0.539422035217
+Gradient Time: 1.6927587986
+Inner Time 2.52175688744
+Gradient Time: 1.9632499218
+Hessian Update: 1.80429792404
+Function Time 0.533226966858
+Inner Time 2.8350379467
+Function Time 0.52413392067
+Gradient Time: 1.73047089577
+Inner Time 2.78000283241
+Inner Time 2.66689300537
+Inner Time 2.60961079597
+Function Time 0.523787021637
+Gradient Time: 1.72121691704
+Inner Time 2.65783977509
+Gradient Time: 1.67163896561
+Hessian Update: 1.71267604828
+Function Time 0.530750989914
+Inner Time 2.74950408936
+Function Time 0.549645900726
+Gradient Time: 1.67960691452
+Inner Time 2.71584486961
+Inner Time 2.70688486099
+Inner Time 2.72619009018
+Function Time 0.526768922806
+Gradient Time: 1.63138198853
+Inner Time 2.90070509911
+Gradient Time: 1.6951239109
+Hessian Update: 2.02175402641
+Function Time 0.538365125656
+Inner Time 2.638048172
+Function Time 0.526510953903
+Gradient Time: 1.71594309807
+Inner Time 2.67933511734
+Inner Time 2.68039703369
+Inner Time 2.70317792892
+Function Time 0.524650812149
+Gradient Time: 1.69605207443
+Inner Time 2.56957793236
+Gradient Time: 1.69446015358
+Hessian Update: 1.63101601601
+Function Time 0.530292034149
+Inner Time 2.73346996307
+Function Time 0.522645950317
+Gradient Time: 1.64927601814
+Inner Time 2.71499896049
+Inner Time 2.64763879776
+Inner Time 2.82262706757
+Function Time 0.530114173889
+Gradient Time: 1.70080780983
+Inner Time 2.675812006
+Gradient Time: 1.68432211876
+Hessian Update: 1.81662797928
+Function Time 0.537698030472
+Inner Time 2.74024200439
+Function Time 0.539011001587
+Gradient Time: 1.70137095451
+Inner Time 2.82957696915
+Inner Time 2.8067688942
+Inner Time 2.60337305069
+Function Time 0.522446870804
+Gradient Time: 1.74084305763
+Inner Time 2.82840013504
+Gradient Time: 1.73041582108
+Hessian Update: 1.71569895744
+Function Time 0.535707950592
+Inner Time 2.66447210312
+Function Time 0.531023979187
+Gradient Time: 1.72714281082
+Inner Time 2.81478404999
+Inner Time 2.76099681854
+Inner Time 2.5670580864
+Function Time 0.532999992371
+Gradient Time: 1.72551989555
+Inner Time 2.69247198105
+Gradient Time: 2.04034996033
+Hessian Update: 1.7357981205
+Function Time 0.539026975632
+Inner Time 2.77589297295
+Function Time 0.526244878769
+Gradient Time: 1.73107290268
+Inner Time 2.67311286926
+Inner Time 2.69577908516
+Inner Time 2.83641409874
+Function Time 0.526786088943
+Gradient Time: 1.70153403282
+Inner Time 2.58636903763
+Gradient Time: 1.66518092155
+Hessian Update: 1.99695110321
+Function Time 0.554301023483
+Inner Time 2.62551593781
+Function Time 0.535117864609
+Gradient Time: 1.73119997978
+Inner Time 2.7366938591
+Inner Time 2.70181584358
+Inner Time 2.75767588615
+Function Time 0.536593914032
+Gradient Time: 1.69994497299
+Inner Time 2.74185204506
+Gradient Time: 1.68138694763
+Hessian Update: 1.73335695267
+Function Time 0.536445140839
+Inner Time 2.65321302414
+Function Time 0.52960395813
+Gradient Time: 1.72037887573
+Inner Time 2.70348191261
+Inner Time 2.80498409271
+Inner Time 2.6542160511
+Function Time 0.531794071198
+Gradient Time: 1.74171304703
+Inner Time 2.77435302734
+Gradient Time: 1.71942400932
+All Performance
+154 92 94 0.794 0.695 0.000139243568026 2029.01 1097.95015625
+Hessian Update: 1.75652003288
+Function Time 0.555125951767
+Inner Time 2.65646982193
+Function Time 0.52876496315
+Gradient Time: 1.72461605072
+Inner Time 2.8663110733
+Inner Time 2.51572704315
+Inner Time 2.67671489716
+Function Time 0.535843133926
+Gradient Time: 1.71092700958
+Inner Time 2.6539850235
+Gradient Time: 1.70168089867
+Hessian Update: 1.8765001297
+Function Time 0.542177915573
+Inner Time 2.7129201889
+Function Time 0.529014110565
+Gradient Time: 1.71634292603
+Inner Time 2.78111004829
+Inner Time 2.76238393784
+Inner Time 2.85287904739
+Function Time 0.574198007584
+Gradient Time: 1.7657160759
+Inner Time 2.99610686302
+Gradient Time: 1.69891095161
+Hessian Update: 1.90645503998
+Function Time 0.531659126282
+Inner Time 2.55931901932
+Function Time 0.526656150818
+Gradient Time: 1.69977498055
+Inner Time 2.60991597176
+Inner Time 2.65929412842
+Inner Time 2.67430114746
+Function Time 0.577867984772
+Gradient Time: 1.71551895142
+Inner Time 2.77250289917
+Gradient Time: 1.75992298126
+Hessian Update: 1.85088896751
+Function Time 0.554821014404
+Inner Time 2.80925583839
+Function Time 0.550770044327
+Gradient Time: 1.76885986328
+Inner Time 2.67384600639
+Function Time 0.539033889771
+Gradient Time: 1.74964094162
+Inner Time 2.63633799553
+Function Time 0.530175924301
+Gradient Time: 1.76416110992
+Inner Time 2.66346693039
+Function Time 0.538352012634
+Gradient Time: 1.78258991241
+Inner Time 2.77086997032
+Inner Time 2.6537759304
+Inner Time 2.83077788353
+Function Time 0.54465508461
+Gradient Time: 1.71306204796
+Inner Time 2.79472899437
+Inner Time 2.78889703751
+Inner Time 2.79146790504
+Function Time 0.551774978638
+Gradient Time: 1.74331617355
+Inner Time 2.74408197403
+Inner Time 2.69802594185
+Inner Time 2.65530204773
+Function Time 0.542397975922
+Gradient Time: 1.77046394348
+Inner Time 2.8710000515
+Inner Time 2.74000597
+Inner Time 2.56766915321
+Function Time 0.534502983093
+Gradient Time: 1.75273418427
+Inner Time 2.70957899094
+Inner Time 2.74441003799
+Inner Time 2.61018896103
+Function Time 0.527304172516
+Gradient Time: 1.7497241497
+Inner Time 2.83419680595
+Inner Time 2.61784005165
+Inner Time 2.78048205376
+Function Time 0.532536029816
+Gradient Time: 1.7184381485
+Inner Time 2.74939489365
+Inner Time 2.75462079048
+Inner Time 2.62348890305
+Function Time 0.556018829346
+Gradient Time: 1.73538994789
+Inner Time 2.76268005371
+Gradient Time: 1.67401909828
+Hessian Update: 1.76591491699
+Function Time 0.545160055161
+Inner Time 2.66887307167
+Function Time 0.527029037476
+Gradient Time: 1.72174501419
+Inner Time 2.59269714355
+Inner Time 2.73196601868
+Inner Time 2.65958285332
+Function Time 0.531029939651
+Gradient Time: 1.67919898033
+Inner Time 2.84751701355
+Gradient Time: 1.7367670536
+Hessian Update: 1.69954705238
+Function Time 0.539183139801
+Inner Time 2.76836013794
+Function Time 0.527214050293
+Gradient Time: 1.67291593552
+Inner Time 2.59448695183
+Inner Time 2.8354279995
+Inner Time 2.77458906174
+Function Time 0.538911104202
+Gradient Time: 1.69540119171
+Inner Time 2.77855205536
+Gradient Time: 1.74908304214
+Hessian Update: 1.7398750782
+Function Time 0.533215999603
+Inner Time 2.76320981979
+Function Time 0.52570605278
+Gradient Time: 1.72848200798
+Inner Time 2.72268414497
+Inner Time 2.8931620121
+Inner Time 2.61021900177
+Function Time 0.533684015274
+Gradient Time: 1.76580786705
+Inner Time 2.68717813492
+Gradient Time: 1.74282217026
+Hessian Update: 1.81445407867
+Function Time 0.527249097824
+Inner Time 2.72522997856
+Function Time 0.520870923996
+Gradient Time: 1.69706916809
+Inner Time 2.75053787231
+Inner Time 2.67345190048
+Inner Time 2.65269398689
+Function Time 0.527481079102
+Gradient Time: 1.69790506363
+Inner Time 2.83230900764
+Gradient Time: 1.73095583916
+Hessian Update: 1.91558384895
+Function Time 0.560837030411
+Inner Time 2.77680492401
+Function Time 0.538625955582
+Gradient Time: 1.69790911674
+Inner Time 2.67541909218
+Inner Time 2.83417892456
+Inner Time 2.571600914
+Function Time 0.541306018829
+Gradient Time: 1.70464396477
+Inner Time 2.78442692757
+Gradient Time: 1.70629715919
+Hessian Update: 1.7498550415
+Function Time 0.546409130096
+Inner Time 2.67806386948
+Function Time 0.543097019196
+Gradient Time: 1.6852478981
+Inner Time 2.7021188736
+Inner Time 2.90740585327
+Inner Time 2.7373111248
+Function Time 0.523981809616
+Gradient Time: 1.68788909912
+Inner Time 3.12998199463
+Gradient Time: 1.75081896782
+All Performance
+225 131 133 0.838 0.722 5.2809530237e-05 1659.77 1482.7228125
+Hessian Update: 1.78465104103
+Function Time 0.537542104721
+Inner Time 2.7291059494
+Function Time 0.524942874908
+Gradient Time: 1.68602609634
+Inner Time 2.71932601929
+Inner Time 2.65090680122
+Inner Time 2.64207005501
+Function Time 0.526633024216
+Gradient Time: 1.71402311325
+Inner Time 2.81936192513
+Inner Time 2.72336912155
+Inner Time 2.78416085243
+Function Time 0.5473549366
+Gradient Time: 1.69187402725
+Inner Time 2.80841112137
+Gradient Time: 1.7179980278
+All Performance
+233 135 137 0.793 0.709 0.000199664072863 1669.07 1428.855625
+Hessian Update: 1.81975507736
+Function Time 0.531936168671
+Inner Time 2.74640607834
+Function Time 0.520821809769
+Gradient Time: 1.75748991966
+Inner Time 2.70981812477
+Inner Time 2.59746003151
+Inner Time 2.72481894493
+Function Time 0.528850793839
+Gradient Time: 1.72431588173
+Inner Time 2.73921608925
+Gradient Time: 1.69207191467
+All Performance
+238 138 140 0.774 0.691 0.000213703822081 1832.4 1282.09742188
+Hessian Update: 1.87495803833
+Function Time 0.517708063126
+Inner Time 2.76541090012
+Function Time 0.528886079788
+Gradient Time: 1.70208501816
+Inner Time 2.7822291851
+Inner Time 2.82437896729
+Inner Time 2.67480301857
+Function Time 0.531919002533
+Gradient Time: 1.76277709007
+Inner Time 2.6961119175
+Gradient Time: 1.72657704353
+All Performance
+243 141 143 0.829 0.734 0.000123813039571 1639.52 1200.52539062
+Hessian Update: 1.94888615608
+Function Time 0.556774139404
+Inner Time 2.86820912361
+Function Time 0.551462173462
+Gradient Time: 1.76815986633
+Inner Time 2.69660902023
+Inner Time 2.74934506416
+Inner Time 2.82595705986
+Function Time 0.564786911011
+Gradient Time: 1.77317786217
+Inner Time 2.70318007469
+Gradient Time: 1.75548291206
+All Performance
+248 144 146 0.832 0.734 8.52271547001e-05 1417.87 1152.68828125
+Hessian Update: 1.73135900497
+Function Time 0.541605949402
+Inner Time 2.59999799728
+Function Time 0.523813962936
+Gradient Time: 1.78171896935
+Inner Time 2.8170440197
+Inner Time 2.68133401871
+Inner Time 2.76729202271
+Function Time 0.539836168289
+Gradient Time: 1.77001190186
+Inner Time 2.59876704216
+Gradient Time: 1.7201769352
+All Performance
+253 147 149 0.829 0.726 7.44815518764e-05 1493.05 1132.58476563
+Hessian Update: 1.902739048
+Function Time 0.532126903534
+Inner Time 2.79273080826
+Function Time 0.542887926102
+Gradient Time: 1.67538809776
+Inner Time 2.76147413254
+Inner Time 2.67094397545
+Inner Time 2.66675710678
+Function Time 0.544806003571
+Gradient Time: 1.69208502769
+Inner Time 2.68768310547
+Gradient Time: 1.68822002411
+Hessian Update: 1.83979582787
+Function Time 0.526561975479
+Inner Time 2.75269603729
+Function Time 0.521223068237
+Gradient Time: 1.67317795753
+Inner Time 2.65786099434
+Function Time 0.530004024506
+Gradient Time: 1.70313715935
+Inner Time 2.80500721931
+Inner Time 2.69284200668
+Inner Time 2.68819284439
+Function Time 0.53915810585
+Gradient Time: 1.70815992355
+Inner Time 2.73232197762
+Gradient Time: 1.74743700027
+Hessian Update: 1.86525917053
+Function Time 0.535149097443
+Inner Time 2.65415787697
+Function Time 0.541014909744
+Gradient Time: 1.70399689674
+Inner Time 2.68712615967
+Inner Time 2.75690603256
+Inner Time 2.81881594658
+Function Time 0.542659044266
+Gradient Time: 1.71188211441
+Inner Time 2.81080007553
+Gradient Time: 1.73741698265
+Hessian Update: 1.90987896919
+Function Time 0.542269945145
+Inner Time 2.78482604027
+Function Time 0.557411909103
+Gradient Time: 1.68949079514
+Inner Time 2.75207018852
+Inner Time 2.96915411949
+Inner Time 2.7059571743
+Function Time 0.536066055298
+Gradient Time: 1.69769096375
+Inner Time 2.73309206963
+Gradient Time: 1.70366811752
+Hessian Update: 1.83820796013
+Function Time 0.510573148727
+Inner Time 2.67810106277
+Function Time 0.520977973938
+Gradient Time: 1.72631597519
+Inner Time 2.62358212471
+Inner Time 2.66585683823
+Inner Time 2.7844479084
+Function Time 0.538508892059
+Gradient Time: 1.67553210258
+Inner Time 2.62519884109
+Gradient Time: 1.69467997551
+All Performance
+279 163 165 0.841 0.761 7.13640393473e-05 1212.65 849.734765625
+Hessian Update: 1.87648701668
+Function Time 0.526406049728
+Inner Time 2.57640910149
+Function Time 0.52049612999
+Gradient Time: 1.72718882561
+Inner Time 2.76391983032
+Inner Time 2.79337596893
+Inner Time 2.73798298836
+Function Time 0.53297495842
+Gradient Time: 1.71091294289
+Inner Time 2.69693684578
+Gradient Time: 1.71985292435
+Hessian Update: 1.93448996544
+Function Time 0.533032894135
+Inner Time 2.76209497452
+Function Time 0.524996042252
+Gradient Time: 1.72620010376
+Inner Time 2.71133613586
+Inner Time 2.85964894295
+Inner Time 2.8194360733
+Function Time 0.520584106445
+Gradient Time: 1.72200894356
+Inner Time 2.66647005081
+Gradient Time: 1.77134585381
+Hessian Update: 1.91489195824
+Function Time 0.526644945145
+Inner Time 2.7803940773
+Function Time 0.545490980148
+Gradient Time: 1.77714514732
+Inner Time 2.71762895584
+Function Time 0.52076792717
+Gradient Time: 1.74642205238
+Inner Time 2.69346308708
+Inner Time 2.71372818947
+Inner Time 2.79706788063
+Function Time 0.541067838669
+Gradient Time: 1.73418688774
+Inner Time 2.74706101418
+Gradient Time: 1.71379113197
+Hessian Update: 1.74510908127
+Function Time 0.535833120346
+Inner Time 2.63884496689
+Function Time 0.542330026627
+Gradient Time: 1.72284698486
+Inner Time 2.66554784775
+Inner Time 2.75851511955
+Inner Time 2.65743207932
+Function Time 0.538293123245
+Gradient Time: 1.69368290901
+Inner Time 2.98250007629
+Gradient Time: 1.69959712029
+Hessian Update: 1.96154499054
+Function Time 0.525726079941
+Inner Time 3.14087295532
+Function Time 0.638262033463
+Gradient Time: 1.98417186737
+Inner Time 2.89721393585
+Inner Time 2.65403103828
+Inner Time 2.67369294167
+Function Time 0.536906957626
+Gradient Time: 1.7326259613
+Inner Time 2.83985209465
+Gradient Time: 1.72599816322
+Hessian Update: 1.74135994911
+Function Time 0.55143404007
+Inner Time 2.78589105606
+Function Time 0.524519920349
+Gradient Time: 1.71190905571
+Inner Time 2.73336410522
+Inner Time 2.63650107384
+Inner Time 2.6564810276
+Function Time 0.53241610527
+Gradient Time: 1.7264790535
+Inner Time 2.85341882706
+Gradient Time: 1.72921895981
+Hessian Update: 2.0024728775
+Function Time 0.524796009064
+Inner Time 2.66733503342
+Function Time 0.532314062119
+Gradient Time: 1.64385604858
+Inner Time 2.64348602295
+Inner Time 2.74468016624
+Inner Time 2.67114591599
+Function Time 0.530488014221
+Gradient Time: 1.67634320259
+Inner Time 2.6762239933
+Gradient Time: 1.68998217583
+Hessian Update: 1.83808708191
+Function Time 0.527683019638
+Inner Time 2.75375509262
+Function Time 0.521605014801
+Gradient Time: 1.66205811501
+Inner Time 2.70562410355
+Inner Time 2.67382192612
+Inner Time 2.71253991127
+Function Time 0.523136138916
+Gradient Time: 1.70000195503
+Inner Time 2.71243000031
+Gradient Time: 1.73249006271
+Hessian Update: 1.82566404343
+Function Time 0.536736011505
+Inner Time 2.74967718124
+Function Time 0.536492109299
+Gradient Time: 1.67216610909
+Inner Time 2.86366581917
+Inner Time 2.8054049015
+Inner Time 2.77472996712
+Function Time 0.555975914001
+Gradient Time: 1.71755194664
+Inner Time 2.58125209808
+Gradient Time: 1.73289704323
+Hessian Update: 1.77505898476
+Function Time 0.537010908127
+Inner Time 2.63479399681
+Function Time 0.539433002472
+Gradient Time: 1.68324398994
+Inner Time 2.70042300224
+Inner Time 2.74804592133
+Inner Time 2.68807792664
+Function Time 0.534004926682
+Gradient Time: 1.70625400543
+Inner Time 2.62058281898
+Gradient Time: 1.71717596054
+All Performance
+330 194 196 0.836 0.771 0.000195527803299 1051.74 629.125664063
+Hessian Update: 1.82525587082
+Function Time 0.541238069534
+Inner Time 2.69418096542
+Function Time 0.539106845856
+Gradient Time: 1.72794008255
+Inner Time 2.67091202736
+Inner Time 2.79542303085
+Inner Time 2.7394349575
+Function Time 0.516007900238
+Gradient Time: 1.69508695602
+Inner Time 2.72250699997
+Gradient Time: 1.77369713783
+Hessian Update: 1.74845504761
+Function Time 0.548378944397
+Inner Time 2.62206292152
+Function Time 0.541594982147
+Gradient Time: 1.69774198532
+Inner Time 2.7142560482
+Inner Time 2.6220240593
+Inner Time 2.84897112846
+Function Time 0.536875963211
+Gradient Time: 1.73712515831
+Inner Time 2.78083491325
+Gradient Time: 1.73032689095
+Hessian Update: 2.05324006081
+Function Time 0.538583993912
+Inner Time 2.76338911057
+Function Time 0.533720970154
+Gradient Time: 1.71408510208
+Inner Time 2.63819909096
+Inner Time 2.85885906219
+Inner Time 2.66430592537
+Function Time 0.579940795898
+Gradient Time: 1.70108389854
+Inner Time 2.81850504875
+Gradient Time: 1.70896410942
+Hessian Update: 1.90117502213
+Function Time 0.542900085449
+Inner Time 2.77766108513
+Function Time 0.543298006058
+Gradient Time: 1.71395993233
+Inner Time 2.74792098999
+Inner Time 2.73476600647
+Inner Time 2.63980197906
+Function Time 0.526703119278
+Gradient Time: 1.72909283638
+Inner Time 2.67731499672
+Gradient Time: 1.71520185471
+Hessian Update: 1.87325382233
+Function Time 0.54629611969
+Inner Time 2.74166893959
+Function Time 0.532902956009
+Gradient Time: 1.69574904442
+Inner Time 2.74715614319
+Inner Time 2.74133992195
+Inner Time 2.85737299919
+Function Time 0.525539875031
+Gradient Time: 1.72418618202
+Inner Time 2.81342411041
+Gradient Time: 1.7366399765
+Hessian Update: 1.9295361042
+Function Time 0.54792714119
+Inner Time 2.73852682114
+Function Time 0.528924942017
+Gradient Time: 1.72540092468
+Inner Time 2.72025489807
+Inner Time 2.84700703621
+Inner Time 2.86011505127
+Function Time 0.537700891495
+Gradient Time: 1.71796798706
+Inner Time 2.65139889717
+Gradient Time: 1.73258709908
+Hessian Update: 1.6844420433
+Function Time 0.537268161774
+Inner Time 2.5804901123
+Function Time 0.530328989029
+Gradient Time: 1.67030787468
+Inner Time 2.67633986473
+Inner Time 2.68260288239
+Inner Time 2.82853198051
+Function Time 0.533252954483
+Gradient Time: 1.73041009903
+Inner Time 2.74158406258
+Gradient Time: 1.72089290619
+Hessian Update: 1.85062885284
+Function Time 0.571189880371
+Inner Time 2.87176799774
+Function Time 0.532518863678
+Gradient Time: 1.74621701241
+Inner Time 2.70025110245
+Inner Time 2.80309391022
+Inner Time 2.6336889267
+Function Time 0.549979925156
+Gradient Time: 1.72694396973
+Inner Time 2.60010313988
+Gradient Time: 1.69796705246
+Hessian Update: 2.05156993866
+Function Time 0.534002065659
+Inner Time 2.58582401276
+Function Time 0.533241987228
+Gradient Time: 1.73173880577
+Inner Time 2.63063001633
+Inner Time 2.58851313591
+Inner Time 2.70373511314
+Function Time 0.537086009979
+Gradient Time: 1.6684179306
+Inner Time 2.71166014671
+Gradient Time: 1.73383402824
+Hessian Update: 1.8830769062
+Function Time 0.536041021347
+Inner Time 2.61332201958
+Function Time 0.542811155319
+Gradient Time: 1.68810677528
+Inner Time 2.77509403229
+Inner Time 2.75752401352
+Inner Time 2.73713898659
+Function Time 0.533061027527
+Gradient Time: 1.78489613533
+Inner Time 2.74373698235
+Gradient Time: 1.70956707001
+All Performance
+380 224 226 0.841 0.78 6.85558481914e-05 980.979 473.056914063
+Hessian Update: 1.95789694786
+Function Time 0.534755945206
+Inner Time 2.68914294243
+Function Time 0.525834083557
+Gradient Time: 1.71191596985
+Inner Time 2.6741437912
+Inner Time 2.70622587204
+Inner Time 2.73090481758
+Function Time 0.532181978226
+Gradient Time: 1.71669197083
+Inner Time 2.7076189518
+Gradient Time: 1.77418708801
+Hessian Update: 1.7783370018
+Function Time 0.532639980316
+Inner Time 2.73375105858
+Function Time 0.549337148666
+Gradient Time: 1.70292186737
+Inner Time 2.81678891182
+Inner Time 2.72771000862
+Inner Time 2.62512803078
+Function Time 0.530230998993
+Gradient Time: 1.7273979187
+Inner Time 2.8112039566
+Gradient Time: 1.76255917549
+Hessian Update: 1.85955190659
+Function Time 0.556019067764
+Inner Time 2.66476893425
+Function Time 0.54548406601
+Gradient Time: 1.6962120533
+Inner Time 2.73393011093
+Inner Time 2.69876885414
+Inner Time 2.68531489372
+Function Time 0.525399208069
+Gradient Time: 1.7688100338
+Inner Time 2.63358402252
+Gradient Time: 1.71214389801
+Hessian Update: 1.74505710602
+Function Time 0.529211997986
+Inner Time 2.7477889061
+Function Time 0.548610925674
+Gradient Time: 1.72187900543
+Inner Time 2.73894119263
+Inner Time 2.76307988167
+Inner Time 2.7166428566
+Function Time 0.517305850983
+Gradient Time: 1.72590398788
+Inner Time 2.83283901215
+Gradient Time: 1.71314811707
+Hessian Update: 1.92326903343
+Function Time 0.539780139923
+Inner Time 2.79139208794
+Function Time 0.534600973129
+Gradient Time: 1.709815979
+Inner Time 2.74239397049
+Inner Time 2.71396303177
+Inner Time 2.63312196732
+Function Time 0.529495000839
+Gradient Time: 1.7392809391
+Inner Time 2.73767495155
+Gradient Time: 1.72340488434
+Hessian Update: 1.87302803993
+Function Time 0.533978939056
+Inner Time 2.65233898163
+Function Time 0.525372028351
+Gradient Time: 1.70244002342
+Inner Time 2.842471838
+Inner Time 2.69120597839
+Inner Time 2.65310811996
+Function Time 0.539453983307
+Gradient Time: 1.75011706352
+Inner Time 2.68976402283
+Gradient Time: 1.73685407639
+Hessian Update: 1.83944392204
+Function Time 0.546610832214
+Inner Time 2.90157103539
+Function Time 0.539546012878
+Gradient Time: 1.73818588257
+Inner Time 2.73226594925
+Inner Time 2.7784011364
+Inner Time 2.74997591972
+Function Time 0.536347150803
+Gradient Time: 1.72569894791
+Inner Time 2.79046201706
+Gradient Time: 1.74585604668
+Hessian Update: 1.77659606934
+Function Time 0.553292989731
+Inner Time 2.71517586708
+Function Time 0.547267913818
+Gradient Time: 1.73118591309
+Inner Time 2.73439097404
+Inner Time 2.629155159
+Inner Time 2.72622895241
+Function Time 0.534590959549
+Gradient Time: 1.75290393829
+Inner Time 2.81089711189
+Inner Time 2.83869099617
+Inner Time 2.64585900307
+Function Time 0.531199932098
+Gradient Time: 1.75898790359
+Inner Time 2.91244006157
+Gradient Time: 1.74767804146
+Hessian Update: 1.81996297836
+Function Time 0.529638051987
+Inner Time 2.75536704063
+Function Time 0.552583932877
+Gradient Time: 1.75174403191
+Inner Time 2.64582896233
+Inner Time 2.85653090477
+Inner Time 2.81231117249
+Function Time 0.53593993187
+Gradient Time: 1.71261000633
+Inner Time 2.61224412918
+Gradient Time: 1.76107597351
+Hessian Update: 1.82372093201
+Function Time 0.524582147598
+Inner Time 2.69668889046
+Function Time 0.538743972778
+Gradient Time: 1.73020887375
+Inner Time 2.72182488441
+Inner Time 2.77704381943
+Inner Time 2.7736620903
+Function Time 0.549494981766
+Gradient Time: 1.72964310646
+Inner Time 2.70529603958
+Inner Time 2.82703089714
+Inner Time 2.81867098808
+Function Time 0.528892040253
+Gradient Time: 1.73474192619
+Inner Time 2.70081090927
+Inner Time 2.83509087563
+Inner Time 2.81262803078
+Function Time 0.538861989975
+Gradient Time: 1.7129099369
+Inner Time 2.70418715477
+Gradient Time: 1.69971299171
+All Performance
+439 257 259 0.848 0.786 6.24958512357e-06 924.956 874.491328125
+Hessian Update: 1.85961985588
+Function Time 0.534227848053
+Inner Time 2.72465610504
+Function Time 0.552666902542
+Gradient Time: 1.70604515076
+Inner Time 2.88793992996
+Inner Time 2.85387587547
+Inner Time 2.77057886124
+Function Time 0.547436952591
+Gradient Time: 1.68578076363
+Inner Time 2.68294405937
+Gradient Time: 1.72506022453
+All Performance
+444 260 262 0.844 0.772 0.000192412862308 1072.75 841.106484375
+Hessian Update: 1.97123289108
+Function Time 0.537162065506
+Inner Time 2.72282600403
+Function Time 0.540618896484
+Gradient Time: 1.72324204445
+Inner Time 2.74594402313
+Inner Time 2.75138998032
+Inner Time 2.665995121
+Function Time 0.538676977158
+Gradient Time: 1.71757078171
+Inner Time 2.83364605904
+Gradient Time: 1.76681089401
+All Performance
+449 263 265 0.832 0.766 0.000269452215979 1220.4 768.9296875
+Hessian Update: 1.82718300819
+Function Time 0.533857107162
+Inner Time 2.71687221527
+Function Time 0.533426046371
+Gradient Time: 1.71695113182
+Inner Time 2.86490917206
+Inner Time 2.56134700775
+Inner Time 2.56410288811
+Function Time 0.53037405014
+Gradient Time: 1.69597697258
+Inner Time 2.83627605438
+Gradient Time: 1.69787406921
+All Performance
+454 266 268 0.839 0.788 0.000174385833854 917.184 729.798828125
+Hessian Update: 1.86407995224
+Function Time 0.535235881805
+Inner Time 2.5693860054
+Function Time 0.52237701416
+Gradient Time: 1.69010305405
+Inner Time 2.73826289177
+Inner Time 2.83786511421
+Inner Time 2.754114151
+Function Time 0.530389785767
+Gradient Time: 1.66425013542
+Inner Time 2.66554498672
+Gradient Time: 1.66579914093
+All Performance
+459 269 271 0.848 0.783 0.000129400703553 948.313 702.654453125
+Hessian Update: 2.03545618057
+Function Time 0.531723022461
+Inner Time 2.6512928009
+Function Time 0.522603988647
+Gradient Time: 1.70064711571
+Inner Time 3.19599199295
+Inner Time 2.80034899712
+Inner Time 2.68969202042
+Function Time 0.528713941574
+Gradient Time: 1.65928697586
+Inner Time 2.89940595627
+Gradient Time: 1.66751003265
+All Performance
+464 272 274 0.854 0.794 9.75032389416e-05 953.583 694.810546875
+Hessian Update: 1.78320002556
+Function Time 0.515591144562
+Inner Time 2.73564887047
+Function Time 0.521461009979
+Gradient Time: 1.67091178894
+Inner Time 2.64582395554
+Inner Time 2.75796508789
+Inner Time 2.84028983116
+Function Time 0.533955097198
+Gradient Time: 1.6987118721
+Inner Time 2.66743087769
+Gradient Time: 1.67335700989
+Hessian Update: 1.91185379028
+Function Time 0.541066884995
+Inner Time 2.60594201088
+Function Time 0.528184890747
+Gradient Time: 1.67018699646
+Inner Time 2.81942915916
+Function Time 0.534290075302
+Gradient Time: 1.71562409401
+Inner Time 2.70437288284
+Inner Time 2.67276096344
+Inner Time 2.68388605118
+Function Time 0.53004693985
+Gradient Time: 1.69038891792
+Inner Time 2.90809106827
+Gradient Time: 1.68061995506
+Hessian Update: 1.9781692028
+Function Time 0.533824920654
+Inner Time 2.6907749176
+Function Time 0.535036802292
+Gradient Time: 1.68872094154
+Inner Time 2.63332986832
+Inner Time 2.56066393852
+Inner Time 2.62051200867
+Function Time 0.52126789093
+Gradient Time: 1.68486809731
+Inner Time 2.59595513344
+Gradient Time: 1.72835707664
+Hessian Update: 1.75984382629
+Function Time 0.545305967331
+Inner Time 2.79719018936
+Function Time 0.546886920929
+Gradient Time: 1.69950819016
+Inner Time 2.6678211689
+Inner Time 2.80972409248
+Inner Time 2.65180206299
+Function Time 0.517262935638
+Gradient Time: 1.72098398209
+Inner Time 2.69789099693
+Gradient Time: 1.70947313309
+Hessian Update: 1.87567687035
+Function Time 0.531393051147
+Inner Time 2.80407619476
+Function Time 0.518852949142
+Gradient Time: 1.63123703003
+Inner Time 2.87954902649
+Inner Time 2.70226597786
+Inner Time 2.62623310089
+Function Time 0.539286136627
+Gradient Time: 1.70217490196
+Inner Time 2.6956717968
+Gradient Time: 1.67565608025
+All Performance
+490 288 290 0.858 0.798 9.10133760595e-05 878.542 504.421015625
+Hessian Update: 1.86423420906
+Function Time 0.531464099884
+Inner Time 2.56933498383
+Function Time 0.538496017456
+Gradient Time: 1.68367695808
+Inner Time 2.66363191605
+Inner Time 2.80002713203
+Inner Time 2.91501784325
+Function Time 0.523963928223
+Gradient Time: 1.73099017143
+Inner Time 2.85480690002
+Gradient Time: 1.70858597755
+Hessian Update: 1.67766189575
+Function Time 0.549953937531
+Inner Time 2.8749859333
+Function Time 0.52260184288
+Gradient Time: 1.73116898537
+Inner Time 2.86313486099
+Inner Time 2.70678496361
+Inner Time 2.60088205338
+Function Time 0.526587963104
+Gradient Time: 1.68663191795
+Inner Time 2.79744410515
+Inner Time 2.72678184509
+Inner Time 2.65763497353
+Function Time 0.524566888809
+Gradient Time: 1.6669728756
+Inner Time 2.72328996658
+Gradient Time: 1.68228411674
+Hessian Update: 1.72177004814
+Function Time 0.537395000458
+Inner Time 2.6443259716
+Function Time 0.517940998077
+Gradient Time: 1.63660502434
+Inner Time 2.73215103149
+Inner Time 2.87520885468
+Inner Time 2.75475502014
+Function Time 0.529481887817
+Gradient Time: 1.64083600044
+Inner Time 2.82616090775
+Gradient Time: 1.70260286331
+Hessian Update: 1.93340396881
+Function Time 0.570563793182
+Inner Time 2.69942688942
+Function Time 0.549033880234
+Gradient Time: 1.71096205711
+Inner Time 2.52899098396
+Inner Time 2.67392206192
+Inner Time 2.62717890739
+Function Time 0.527778148651
+Gradient Time: 1.72195887566
+Inner Time 2.62590694427
+Gradient Time: 1.68480086327
+Hessian Update: 1.77846193314
+Function Time 0.513342857361
+Inner Time 2.61715602875
+Function Time 0.531123161316
+Gradient Time: 1.67522287369
+Inner Time 2.71213889122
+Inner Time 2.7815580368
+Inner Time 2.67703413963
+Function Time 0.556735038757
+Gradient Time: 1.71817493439
+Inner Time 2.56687307358
+Gradient Time: 1.68750905991
+Hessian Update: 1.82453298569
+Function Time 0.528104066849
+Inner Time 2.61567497253
+Function Time 0.532189846039
+Gradient Time: 1.65919613838
+Inner Time 2.81030392647
+Inner Time 2.7702600956
+Inner Time 2.68579602242
+Function Time 0.539818048477
+Gradient Time: 1.67852091789
+Inner Time 2.75035095215
+Gradient Time: 1.67013597488
+Hessian Update: 1.92483592033
+Function Time 0.518429040909
+Inner Time 2.74658799171
+Function Time 0.555681943893
+Gradient Time: 1.64999103546
+Inner Time 2.57124090195
+Function Time 0.524777889252
+Gradient Time: 1.65597295761
+Inner Time 2.66262984276
+Inner Time 2.82168507576
+Inner Time 2.58444309235
+Function Time 0.519320011139
+Gradient Time: 1.6992020607
+Inner Time 2.68233299255
+Gradient Time: 1.69520711899
+Hessian Update: 1.88676118851
+Function Time 0.536332130432
+Inner Time 2.8385848999
+Function Time 0.533294200897
+Gradient Time: 1.68253898621
+Inner Time 2.79497313499
+Inner Time 2.71730899811
+Inner Time 2.64877104759
+Function Time 0.551528930664
+Gradient Time: 1.71333789825
+Inner Time 2.65470981598
+Gradient Time: 1.72240686417
+Hessian Update: 1.87401580811
+Function Time 0.524441003799
+Inner Time 2.66446399689
+Function Time 0.538733959198
+Gradient Time: 1.72687911987
+Inner Time 2.72818303108
+Inner Time 2.61650800705
+Inner Time 2.69446897507
+Function Time 0.536571025848
+Gradient Time: 1.68044900894
+Inner Time 2.61456608772
+Gradient Time: 1.70477318764
+Hessian Update: 1.65742707253
+Function Time 0.530306816101
+Inner Time 2.65011405945
+Function Time 0.524978160858
+Gradient Time: 1.71600699425
+Inner Time 2.71147608757
+Inner Time 2.57969594002
+Inner Time 2.9037258625
+Function Time 0.526208877563
+Gradient Time: 1.70039010048
+Inner Time 2.69493913651
+Gradient Time: 1.67911601067
+All Performance
+544 320 322 0.869 0.81 0.000145806579593 843.778 304.044960937
+Hessian Update: 1.73656606674
+Function Time 0.529542922974
+Inner Time 2.65572500229
+Function Time 0.514949798584
+Gradient Time: 1.69385290146
+Inner Time 2.56309509277
+Inner Time 2.76283788681
+Inner Time 2.58059000969
+Function Time 0.525775194168
+Gradient Time: 1.68538880348
+Inner Time 2.78399705887
+Gradient Time: 1.65989804268
+Hessian Update: 1.92151498795
+Function Time 0.541975975037
+Inner Time 2.73599600792
+Function Time 0.521270036697
+Gradient Time: 1.663615942
+Inner Time 2.69465208054
+Inner Time 2.62551999092
+Inner Time 2.7967209816
+Function Time 0.534739971161
+Gradient Time: 1.6723139286
+Inner Time 2.68152999878
+Gradient Time: 1.69606494904
+Hessian Update: 1.86114597321
+Function Time 0.52933883667
+Inner Time 2.82041192055
+Function Time 0.544319152832
+Gradient Time: 1.72291493416
+Inner Time 2.67531108856
+Inner Time 2.83814287186
+Inner Time 2.6018280983
+Function Time 0.5216588974
+Gradient Time: 1.67742586136
+Inner Time 2.69857192039
+Gradient Time: 1.67643117905
+Hessian Update: 1.90718507767
+Function Time 0.525192975998
+Inner Time 2.71277594566
+Function Time 0.520210981369
+Gradient Time: 1.74320006371
+Inner Time 2.585916996
+Function Time 0.523874998093
+Gradient Time: 1.6906080246
+Inner Time 2.72935199738
+Inner Time 2.65737390518
+Inner Time 2.68746709824
+Function Time 0.533957004547
+Gradient Time: 1.65451192856
+Inner Time 2.89452505112
+Gradient Time: 1.66097092628
+Hessian Update: 1.72667908669
+Function Time 0.542664051056
+Inner Time 2.78512716293
+Function Time 0.526047945023
+Gradient Time: 1.69882512093
+Inner Time 2.70655298233
+Inner Time 2.87734794617
+Inner Time 2.57717394829
+Function Time 0.539361953735
+Gradient Time: 1.68386697769
+Inner Time 2.68754696846
+Gradient Time: 1.67227888107
+Hessian Update: 1.97573304176
+Function Time 0.518700122833
+Inner Time 2.70179915428
+Function Time 0.527162075043
+Gradient Time: 1.70382213593
+Inner Time 2.791492939
+Inner Time 2.87578487396
+Inner Time 2.75979113579
+Function Time 0.528820991516
+Gradient Time: 1.70951795578
+Inner Time 2.581772089
+Gradient Time: 1.71992206573
+Hessian Update: 1.74669480324
+Function Time 0.531936883926
+Inner Time 2.79337406158
+Function Time 0.531363964081
+Gradient Time: 1.67993497849
+Inner Time 2.57489395142
+Inner Time 2.73555994034
+Inner Time 2.67183184624
+Function Time 0.518426895142
+Gradient Time: 1.667345047
+Inner Time 2.66129493713
+Gradient Time: 1.70278906822
+Hessian Update: 1.86121702194
+Function Time 0.541895151138
+Inner Time 2.80395698547
+Function Time 0.524713039398
+Gradient Time: 1.7105858326
+Inner Time 2.85204815865
+Inner Time 2.65367102623
+Inner Time 2.65264892578
+Function Time 0.5326359272
+Gradient Time: 1.67716789246
+Inner Time 2.79324102402
+Gradient Time: 1.71750211716
+Hessian Update: 1.70360398293
+Function Time 0.540509939194
+Inner Time 2.68841385841
+Function Time 0.534457921982
+Gradient Time: 1.68757605553
+Inner Time 2.70961380005
+Inner Time 2.68289494514
+Inner Time 2.64873409271
+Function Time 0.544392824173
+Gradient Time: 1.71432209015
+Inner Time 2.60774111748
+Gradient Time: 1.67422008514
+Hessian Update: 1.8672208786
+Function Time 0.548749923706
+Inner Time 2.91041612625
+Function Time 0.540386915207
+Gradient Time: 1.70148396492
+Inner Time 2.66444587708
+Inner Time 2.71017003059
+Inner Time 2.6056201458
+Function Time 0.523590087891
+Gradient Time: 1.68411397934
+Inner Time 2.70098519325
+Gradient Time: 1.686398983
+All Performance
+595 351 353 0.877 0.822 0.00021094676085 741.24 242.267460938
+Hessian Update: 1.96524310112
+Function Time 0.556713104248
+Inner Time 2.63752913475
+Function Time 0.545271158218
+Gradient Time: 1.70191311836
+Inner Time 2.73632311821
+Inner Time 2.76292610168
+Inner Time 2.62476301193
+Function Time 0.530825853348
+Gradient Time: 1.67291688919
+Inner Time 2.58399891853
+Gradient Time: 1.69499206543
+Hessian Update: 1.80250000954
+Function Time 0.565803050995
+Inner Time 2.63681101799
+Function Time 0.522248983383
+Gradient Time: 1.69985198975
+Inner Time 2.65693688393
+Inner Time 2.7829079628
+Inner Time 2.74577689171
+Function Time 0.536404848099
+Gradient Time: 1.6896378994
+Inner Time 2.83073687553
+Gradient Time: 1.75215101242
+Hessian Update: 1.78895902634
+Function Time 0.534623146057
+Inner Time 2.68590116501
+Function Time 0.534611940384
+Gradient Time: 1.71161603928
+Inner Time 2.71161699295
+Inner Time 2.73160099983
+Inner Time 2.7036960125
+Function Time 0.528648853302
+Gradient Time: 1.71058797836
+Inner Time 2.64178395271
+Gradient Time: 1.71485686302
+Hessian Update: 1.75796198845
+Function Time 0.53165102005
+Inner Time 2.71064186096
+Function Time 0.52633690834
+Gradient Time: 1.68429493904
+Inner Time 2.67828392982
+Inner Time 2.67186117172
+Inner Time 2.77307510376
+Function Time 0.543723106384
+Gradient Time: 1.7057788372
+Inner Time 2.56956791878
+Gradient Time: 1.69080996513
+Hessian Update: 1.80188989639
+Function Time 0.538250923157
+Inner Time 2.7594909668
+Function Time 0.529229164124
+Gradient Time: 1.70863294601
+Inner Time 2.69874215126
+Inner Time 2.58275508881
+Inner Time 2.66950201988
+Function Time 0.52658200264
+Gradient Time: 1.68524599075
+Inner Time 2.79146099091
+Gradient Time: 1.68774795532
+Hessian Update: 1.72376394272
+Function Time 0.520468950272
+Inner Time 2.84136414528
+Function Time 0.526991128922
+Gradient Time: 1.64753007889
+Inner Time 2.62413215637
+Inner Time 2.92342615128
+Inner Time 2.72348284721
+Function Time 0.532808065414
+Gradient Time: 1.7258810997
+Inner Time 2.75732803345
+Gradient Time: 1.65631604195
+Hessian Update: 1.76798701286
+Function Time 0.528369903564
+Inner Time 2.71649503708
+Function Time 0.530438899994
+Gradient Time: 1.67955899239
+Inner Time 2.58432006836
+Inner Time 2.76562213898
+Inner Time 2.76311016083
+Function Time 0.542765140533
+Gradient Time: 1.67453098297
+Inner Time 2.7136349678
+Gradient Time: 1.67740988731
+Hessian Update: 1.78958415985
+Function Time 0.534693002701
+Inner Time 2.54504704475
+Function Time 0.520564079285
+Gradient Time: 1.68576002121
+Inner Time 2.67887210846
+Inner Time 2.81656503677
+Inner Time 2.57815408707
+Function Time 0.539256095886
+Gradient Time: 1.68176794052
+Inner Time 2.51725006104
+Gradient Time: 1.69486284256
+Hessian Update: 1.87902092934
+Function Time 0.54140996933
+Inner Time 2.69874191284
+Function Time 0.539450883865
+Gradient Time: 1.68091106415
+Inner Time 2.58568787575
+Inner Time 2.70513606071
+Inner Time 2.68130803108
+Function Time 0.555159807205
+Gradient Time: 1.67453098297
+Inner Time 2.54339814186
+Gradient Time: 1.70156598091
+Hessian Update: 1.7364628315
+Function Time 0.528207063675
+Inner Time 2.90077996254
+Function Time 0.532418012619
+Gradient Time: 1.70326805115
+Inner Time 2.77562594414
+Inner Time 2.65447711945
+Inner Time 2.82182407379
+Function Time 0.536329030991
+Gradient Time: 1.70451188087
+Inner Time 2.68469285965
+Gradient Time: 1.77414894104
+All Performance
+645 381 383 0.871 0.828 0.000103226834571 713.813 660.49734375
+Hessian Update: 1.87914395332
+Function Time 0.524358987808
+Inner Time 2.72522091866
+Function Time 0.53502702713
+Gradient Time: 1.6780731678
+Inner Time 2.82787895203
+Function Time 0.539352893829
+Gradient Time: 1.70432114601
+Inner Time 2.81467700005
+Function Time 0.524866104126
+Gradient Time: 1.71297001839
+Inner Time 2.73478603363
+Inner Time 2.64205098152
+Inner Time 2.65830802917
+Function Time 0.538334131241
+Gradient Time: 1.68934607506
+Inner Time 2.59751415253
+Gradient Time: 1.70149207115
+All Performance
+652 386 388 0.857 0.827 0.000225897254967 709.927 640.896015625
+Hessian Update: 2.0162332058
+Function Time 0.530025005341
+Inner Time 2.67978906631
+Function Time 0.531386852264
+Gradient Time: 1.75128388405
+Inner Time 2.63551092148
+Inner Time 2.74309301376
+Inner Time 2.86540699005
+Function Time 0.545228004456
+Gradient Time: 1.6999361515
+Inner Time 2.73878407478
+Gradient Time: 1.71110200882
+All Performance
+657 389 391 0.871 0.821 0.00030371229136 734.227 586.06171875
+Hessian Update: 1.70998001099
+Function Time 0.540332078934
+Inner Time 2.66457796097
+Function Time 0.543091058731
+Gradient Time: 1.70393300056
+Inner Time 2.57725787163
+Inner Time 2.69928312302
+Inner Time 2.70197796822
+Function Time 0.539349079132
+Gradient Time: 1.70737290382
+Inner Time 2.73864793777
+Gradient Time: 1.70468902588
+All Performance
+662 392 394 0.871 0.822 0.000515986819543 752.148 521.585429687
+Hessian Update: 1.9106798172
+Function Time 0.539011001587
+Inner Time 2.71961808205
+Function Time 0.541229963303
+Gradient Time: 1.67963290215
+Inner Time 2.76564192772
+Inner Time 2.66993808746
+Inner Time 2.68387889862
+Function Time 0.555995941162
+Gradient Time: 1.71958708763
+Inner Time 2.72188997269
+Gradient Time: 1.70342493057
+All Performance
+667 395 397 0.867 0.834 0.000190240039146 677.048 503.059882813
+Hessian Update: 1.88005304337
+Function Time 0.522624015808
+Inner Time 2.8240377903
+Function Time 0.53808093071
+Gradient Time: 1.71774697304
+Inner Time 2.7571439743
+Inner Time 2.70279884338
+Inner Time 2.61966919899
+Function Time 0.543794870377
+Gradient Time: 1.68672895432
+Inner Time 2.64239311218
+Gradient Time: 1.72386288643
+All Performance
+672 398 400 0.88 0.841 9.77931381422e-05 656.094 482.128710937
+Hessian Update: 2.04255604744
+Function Time 0.510676860809
+Inner Time 2.62591195107
+Function Time 0.531852006912
+Gradient Time: 1.71059608459
+Inner Time 2.57147812843
+Inner Time 2.89380311966
+Inner Time 2.67305779457
+Function Time 0.530878067017
+Gradient Time: 1.68510317802
+Inner Time 2.68530106544
+Gradient Time: 1.68283581734
+Hessian Update: 1.7854321003
+Function Time 0.525521993637
+Inner Time 2.72200202942
+Function Time 0.527899980545
+Gradient Time: 1.69570207596
+Inner Time 2.62234807014
+Inner Time 2.54771900177
+Inner Time 2.7415368557
+Function Time 0.530429840088
+Gradient Time: 1.6982998848
+Inner Time 2.84707188606
+Gradient Time: 1.71018099785
+Hessian Update: 1.9082801342
+Function Time 0.550010919571
+Inner Time 2.61550807953
+Function Time 0.535113096237
+Gradient Time: 1.6865799427
+Inner Time 2.6571161747
+Function Time 0.534267902374
+Gradient Time: 1.71765685081
+Inner Time 2.63269591331
+Inner Time 2.77613902092
+Inner Time 2.74360108376
+Function Time 0.543296098709
+Gradient Time: 1.72019386292
+Inner Time 2.66742300987
+Gradient Time: 1.69749093056
+Hessian Update: 1.82153987885
+Function Time 0.539986848831
+Inner Time 2.65836310387
+Function Time 0.552083969116
+Gradient Time: 1.71576309204
+Inner Time 2.61320185661
+Inner Time 2.84174513817
+Inner Time 2.89644384384
+Function Time 0.541702032089
+Gradient Time: 1.76269698143
+Inner Time 2.72385311127
+Gradient Time: 1.69656205177
+Hessian Update: 1.7575340271
+Function Time 0.540059089661
+Inner Time 2.69595313072
+Function Time 0.536174058914
+Gradient Time: 1.69811701775
+Inner Time 2.81215906143
+Inner Time 2.79048299789
+Inner Time 2.56372404099
+Function Time 0.521590948105
+Gradient Time: 1.71714997292
+Inner Time 2.74252700806
+Gradient Time: 1.73969697952
+All Performance
+698 414 416 0.876 0.825 0.000170690222007 664.969 377.97859375
+Hessian Update: 1.87145781517
+Function Time 0.536373138428
+Inner Time 2.63938617706
+Function Time 0.537460803986
+Gradient Time: 1.69444489479
+Inner Time 2.7908039093
+Inner Time 2.67639899254
+Inner Time 2.68062186241
+Function Time 0.531755924225
+Gradient Time: 1.74085307121
+Inner Time 2.52431488037
+Gradient Time: 1.71604084969
+Hessian Update: 1.83443188667
+Function Time 0.548845052719
+Inner Time 2.67359399796
+Function Time 0.539760112762
+Gradient Time: 1.70653104782
+Inner Time 2.72968888283
+Inner Time 2.78732514381
+Inner Time 2.73199987411
+Function Time 0.533761978149
+Gradient Time: 1.68913388252
+Inner Time 2.76468205452
+Gradient Time: 1.68352794647
+Hessian Update: 1.92226719856
+Function Time 0.541629076004
+Inner Time 2.7234249115
+Function Time 0.521883964539
+Gradient Time: 1.71460795403
+Inner Time 2.64480495453
+Inner Time 2.79874706268
+Inner Time 2.75024414062
+Function Time 0.532267093658
+Gradient Time: 1.70894312859
+Inner Time 2.71099996567
+Gradient Time: 1.74341607094
+Hessian Update: 1.90285086632
+Function Time 0.532241106033
+Inner Time 2.76582884789
+Function Time 0.54604101181
+Gradient Time: 1.68851995468
+Inner Time 2.85147500038
+Function Time 0.556501865387
+Gradient Time: 1.70160698891
+Inner Time 2.84186911583
+Inner Time 2.69156599045
+Inner Time 2.69330382347
+Function Time 0.540807008743
+Gradient Time: 1.69229888916
+Inner Time 2.75106906891
+Gradient Time: 1.67595911026
+Hessian Update: 1.86632919312
+Function Time 0.520191907883
+Inner Time 2.7351269722
+Function Time 0.546103000641
+Gradient Time: 1.70412802696
+Inner Time 2.78356003761
+Inner Time 2.82987713814
+Inner Time 2.65210413933
+Function Time 0.531072854996
+Gradient Time: 1.71361684799
+Inner Time 2.72113013268
+Gradient Time: 1.71654987335
+Hessian Update: 1.91223812103
+Function Time 0.524184942245
+Inner Time 2.67528319359
+Function Time 0.537157058716
+Gradient Time: 1.71174812317
+Inner Time 2.57664203644
+Inner Time 2.72454595566
+Inner Time 2.67856001854
+Function Time 0.535460948944
+Gradient Time: 1.70271706581
+Inner Time 2.81464505196
+Gradient Time: 1.70976901054
+Hessian Update: 1.88694190979
+Function Time 0.527683019638
+Inner Time 2.70730805397
+Function Time 0.543027877808
+Gradient Time: 1.67654299736
+Inner Time 2.54962801933
+Inner Time 2.78825497627
+Inner Time 2.73141288757
+Function Time 0.538034915924
+Gradient Time: 1.70302295685
+Inner Time 2.74823904037
+Gradient Time: 1.7543861866
+Hessian Update: 1.79192399979
+Function Time 0.555087089539
+Inner Time 2.58492612839
+Function Time 0.525038957596
+Gradient Time: 1.69569087029
+Inner Time 2.76248621941
+Inner Time 2.65369105339
+Inner Time 2.7543721199
+Function Time 0.537878036499
+Gradient Time: 1.71798682213
+Inner Time 2.64285588264
+Gradient Time: 1.68956780434
+Hessian Update: 1.73719406128
+Function Time 0.549413919449
+Inner Time 2.69160294533
+Function Time 0.528753042221
+Gradient Time: 1.72166895866
+Inner Time 2.69469285011
+Inner Time 2.78539609909
+Inner Time 2.75194883347
+Function Time 0.544325828552
+Gradient Time: 1.69971585274
+Inner Time 2.7564201355
+Gradient Time: 1.71476793289
+Hessian Update: 1.84065485001
+Function Time 0.521070957184
+Inner Time 2.7138710022
+Function Time 0.526294946671
+Gradient Time: 1.80366110802
+Inner Time 3.12644004822
+Function Time 0.529714107513
+Gradient Time: 1.70877885818
+Inner Time 2.74545383453
+Inner Time 2.81427693367
+Inner Time 2.69950294495
+Function Time 0.561120033264
+Gradient Time: 1.74514389038
+Inner Time 2.72080612183
+Gradient Time: 1.71175599098
+All Performance
+750 446 448 0.879 0.845 0.000315424694443 571.206 277.539550781
+Hessian Update: 1.79521107674
+Function Time 0.534317970276
+Inner Time 2.69602203369
+Function Time 0.538697957993
+Gradient Time: 1.71372699738
+Inner Time 2.76406097412
+Inner Time 2.82401013374
+Inner Time 2.58663010597
+Function Time 0.570271968842
+Gradient Time: 1.69817495346
+Inner Time 2.87339901924
+Gradient Time: 1.67151284218
+Hessian Update: 1.74814295769
+Function Time 0.532043933868
+Inner Time 2.7440059185
+Function Time 0.525275945663
+Gradient Time: 1.72679901123
+Inner Time 2.69143390656
+Inner Time 2.66347098351
+Inner Time 2.70767688751
+Function Time 0.518124103546
+Gradient Time: 1.68255782127
+Inner Time 2.81842303276
+Gradient Time: 1.70660495758
+Hessian Update: 1.73971796036
+Function Time 0.546779870987
+Inner Time 2.68874597549
+Function Time 0.527398109436
+Gradient Time: 1.72450900078
+Inner Time 2.80892801285
+Inner Time 2.67655110359
+Inner Time 2.63909697533
+Function Time 0.539658069611
+Gradient Time: 1.71052908897
+Inner Time 2.82955002785
+Gradient Time: 1.72455787659
+Hessian Update: 1.65008091927
+Function Time 0.520849943161
+Inner Time 2.73521399498
+Function Time 0.526047945023
+Gradient Time: 1.71237301826
+Inner Time 2.71022891998
+Inner Time 2.76177406311
+Inner Time 2.70175600052
+Function Time 0.532493114471
+Gradient Time: 1.69686198235
+Inner Time 2.70391201973
+Gradient Time: 1.72725701332
+Hessian Update: 1.88801503181
+Function Time 0.534786939621
+Inner Time 2.80570793152
+Function Time 0.532467126846
+Gradient Time: 1.73953795433
+Inner Time 2.93977189064
+Inner Time 2.75925397873
+Inner Time 2.56708502769
+Function Time 0.538277864456
+Gradient Time: 1.72465515137
+Inner Time 2.59389781952
+Gradient Time: 1.71748304367
+Hessian Update: 1.90533995628
+Function Time 0.560172080994
+Inner Time 2.79998493195
+Function Time 0.545560121536
+Gradient Time: 1.7116689682
+Inner Time 2.89109587669
+Function Time 0.521277189255
+Gradient Time: 1.69045114517
+Inner Time 2.78515505791
+Inner Time 2.5632879734
+Inner Time 2.79813480377
+Function Time 0.529111862183
+Gradient Time: 1.69121813774
+Inner Time 2.78651618958
+Gradient Time: 2.05403399467
+Hessian Update: 1.74462294579
+Function Time 0.519593000412
+Inner Time 2.71218299866
+Function Time 0.519721031189
+Gradient Time: 1.69398498535
+Inner Time 2.70750403404
+Inner Time 2.62822890282
+Inner Time 2.79036307335
+Function Time 0.515670061111
+Gradient Time: 1.699862957
+Inner Time 2.61777591705
+Gradient Time: 1.7134680748
+Hessian Update: 1.73730993271
+Function Time 0.531199932098
+Inner Time 2.68772101402
+Function Time 0.538719892502
+Gradient Time: 1.68365693092
+Inner Time 2.87189006805
+Inner Time 2.93758797646
+Inner Time 2.8072309494
+Function Time 0.529983997345
+Gradient Time: 1.7232208252
+Inner Time 2.80333781242
+Gradient Time: 1.73739790916
+Hessian Update: 1.74771094322
+Function Time 0.527262926102
+Inner Time 2.65969085693
+Function Time 0.544888019562
+Gradient Time: 1.7132589817
+Inner Time 2.79971003532
+Inner Time 2.82129502296
+Inner Time 2.7771999836
+Function Time 0.522088050842
+Gradient Time: 1.74886703491
+Inner Time 2.90643286705
+Gradient Time: 1.70489406586
+Hessian Update: 1.99302315712
+Function Time 0.52899479866
+Inner Time 2.7288069725
+Function Time 0.527796030045
+Gradient Time: 1.65891695023
+Inner Time 2.7968018055
+Inner Time 2.67141389847
+Inner Time 2.77455687523
+Function Time 0.536430835724
+Gradient Time: 1.96790099144
+Inner Time 2.79601693153
+Gradient Time: 1.73006606102
+All Performance
+801 477 479 0.892 0.855 5.64321212134e-05 545.909 211.367714844
+Hessian Update: 1.69451904297
+Function Time 0.527502059937
+Inner Time 2.72934579849
+Function Time 0.526808023453
+Gradient Time: 1.71715593338
+Inner Time 2.93967795372
+Inner Time 2.62382602692
+Inner Time 2.86951708794
+Function Time 0.536173820496
+Gradient Time: 1.72204995155
+Inner Time 2.81338214874
+Gradient Time: 1.7155008316
+Hessian Update: 1.81387400627
+Function Time 0.541104078293
+Inner Time 2.81449794769
+Function Time 0.528132915497
+Gradient Time: 1.73617506027
+Inner Time 2.59708189964
+Function Time 0.532270908356
+Gradient Time: 1.73591780663
+Inner Time 2.68920993805
+Inner Time 2.80968403816
+Inner Time 2.79895305634
+Function Time 0.53297996521
+Gradient Time: 1.71810698509
+Inner Time 2.81089091301
+Gradient Time: 1.72465586662
+Hessian Update: 1.87838697433
+Function Time 0.538999080658
+Inner Time 2.68316102028
+Function Time 0.554306030273
+Gradient Time: 1.71822309494
+Inner Time 2.63758301735
+Inner Time 2.76451992989
+Inner Time 2.6565580368
+Function Time 0.528428792953
+Gradient Time: 1.71156096458
+Inner Time 2.8314640522
+Gradient Time: 1.66730809212
+Hessian Update: 1.80826807022
+Function Time 0.526084899902
+Inner Time 2.76650595665
+Function Time 0.546364068985
+Gradient Time: 1.74723482132
+Inner Time 2.77934503555
+Inner Time 2.79578614235
+Inner Time 2.74322295189
+Function Time 0.543851137161
+Gradient Time: 1.70686721802
+Inner Time 2.59555387497
+Gradient Time: 1.7013862133
+Hessian Update: 1.73513579369
+Function Time 0.531919002533
+Inner Time 2.71786093712
+Function Time 0.533576011658
+Gradient Time: 1.69490599632
+Inner Time 2.61174893379
+Inner Time 2.61745619774
+Inner Time 2.6375169754
+Function Time 0.534007072449
+Gradient Time: 1.68893289566
+Inner Time 2.79163789749
+Gradient Time: 1.69793605804
+Hessian Update: 2.04778504372
+Function Time 0.560169935226
+Inner Time 2.84645986557
+Function Time 0.543767929077
+Gradient Time: 1.70249509811
+Inner Time 2.6212310791
+Inner Time 2.8288371563
+Inner Time 2.68161797523
+Function Time 0.551908969879
+Gradient Time: 1.72776508331
+Inner Time 2.7161090374
+Gradient Time: 1.70330405235
+Hessian Update: 1.73153591156
+Function Time 0.527837991714
+Inner Time 2.76187586784
+Function Time 0.530725002289
+Gradient Time: 1.70010399818
+Inner Time 2.86200594902
+Inner Time 2.6583738327
+Inner Time 2.70860219002
+Function Time 0.52919793129
+Gradient Time: 1.73117494583
+Inner Time 2.83054208755
+Gradient Time: 1.7575469017
+Hessian Update: 1.77778601646
+Function Time 0.549561977386
+Inner Time 2.73522400856
+Function Time 0.534996986389
+Gradient Time: 1.71296191216
+Inner Time 2.78724503517
+Inner Time 2.59151601791
+Inner Time 2.66497898102
+Function Time 0.529550790787
+Gradient Time: 1.74744486809
+Inner Time 2.94081497192
+Gradient Time: 1.70568394661
+Hessian Update: 1.67227101326
+Function Time 0.553483009338
+Inner Time 2.82225108147
+Function Time 0.55588889122
+Gradient Time: 1.73657989502
+Inner Time 2.694699049
+Inner Time 2.90509200096
+Inner Time 2.79571008682
+Function Time 0.547040939331
+Gradient Time: 1.697660923
+Inner Time 2.81628894806
+Gradient Time: 1.73235702515
+Hessian Update: 1.940502882
+Function Time 0.554344177246
+Inner Time 2.68405103683
+Function Time 0.528073787689
+Gradient Time: 1.72740101814
+Inner Time 2.79135799408
+Inner Time 2.6283929348
+Inner Time 2.7394528389
+Function Time 0.537944078445
+Gradient Time: 1.72109103203
+Inner Time 2.73946499825
+Inner Time 2.83567404747
+Inner Time 2.84256100655
+Function Time 0.539006948471
+Gradient Time: 1.70389294624
+Inner Time 2.85559606552
+Inner Time 2.98961400986
+Inner Time 2.6821398735
+Function Time 0.544090986252
+Gradient Time: 1.71453785896
+Inner Time 2.77445912361
+Inner Time 2.62827014923
+Inner Time 2.63834309578
+Function Time 0.543523073196
+Gradient Time: 1.73028707504
+Inner Time 2.90593791008
+Inner Time 2.76561594009
+Inner Time 2.72866797447
+Function Time 0.544681072235
+Gradient Time: 1.70845913887
+Inner Time 2.8269970417
+Inner Time 2.68528199196
+Inner Time 2.72738599777
+Function Time 0.550523042679
+Gradient Time: 1.70471000671
+Inner Time 2.74462199211
+Inner Time 2.64778399467
+Inner Time 2.64477205276
+Function Time 0.525393009186
+Gradient Time: 1.67099809647
+Inner Time 2.88486599922
+Inner Time 2.65014910698
+Inner Time 2.88136410713
+Function Time 0.526615858078
+Gradient Time: 1.70550990105
+Inner Time 2.66341686249
+Gradient Time: 1.7181699276
+All Performance
+873 515 517 0.895 0.856 2.15116023411e-09 534.41 521.323320312
+Hessian Update: 1.66658997536
+Function Time 0.531732797623
+Inner Time 2.84054589272
+Function Time 0.534842967987
+Gradient Time: 1.73172807693
+Inner Time 2.62036895752
+Inner Time 2.61112308502
+Inner Time 2.79807209969
+Function Time 0.530157089233
+Gradient Time: 1.74145698547
+Inner Time 2.68963885307
+Gradient Time: 1.72114396095
+All Performance
+878 518 520 0.879 0.853 9.08739835877e-05 565.779 516.137734375
+Hessian Update: 1.77940893173
+Function Time 0.553845882416
+Inner Time 2.74826693535
+Function Time 0.542072057724
+Gradient Time: 1.74172401428
+Inner Time 2.768419981
+Function Time 0.532608985901
+Gradient Time: 1.73421907425
+Inner Time 2.5794980526
+Function Time 0.526119947433
+Gradient Time: 1.7396440506
+Inner Time 2.74560189247
+Inner Time 2.71062088013
+Inner Time 2.64847898483
+Function Time 0.549549102783
+Gradient Time: 1.70732402802
+Inner Time 2.64857411385
+Gradient Time: 1.71011281013
+All Performance
+885 523 525 0.868 0.835 0.000318147372071 587.411 472.250195313
+Hessian Update: 1.99650216103
+Function Time 0.53623509407
+Inner Time 2.8134059906
+Function Time 0.548228025436
+Gradient Time: 1.74286603928
+Inner Time 2.62342810631
+Inner Time 2.71827292442
+Inner Time 2.75252509117
+Function Time 0.534434080124
+Gradient Time: 1.69451212883
+Inner Time 2.67042303085
+Gradient Time: 1.7218401432
+All Performance
+890 526 528 0.864 0.838 0.000286077185221 568.742 431.644453125
+Hessian Update: 1.95718693733
+Function Time 0.529752969742
+Inner Time 2.63191509247
+Function Time 0.525112867355
+Gradient Time: 1.6774969101
+Inner Time 2.72993612289
+Inner Time 2.66368794441
+Inner Time 2.63964295387
+Function Time 0.539269924164
+Gradient Time: 1.69207692146
+Inner Time 2.78834700584
+Gradient Time: 1.69781112671
+All Performance
+895 529 531 0.884 0.848 0.00023241043397 550.176 398.41953125
+Hessian Update: 2.05992889404
+Function Time 0.558035850525
+Inner Time 2.68888998032
+Function Time 0.523576021194
+Gradient Time: 1.69852900505
+Inner Time 2.60677695274
+Inner Time 2.80907583237
+Inner Time 2.79011392593
+Function Time 0.544816017151
+Gradient Time: 1.73989987373
+Inner Time 2.76581096649
+Gradient Time: 1.69985103607
+All Performance
+900 532 534 0.893 0.844 0.000150960065751 523.617 380.4421875
+Hessian Update: 1.85342311859
+Function Time 0.533471107483
+Inner Time 2.7768740654
+Function Time 0.527544021606
+Gradient Time: 1.69773602486
+Inner Time 2.74201893806
+Inner Time 2.58777308464
+Inner Time 2.71938085556
+Function Time 0.537961006165
+Gradient Time: 1.67457485199
+Inner Time 2.66430497169
+Gradient Time: 1.74975204468
+Hessian Update: 1.70390510559
+Function Time 0.527092933655
+Inner Time 2.73626899719
+Function Time 0.598854064941
+Gradient Time: 1.98067498207
+Inner Time 2.70626807213
+Inner Time 2.73154091835
+Inner Time 2.70463418961
+Function Time 0.523045063019
+Gradient Time: 1.75034117699
+Inner Time 2.67068600655
+Gradient Time: 1.71762609482
+Hessian Update: 1.88129401207
+Function Time 0.550043106079
+Inner Time 2.77999401093
+Function Time 0.516563892365
+Gradient Time: 1.66225886345
+Inner Time 2.77397799492
+Function Time 0.518796205521
+Gradient Time: 1.68281984329
+Inner Time 2.83684396744
+Inner Time 2.76507496834
+Inner Time 2.84973096848
+Function Time 0.549603939056
+Gradient Time: 1.67701292038
+Inner Time 2.7641620636
+Gradient Time: 1.7801668644
+Hessian Update: 1.74213194847
+Function Time 0.546442985535
+Inner Time 2.89677500725
+Function Time 0.528335809708
+Gradient Time: 1.70780515671
+Inner Time 2.72152018547
+Inner Time 2.62510514259
+Inner Time 2.87845206261
+Function Time 0.542625904083
+Gradient Time: 1.73327183723
+Inner Time 2.74146199226
+Gradient Time: 1.70925998688
+Hessian Update: 1.7317199707
+Function Time 0.527643203735
+Inner Time 2.84268712997
+Function Time 0.520578145981
+Gradient Time: 1.69557189941
+Inner Time 2.71414399147
+Inner Time 2.67231202126
+Inner Time 2.77024698257
+Function Time 0.548674821854
+Gradient Time: 1.71570205688
+Inner Time 2.71915793419
+Gradient Time: 1.70572304726
+All Performance
+926 548 550 0.877 0.859 0.000213868589218 541.938 273.720390625
+Hessian Update: 1.78370404243
+Function Time 0.520398139954
+Inner Time 2.72731399536
+Function Time 0.524360179901
+Gradient Time: 1.67082500458
+Inner Time 2.75374293327
+Inner Time 2.7284219265
+Inner Time 2.59685492516
+Function Time 0.527512073517
+Gradient Time: 1.70035099983
+Inner Time 2.72482585907
+Gradient Time: 1.70289611816
+Hessian Update: 1.80462503433
+Function Time 0.527405023575
+Inner Time 2.744754076
+Function Time 0.546657085419
+Gradient Time: 1.72681498528
+Inner Time 2.79648113251
+Inner Time 2.73080086708
+Inner Time 2.74186611176
+Function Time 0.546950101852
+Gradient Time: 1.74827599525
+Inner Time 2.82759284973
+Gradient Time: 1.70849895477
+Hessian Update: 1.79352211952
+Function Time 0.542043924332
+Inner Time 2.64595198631
+Function Time 0.548462867737
+Gradient Time: 1.69161105156
+Inner Time 2.51845192909
+Inner Time 2.783452034
+Inner Time 2.71031594276
+Function Time 0.549487829208
+Gradient Time: 1.73080086708
+Inner Time 2.65764379501
+Inner Time 2.71942996979
+Inner Time 2.72110509872
+Function Time 0.537441968918
+Gradient Time: 1.70861411095
+Inner Time 2.82195305824
+Gradient Time: 2.06127715111
+Hessian Update: 2.00510191917
+Function Time 0.531848907471
+Inner Time 2.75294804573
+Function Time 0.563845872879
+Gradient Time: 1.72983503342
+Inner Time 2.59560704231
+Inner Time 2.7001709938
+Inner Time 2.80288910866
+Function Time 0.556064128876
+Gradient Time: 1.69764709473
+Inner Time 2.67852497101
+Gradient Time: 1.70285606384
+Hessian Update: 1.82716107368
+Function Time 0.529148101807
+Inner Time 2.82888388634
+Function Time 0.533249139786
+Gradient Time: 1.6925342083
+Inner Time 2.82916498184
+Inner Time 2.73442792892
+Inner Time 2.71170783043
+Function Time 0.531424999237
+Gradient Time: 1.74771213531
+Inner Time 2.67310500145
+Gradient Time: 1.75156903267
+Hessian Update: 1.81984305382
+Function Time 0.537601232529
+Inner Time 2.74609899521
+Function Time 0.530658960342
+Gradient Time: 1.67362308502
+Inner Time 2.75758004189
+Inner Time 2.79443597794
+Inner Time 2.75540804863
+Function Time 0.538542032242
+Gradient Time: 1.71148300171
+Inner Time 2.64291191101
+Gradient Time: 1.71124100685
+Hessian Update: 1.73771286011
+Function Time 0.541157960892
+Inner Time 2.7748029232
+Function Time 0.520085811615
+Gradient Time: 1.69442796707
+Inner Time 2.92579102516
+Inner Time 2.92113304138
+Inner Time 2.71479105949
+Function Time 0.524692058563
+Gradient Time: 1.72040510178
+Inner Time 2.84702086449
+Gradient Time: 1.70099806786
+Hessian Update: 1.90407800674
+Function Time 0.536810159683
+Inner Time 2.79884696007
+Function Time 0.561675071716
+Gradient Time: 1.65922307968
+Inner Time 2.91152596474
+Inner Time 2.56796002388
+Inner Time 2.80983805656
+Function Time 0.551263809204
+Gradient Time: 1.7297308445
+Inner Time 2.71764302254
+Inner Time 2.64828014374
+Inner Time 2.74577116966
+Function Time 0.532567024231
+Gradient Time: 1.68275403976
+Inner Time 2.74004507065
+Gradient Time: 1.74166083336
+Hessian Update: 1.73292684555
+Function Time 0.543471097946
+Inner Time 2.65736508369
+Function Time 0.527246952057
+Gradient Time: 1.69379591942
+Inner Time 2.63617682457
+Inner Time 2.66054201126
+Inner Time 2.76392292976
+Function Time 0.533243894577
+Gradient Time: 1.69772696495
+Inner Time 2.77757287025
+Gradient Time: 1.70073795319
+Hessian Update: 1.79906702042
+Function Time 0.533303976059
+Inner Time 2.58650898933
+Function Time 0.541802883148
+Gradient Time: 1.69509601593
+Inner Time 2.90908694267
+Inner Time 2.71639490128
+Inner Time 2.63334107399
+Function Time 0.535846948624
+Gradient Time: 1.69001793861
+Inner Time 2.87063908577
+Gradient Time: 1.7376871109
+All Performance
+982 580 582 0.894 0.86 0.0002039309287 489.529 200.591738281
+Hessian Update: 1.78721809387
+Function Time 0.534945011139
+Inner Time 2.87667512894
+Function Time 0.530742168427
+Gradient Time: 1.70380496979
+Inner Time 2.77200102806
+Inner Time 2.63184309006
+Inner Time 2.72220993042
+Function Time 0.518792867661
+Gradient Time: 1.66460299492
+Inner Time 2.84258413315
+Gradient Time: 1.70613503456
+Hessian Update: 1.74300003052
+Function Time 0.549025058746
+Inner Time 2.78527998924
+Function Time 0.533914089203
+Gradient Time: 1.72666287422
+Inner Time 2.81687498093
+Inner Time 2.79543399811
+Inner Time 2.57434415817
+Function Time 0.531898975372
+Gradient Time: 1.74231982231
+Inner Time 2.6319770813
+Gradient Time: 1.71305608749
+Hessian Update: 1.73131489754
+Function Time 0.531717061996
+Inner Time 2.54022884369
+Function Time 0.549027204514
+Gradient Time: 1.67441105843
+Inner Time 2.73037409782
+Inner Time 2.91335391998
+Inner Time 2.8049390316
+Function Time 0.532532215118
+Gradient Time: 1.68709111214
+Inner Time 2.76309394836
+Gradient Time: 1.69624519348
+Hessian Update: 1.70538711548
+Function Time 0.530833959579
+Inner Time 2.85750222206
+Function Time 0.533812999725
+Gradient Time: 1.69233489037
+Inner Time 2.70260095596
+Inner Time 2.69167494774
+Inner Time 2.72658801079
+Function Time 0.532687902451
+Gradient Time: 1.7106320858
+Inner Time 2.6616961956
+Inner Time 2.69686698914
+Inner Time 2.70260596275
+Function Time 0.540641784668
+Gradient Time: 1.71868991852
+Inner Time 2.64237594604
+Gradient Time: 1.72791790962
+Hessian Update: 1.81061387062
+Function Time 0.532471895218
+Inner Time 2.56495308876
+Function Time 0.534814834595
+Gradient Time: 1.67615103722
+Inner Time 2.8283560276
+Inner Time 2.57971096039
+Inner Time 2.5900759697
+Function Time 0.519384145737
+Gradient Time: 1.70936608315
+Inner Time 2.68119311333
+Gradient Time: 1.69585299492
+Hessian Update: 1.69808793068
+Function Time 0.541647195816
+Inner Time 2.51862978935
+Function Time 0.533293008804
+Gradient Time: 1.7201089859
+Inner Time 2.63646006584
+Inner Time 2.57917881012
+Inner Time 2.60486006737
+Function Time 0.538516998291
+Gradient Time: 1.67975592613
+Inner Time 2.83747816086
+Gradient Time: 1.72290110588
+Hessian Update: 1.83636498451
+Function Time 0.525628089905
+Inner Time 2.88243699074
+Function Time 0.545687198639
+Gradient Time: 1.7039167881
+Inner Time 2.78267812729
+Inner Time 3.06794309616
+Inner Time 2.74836397171
+Function Time 0.528877019882
+Gradient Time: 1.67189192772
+Inner Time 2.69566583633
+Gradient Time: 1.67364501953
+Hessian Update: 1.75798916817
+Function Time 0.528509140015
+Inner Time 2.6165869236
+Function Time 0.524921894073
+Gradient Time: 1.66640591621
+Inner Time 2.60367083549
+Inner Time 2.72960186005
+Inner Time 2.73696613312
+Function Time 0.535943031311
+Gradient Time: 1.68303203583
+Inner Time 2.73918199539
+Gradient Time: 1.73093104362
+Hessian Update: 1.91497397423
+Function Time 0.545975923538
+Inner Time 2.76056408882
+Function Time 0.542551994324
+Gradient Time: 1.69003009796
+Inner Time 2.69524693489
+Inner Time 2.66573190689
+Inner Time 2.67618107796
+Function Time 0.54993891716
+Gradient Time: 1.70287203789
+Inner Time 2.73537111282
+Gradient Time: 1.71714782715
+Hessian Update: 1.70365715027
+Function Time 0.526677846909
+Inner Time 2.6530380249
+Function Time 0.530968904495
+Gradient Time: 1.6628010273
+Inner Time 2.64215493202
+Inner Time 2.69967985153
+Inner Time 2.78133201599
+Function Time 0.521582126617
+Gradient Time: 1.71182203293
+Inner Time 2.6376991272
+Gradient Time: 1.7015478611
+All Performance
+1035 611 613 0.895 0.854 0.000144455182721 463.324 156.549453125
+Hessian Update: 1.83460688591
+Function Time 0.549653053284
+Inner Time 2.7471370697
+Function Time 0.534061908722
+Gradient Time: 1.69425606728
+Inner Time 2.70430207253
+Inner Time 2.7089869976
+Inner Time 2.81314301491
+Function Time 0.53973698616
+Gradient Time: 1.65103387833
+Inner Time 2.84400200844
+Gradient Time: 1.73943710327
+Hessian Update: 1.86180996895
+Function Time 0.54048705101
+Inner Time 2.82619190216
+Function Time 0.532075881958
+Gradient Time: 1.6958091259
+Inner Time 2.79546689987
+Inner Time 2.73757100105
+Inner Time 2.89126181602
+Function Time 0.534126996994
+Gradient Time: 1.70131206512
+Inner Time 2.83038806915
+Gradient Time: 1.70819807053
+Hessian Update: 1.86736416817
+Function Time 0.529706954956
+Inner Time 2.75149893761
+Function Time 0.53776717186
+Gradient Time: 1.68770909309
+Inner Time 2.68860006332
+Inner Time 2.58243083954
+Inner Time 2.64731907845
+Function Time 0.537894010544
+Gradient Time: 1.72297692299
+Inner Time 2.64546489716
+Gradient Time: 1.73140597343
+Hessian Update: 1.80764508247
+Function Time 0.534775018692
+Inner Time 2.81330609322
+Function Time 0.537456989288
+Gradient Time: 1.67053508759
+Inner Time 2.73805308342
+Inner Time 2.76976585388
+Inner Time 2.56537079811
+Function Time 0.529301166534
+Gradient Time: 1.7050640583
+Inner Time 2.67274308205
+Gradient Time: 1.72414684296
+Hessian Update: 1.79802799225
+Function Time 0.532482147217
+Inner Time 2.61796212196
+Function Time 0.537226915359
+Gradient Time: 1.68656206131
+Inner Time 2.62058997154
+Inner Time 2.62413287163
+Inner Time 2.72816205025
+Function Time 0.514274835587
+Gradient Time: 1.70902705193
+Inner Time 2.60705113411
+Gradient Time: 1.71911597252
+Hessian Update: 1.72608709335
+Function Time 0.535159826279
+Inner Time 2.64715695381
+Function Time 0.536751031876
+Gradient Time: 1.71809315681
+Inner Time 2.75789403915
+Inner Time 2.6204829216
+Inner Time 2.68298006058
+Function Time 0.529000043869
+Gradient Time: 1.70377016068
+Inner Time 2.71508622169
+Gradient Time: 1.7122759819
+Hessian Update: 2.04131197929
+Function Time 0.554922103882
+Inner Time 2.73179292679
+Function Time 0.526318073273
+Gradient Time: 1.70212602615
+Inner Time 2.75019001961
+Inner Time 2.82178497314
+Inner Time 2.65382599831
+Function Time 0.539813041687
+Gradient Time: 1.72915697098
+Inner Time 2.77393698692
+Gradient Time: 1.7216770649
+Hessian Update: 1.79191398621
+Function Time 0.536427021027
+Inner Time 2.60399794579
+Function Time 0.601999998093
+Gradient Time: 1.91990494728
+Inner Time 2.77534508705
+Inner Time 2.65865421295
+Inner Time 2.73759293556
+Function Time 0.547272920609
+Gradient Time: 1.72817397118
+Inner Time 2.74298501015
+Gradient Time: 1.71381998062
+Hessian Update: 1.94927597046
+Function Time 0.531472921371
+Inner Time 2.70236897469
+Function Time 0.547216892242
+Gradient Time: 1.7032160759
+Inner Time 2.61189103127
+Inner Time 2.71074700356
+Inner Time 2.83359098434
+Function Time 0.533684968948
+Gradient Time: 1.69184803963
+Inner Time 2.62677001953
+Gradient Time: 1.71379208565

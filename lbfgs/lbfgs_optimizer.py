@@ -72,6 +72,7 @@ class lbfgs_optimizer:
             v=np.array(v)
 
             s=np.inner(v,v)
+            print "Inner Time",time.time()-start
             return s
         else:
             v=np.array(flatten.flatten(var_v1)[0])
@@ -99,7 +100,6 @@ class lbfgs_optimizer:
                 v2=v2+[x for x in np.nditer(m2, op_flags=['readwrite'])]
             e=time.time()
             ret=np.inner(v1,v2)
-            #print "Inner product:", e-s
             print "Inner Time",time.time()-start
             return ret
         else:
@@ -197,6 +197,7 @@ class lbfgs_optimizer:
             self.old_grad=grad
             self.memorySize=self.memorySize+1
             self.NumIter=self.NumIter+1
+	    return 0,0
         else:
             r=self.update_hessian(self.old_grad,1)
             if ls:
@@ -319,7 +320,7 @@ class lbfgs_optimizer:
             self.YS.append(np.inner(y,s))
             self.old_grad=grad
             self.NumIter=self.NumIter+1
-            return f_Lo
+            return z1,f_Lo
 
 
 

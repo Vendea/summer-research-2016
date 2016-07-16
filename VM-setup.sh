@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 sudo apt-get install -y python-pip python-dev
 export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
 #export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
@@ -11,4 +12,6 @@ git config --global user.name "Trae Hurley"
 cd
 cd .ssh 
 ssh-keygen -t dsa -f id_dsa -N ""
-
+cd
+cd summer-research-2016
+chmod -R guo+rw ./

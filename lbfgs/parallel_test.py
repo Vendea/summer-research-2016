@@ -90,7 +90,7 @@ pred = conv_net(x, weights, biases, keep_prob)
 
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
-#optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
+optimizer = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
 
 # Evaluate model
 correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
@@ -106,28 +106,27 @@ sess=tf.Session(config=config)
 sess.run(init)
 train_size=50000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=50000
+bsize=2500
 
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
+    for b in range(5):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y,keep_prob)
-        print "New Batch"
-	start=time.time()
-        for i in range(200):
-            c= trainer.minimize()
-            if i%2==0:
-                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000],keep_prob:1.0})
+        start=time.time()
+        for i in range(40):
+            c,s= trainer.minimize()
+            if i%10==0 or i<=5:
+                print "All Performance"
+                train=sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
                 test= sess.run(accuracy,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
-                trainc=sess.run(cost,{x:data_x[0:1000],y:data_y[0:1000],keep_prob:1.0})
-                testc= sess.run(cost,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
+                train_cost=c
+		test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels,keep_prob:1.0})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval
-                print i, f, g, train, test, trainc, testc
-
+                print i, f, g, train, test,train_cost,test_cost,s
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob)
     opServer.run()
