@@ -104,9 +104,9 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 1},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-train_size=20000
+train_size=50000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=20000
+bsize=50000
 
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
