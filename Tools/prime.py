@@ -44,8 +44,8 @@ def generate_data(nbits):
     data_y = []
     for a1 in arr1:
         for a2 in arr2:
-            data_x.append(convert(a1+a2, nbits+1))
-            data_y.append(np.concatenate((convert(a1, nbits), convert(a2, nbits)), 0))
+            data_y.append(convert(a1+a2, nbits+1))
+            data_x.append(np.concatenate((convert(a1, nbits), convert(a2, nbits)), 0))
     data_x = np.array(data_x)
     data_y = np.array(data_y)
     return shuffle_in_unison(data_x, data_y)
