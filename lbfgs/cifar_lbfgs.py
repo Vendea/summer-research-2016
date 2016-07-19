@@ -204,12 +204,11 @@ init = tf.initialize_all_variables()
 # Launch the graph
 sess=tf.Session()
 sess.run(init)
-bsize=400
-tx = train_data.eval(session=sess)[0:400]
-ty = train_labels.eval(session=sess)[0:400]
-testx =  test_data.eval(session=sess)[0:400]
-testy =  test_labels.eval(session=sess)[0:400]
-
+bsize=200
+tx = train_data.eval(session=sess)[0:200]
+ty = train_labels.eval(session=sess)[0:200]
+testx =  test_data.eval(session=sess)[0:200]
+testy =  test_labels.eval(session=sess)[0:200]
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
     for b in range(1):
@@ -220,10 +219,10 @@ if rank==0:
         for i in range(50):
             c = trainer.minimize()
             if i%2==0:
-                train = sess.run(accuracy,{x:tx[0:400],y:ty[0:400]})
-                test  = sess.run(accuracy,{x:testx[0:400],y:testy[0:400]})
-                trainc=sess.run(cost,{x:tx[0:400],y:ty[0:400]})
-                testc= sess.run(cost,{x:testx[0:400],y:testy[0:400]})
+                train = sess.run(accuracy,{x:tx[0:200],y:ty[0:200]})
+                test  = sess.run(accuracy,{x:testx[0:200],y:testy[0:200]})
+                trainc=sess.run(cost,{x:tx[0:200],y:ty[0:200]})
+                testc= sess.run(cost,{x:testx[0:200],y:testy[0:200]})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 i=trainer.innerEval
