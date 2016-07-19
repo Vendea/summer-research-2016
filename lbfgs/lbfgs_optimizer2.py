@@ -215,22 +215,25 @@ class lbfgs_optimizer:
                 gtd_prev=gtd0
                 done=False
                 while lsIter<lsIterMax:
-                    if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
-                        bracket=np.array([z_prev,z1])
-                        bracketF=np.array([f_prev,f1])
-                        bracketG=np.array([g_prev,g1])
-                        break
-                    elif abs(gtd1)<=-0.9*gtd1:
-                        bracket=z1
-                        bracketF=f1
-                        bracketG=g1
-                        done=True
-                        break
-                    elif gtd1>0:
-                        bracket=np.array([z_prev,z1])
-                        bracketF=np.array([f_prev,f1])
-                        bracketG=np.array([g_prev,g1])
-                        break
+                    if np.isnan(f1):
+                        z1=z1/2
+                    else:
+                        if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
+                            bracket=np.array([z_prev,z1])
+                            bracketF=np.array([f_prev,f1])
+                            bracketG=np.array([g_prev,g1])
+                            break
+                        elif abs(gtd1)<=-0.9*gtd1:
+                            bracket=z1
+                            bracketF=f1
+                            bracketG=g1
+                            done=True
+                            break
+                        elif gtd1>0:
+                            bracket=np.array([z_prev,z1])
+                            bracketF=np.array([f_prev,f1])
+                            bracketG=np.array([g_prev,g1])
+                            break
                     temp=z_prev
                     z_prev=z1
                     minStep=z1+0.01*(z1-temp)
