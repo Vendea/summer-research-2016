@@ -11,5 +11,5 @@ class Incrementer:
         self.base = base
  
     def ex(self, l, r):
-        l=1
+        l=1.0
         return tf.div(tf.add(l, r), self.base), tf.mod(tf.add(l,r), self.base)
