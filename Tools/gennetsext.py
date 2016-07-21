@@ -15,11 +15,13 @@ from Incrementer import Incrementer
 from mpi4py import MPI
 import tensorflow as tf
 from SPSA import SPSA
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
 
-nbits=4
+nbits=11
 n_layer=3
 n_nodes=8
-
 
 # Specifying the inputs into the graph
 y = tf.placeholder('float', [None, nbits+1])
@@ -90,7 +92,57 @@ test_x, test_y = g[1]
 feed={x:data_x,y:data_y}
 
 mini=SPSA(cost,feed,sess)
-for ep in range(1000):
+if rank==0:
+    start=time.time()
+    for n in range(1000):
+        orig=mini.var
+        g0=mini.getGrad(cost,n)
+        g1=comm.recv(source=1,tag=11)
+        g=[]
+        for m1,m2 in zip(g0,g1):
+            g.append((m1+m2)/2)
+        f,update0=mini.minimize(g,orig,n)
+        a0=sess.run(accuracy,feed)
+        f0=sess.run(cost,feed)
+        update1=comm.recv(source=2,tag=11)
+        mini.set_var(update1)
+        a1=sess.run(accuracy,feed)
+        f1=sess.run(cost,feed)
+        print time.time()-start,f1,f0,a1,a0
+        if a1>a0:
+            update=comm.bcast(update1,root=0)
+        else:
+            update=comm.bcast(update0,root=0)
+        mini.set_var(update)
+        if n%10==0:
+            print sess.run(accuracy,{x:test_x,y:test_y})
+
+elif rank==1:
+    for n in range(1000):
+        g=mini.getGrad(cost,n)
+        comm.send(g,dest=0,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+elif rank==2:
+    for n in range(1000):
+        orig=mini.var
+        g0=mini.getGrad(cost,n)
+        g1=comm.recv(source=3,tag=11)
+        g=[]
+        for m1,m2 in zip(g0,g1):
+            g.append((m1+m2)/2)
+        f,update=mini.minimize(g,orig,n)
+        comm.send(update,dest=0,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+elif rank==3:
+    for n in range(1000):
+        g=mini.getGrad(cost,n)
+        comm.send(g,dest=2,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+        
+'''for ep in range(1000):
     o1,n1=mini.minimize(cost,ep)
     f1=sess.run(cost,feed)
     mini.set_var(o1)
@@ -110,6 +162,6 @@ for ep in range(1000):
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     print "Accuracy:", accuracy.eval({x: test_x, y: test_y},session=sess)
 
-'''correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
+correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 print(sess.run(accuracy, feed_dict=feed))'''
