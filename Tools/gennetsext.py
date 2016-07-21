@@ -14,6 +14,7 @@ from Adder import Adder
 from Incrementer import Incrementer
 from mpi4py import MPI
 import tensorflow as tf
+from SPSA import SPSA
 
 nbits=4
 n_layer=3
@@ -83,10 +84,12 @@ sess.run(init)
 
 data_x=[]
 data_y=[]
-data_x, data_y = prime.generate_data(nbits)
+g = prime.generate_data(nbits)
+data_x, data_y = g[0]
+test_x, test_y = g[1]
 feed={x:data_x,y:data_y}
 
-mini=SPSA(cost,feed,[biases,weights],sess)
+mini=SPSA(cost,feed,sess)
 for ep in range(1000):
     o1,n1=mini.minimize(cost,ep)
     f1=sess.run(cost,feed)
@@ -105,7 +108,7 @@ for ep in range(1000):
     print sess.run(cost,feed)
     correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+    print "Accuracy:", accuracy.eval({x: test_x, y: test_y},session=sess)
 
 '''correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))

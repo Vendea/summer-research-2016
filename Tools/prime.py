@@ -60,7 +60,7 @@ def generate_data(nbits):
     data_y = np.array(data_y)
     test_x = np.array(test_x)
     test_y = np.array(test_y)
-    return shuffle_in_unison(data_x, data_y), shuffle_in_unison(test_x, test_y)
+    return (shuffle_in_unison(data_x, data_y), shuffle_in_unison(test_x, test_y))
 
 '''    primes = sieve(nbits)
     primes = np.array(primes)
