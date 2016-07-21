@@ -13,57 +13,61 @@ class SPSA:
         self.var_t=tf.trainable_variables()                   # list of dictionary containing the trainable variables
         self.var=[]                     # this part will convert the variables(tensors) into a list of real numbers(x)
         self.sess=sess
-        for tl in self.var_t:
-            self.var.append(tl.eval(session=sess))
+        self.assign_placeholders=[]
+        assign_op=[]
+        for t in self.var_t:
+            self.var.append(t.eval(session=sess))
+            self.assign_placeholders.append(tf.placeholder(shape=self.var[-1].shape,dtype="float32"))
+            assign_op.append(t.assign(self.assign_placeholders[-1]))
+        self.assign=tf.group(*assign_op)
 
     def set_var(self,var):
         self.var=var
-        l=[]
-        for v,t in zip(self.var,self.var_t):
-            l.append(t.assign(v))
-        self.sess.run(tf.group(*l))
+        feed={}
+        for t,v in zip(self.assign_placeholders,var):
+            feed[t]=v
+        self.sess.run(self.assign,feed)
 
-    def minimize(self,cost,n,c=1,q=0.0001,a=0.0001,A=100,alpha=0.602,gamma=0.101,limit=1):
+    def getGrad(self,cost,n,c=1,q=0.0001,a=0.0001,A=100,alpha=0.602,gamma=0.101):
         cn=(c+0.0)/(n+A)**gamma
         an=a/(n+1+A)**alpha
         qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
         wk=normal()
         dv=[]
-        sess=self.sess
+        dv1=[]
+        dv2=[]
+        for m in self.var:
+            shape=m.shape
+            nm=np.ones(shape=shape)
+            for x in np.nditer(nm, op_flags=['readwrite']):
+                x[...]=dist.bernoulli() * 2 * cn
+            dv.append(nm)
+            dv1.append(nm+m)
+            dv2.append(nm-m)
+        self.set_var(dv1)
+        f1=self.sess.run(cost,self.feed)
+        self.set_var(dv2)
+        f2=self.sess.run(cost,self.feed)
         g=[]
-        orig=self.var
-        for i in range(limit):
-            for m in self.var:
-                shape=m.shape
-                nm=np.ones(shape=shape)
-                for x in np.nditer(nm, op_flags=['readwrite']):
-                    x[...]=dist.bernoulli() * 2 * cn
-                dv.append(nm)
-            l=[]
-            for m,d,t in zip(self.var,dv,self.var_t):
-                l.append(t.assign(m+d))
-            sess.run(tf.group(*l))
-            f1=sess.run(cost,self.feed)
-            l=[]
-            for m,d,t in zip(self.var,dv,self.var_t):
-                l.append(t.assign(m-d))
-            sess.run(tf.group(*l))
-            f0=sess.run(cost,self.feed)
-            df=f1-f0
-            for m in dv:
-                for x in np.nditer(m, op_flags=['readwrite']):
-                    x[...]=-(df+0.0)/x/2
-            g.append(dv)
-        dv=np.average(g,axis=0)
+        for m in dv:
+            nm=(f1-f2)/2/m
+            g.append(nm)
+        return g
+
+
+    def minimize(self,g,orig,n,c=1,q=0.01,a=0.001,A=100,alpha=0.602,gamma=0.101,limit=1):
+        an=a/(n+1+A)**alpha
+        qk=math.sqrt(q/(n+A)*math.log(math.log(n+A)))
+        wk=normal()
+        dv=[]
+        sess=self.sess
         update=[]
-        l=[]
-        for m,d,t in zip(self.var,dv,self.var_t):
-            e=m+d*an+qk*wk
-            update.append(e)
-            l.append(t.assign(e))
-        sess.run(tf.group(*l))
-        self.var=update
-        return orig,update
+        for m,gr in zip(orig,g):
+            update.append(m-gr*an)
+        self.set_var(update)
+        return self.sess.run(self.cost,self.feed),update
+
+
 
 
 

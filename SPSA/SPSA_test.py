@@ -11,8 +11,13 @@ from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 import tensorflow as tf
+from mpi4py import MPI
 import time
+import numpy as np
 from SPSA import SPSA
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
 
 # Parameters
 learning_rate = 0.001
@@ -60,7 +65,8 @@ pred = multilayer_perceptron(x, weights, biases)
 
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
-
+correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 # Initializing the variables
 init = tf.initialize_all_variables()
 
@@ -71,26 +77,58 @@ sess.run(init)
 
 data_x, data_y = mnist.train.next_batch(10000)
 feed={x:data_x,y:data_y}
-mini=SPSA(cost,feed,[biases,weights],sess)
-for ep in range(1000):
-    o1,n1=mini.minimize(cost,ep)
-    f1=sess.run(cost,feed)
-    mini.set_var(o1)
-    o2,n2=mini.minimize(cost,ep)
-    f2=sess.run(cost,feed)
-    mini.set_var(o2)
-    o3,n3=mini.minimize(cost,ep)
-    f3=sess.run(cost,feed)
-    if f1<=f2 and f1<=f3:
-        mini.set_var(n1)
-    elif f2<=f3 and f2<=f1:
-        mini.set_var(n2)
-    else:
-        mini.set_var(n3)
-    print sess.run(cost,feed)
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+mini=SPSA(cost,feed,sess)
+if rank==0:
+    start=time.time()
+    for n in range(1000):
+        orig=mini.var
+        g0=mini.getGrad(cost,n)
+        g1=comm.recv(source=1,tag=11)
+        g=[]
+        for m1,m2 in zip(g0,g1):
+            g.append((m1+m2)/2)
+        f,update0=mini.minimize(g,orig,n)
+        a0=sess.run(accuracy,feed)
+        f0=sess.run(cost,feed)
+        update1=comm.recv(source=2,tag=11)
+        mini.set_var(update1)
+        a1=sess.run(accuracy,feed)
+        f1=sess.run(cost,feed)
+        print time.time()-start,f1,f0,a1,a0
+        if a1>a0:
+            update=comm.bcast(update1,root=0)
+        else:
+            update=comm.bcast(update0,root=0)
+        mini.set_var(update)
+        if n%10==0:
+            print sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
+
+elif rank==1:
+    for n in range(1000):
+        g=mini.getGrad(cost,n)
+        comm.send(g,dest=0,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+elif rank==2:
+    for n in range(1000):
+        orig=mini.var
+        g0=mini.getGrad(cost,n)
+        g1=comm.recv(source=3,tag=11)
+        g=[]
+        for m1,m2 in zip(g0,g1):
+            g.append((m1+m2)/2)
+        f,update=mini.minimize(g,orig,n)
+        comm.send(update,dest=0,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+elif rank==3:
+    for n in range(1000):
+        g=mini.getGrad(cost,n)
+        comm.send(g,dest=2,tag=11)
+        update=comm.bcast(None,root=0)
+        mini.set_var(update)
+
+
 
 
 
