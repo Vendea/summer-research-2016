@@ -1,96 +1,9 @@
-import tensorflow as tf
-from os import listdir
-from os.path import isfile, join
-import cPickle
-import numpy as np
-from mpi4py import MPI
-import time
-from sys import path
-from os import getcwd
-from lbfgs_optimizer2 import lbfgs_optimizer
-from Opserver2 import Opserver
+from svhn import read_data_sets
 
-
-def unpickle(file):
-    fo = open(file, 'rb')
-    dict = cPickle.load(fo)
-    fo.close()
-    return dict
-
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
-NUM_CLASSES = 10
-
-
-datadir = getcwd()[0:getcwd().rfind("/")]+"/cifar10/cifar-10-batches-py"
-train  = [f for f in listdir(datadir) if isfile(join(datadir, f))]
-train.pop(train.index("batches.meta"))
-test = train.pop(train.index("test_batch"))
-train = [datadir+"/"+x for x in train]
-test = [datadir+"/"+x for x in [test]]
-
-train = [unpickle(x)for x in train]
-test  = [unpickle(x)for x in test]
-train_data = []
-test_data = []
-sess = tf.Session()
-total_size = 3
-for x in train:
-	x.pop("batch_label",None)
- 	x.pop("filenames",None)
- 	train_data.append(x.pop("data"))
-for x in test:
- 	x.pop("batch_label",None)
- 	x.pop("filenames",None)
- 	test_data.append(x.pop("data"))
-
-train_data = reduce(lambda x,y:np.array(list(x)+list(y)),train_data)
-train_data = tf.reshape(train_data,[-1])
-train_data = tf.transpose(tf.reshape(train_data,[50000, 3,32, 32]),[0,3,2,1])
-test_data = tf.reshape(test_data[0],[-1])
-test_data = tf.transpose(tf.reshape(test_data,[10000,3, 32, 32]),[0,3,2,1])
-
-reshaped_image = tf.cast(train_data, tf.float32)
-test_data = tf.cast(test_data, tf.float32)
-height = 24
-width = 24
-# Image processing for training the network. Note the many random
-# distortions applied to the image.
-
-# Randomly crop a [height, width] section of the image.
-#distorted_image = tf.random_crop(reshaped_image, [total_size, height, height,3])
-# test_data = tf.random_crop(test_data, [total_size, height, height,3])
-# # Randomly flip the image horizontally.
-# distorted_image = tf.image.random_flip_left_right(distorted_image)
-
-# # Because these operations are not commutative, consider randomizing
-# # the order their operation.
-# distorted_image = tf.image.random_brightness(distorted_image,
-#                                            max_delta=63)
-# distorted_image = tf.image.random_contrast(distorted_image,
-#                                          lower=0.2, upper=1.8)
-
-# # # Subtract off the mean and divide by the variance of the pixels.
-# train_data = tf.image.per_image_whitening(distorted_image)
-
-
-train_labels = []
-for x in range(len(train)):
-	temp = []
-	for y in train[x]["labels"]:
-		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
-	train_labels.append(temp)
-train_labels = tf.reshape(train_labels,[-1])
-train_labels = tf.reshape(train_labels,[50000,10])
-test_labels =[]
-for x in range(len(test)):
-	temp = []
-	for y in test[x]["labels"]:
-		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
-	test_labels.append(temp)
-test_labels = tf.reshape(test_labels,[-1])
-test_labels = tf.reshape(test_labels,[10000,10])
+#Parameters
+num_epochs = 100
+batch_size = 24419 # 3 batches
+#End Parameters
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -191,7 +104,7 @@ with tf.variable_scope('softmax_linear') as scope:
     biases = _variable_on_cpu('biases', [NUM_CLASSES],
                               tf.constant_initializer(0.0))
     pred = tf.add(tf.matmul(local4, weights), biases, name=scope.name)
-    
+
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 
@@ -204,36 +117,17 @@ init = tf.initialize_all_variables()
 # Launch the graph
 sess=tf.Session()
 sess.run(init)
-bsize=200
-tx = train_data.eval(session=sess)[0:200]
-ty = train_labels.eval(session=sess)[0:200]
-testx =  test_data.eval(session=sess)[0:200]
-testy =  test_labels.eval(session=sess)[0:200]
-if rank==0:
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
-        data_x=tx[bsize*b:bsize*(b+1)]
-        data_y=ty[bsize*b:bsize*(b+1)]
-        trainer.update(data_x,data_y,x,y)
-        start=time.time()
-        for i in range(50):
-            c = trainer.minimize()
-            if i%2==0:
-                train = sess.run(accuracy,{x:tx[0:200],y:ty[0:200]})
-                test  = sess.run(accuracy,{x:testx[0:200],y:testy[0:200]})
-                trainc=sess.run(cost,{x:tx[0:200],y:ty[0:200]})
-                testc= sess.run(cost,{x:testx[0:200],y:testy[0:200]})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                i=trainer.innerEval
-                print i, f, g, train, test, trainc, testc
 
-else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
-    opServer.run()
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 
-
-
-
-
-
+svhn = read_data_sets("/tmp/data")
+runs = 0
+while svhn.train.epochs_completed < num_epochs:
+    data_x, data_y = svhn.train.next_batch(batch_size)
+    sess.run([optimizer, cost], feed_dict={x:data_x, y:data_y})
+    if runs % display_step == 0:
+        testa = sess.run(accuracy, {x:svhn.test.images, y:svhn.test.labels})
+        testc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
+        traina = sess.run(accuracy, {x:svhn.train.images, y:svhn.train.labels})
+        trainc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
+        print testa, testc, traina, trainc

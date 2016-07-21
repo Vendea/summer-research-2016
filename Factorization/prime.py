@@ -29,6 +29,8 @@ def sieve (nbits):
                 sieve[i] = False
     return ret
 
+
+    
 def generate_data(nbits):
     primes = sieve(nbits)
     primes = np.array(primes)

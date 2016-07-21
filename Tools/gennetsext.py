@@ -21,8 +21,8 @@ n_nodes=8
 
 
 # Specifying the inputs into the graph
+y = tf.placeholder('float', [None, nbits+1])
 x = tf.placeholder('float', [None, nbits*2])
-y = tf.placeholder('float', [None, nbits])
 
 # Defining and initializing the trainable Variables
 weights = [tf.Variable(tf.random_normal([nbits*2, n_nodes]))]
@@ -31,9 +31,9 @@ for i in range(1, n_layer):
     biases.append(tf.Variable(tf.random_normal([n_nodes])))
     weights.append(tf.Variable(tf.random_normal([n_nodes, n_nodes])))
 
-weights.append(tf.Variable(tf.random_normal([n_nodes, nbits])))
+weights.append(tf.Variable(tf.random_normal([n_nodes, nbits+1])))
 biases.append(tf.Variable(tf.random_normal([n_nodes])))
-biases.append(tf.Variable(tf.random_normal([nbits])))
+biases.append(tf.Variable(tf.random_normal([nbits+1])))
 base=2
 add_layer=[]
 inc_layer=[]
@@ -83,8 +83,7 @@ sess.run(init)
 
 data_x=[]
 data_y=[]
-data_x.append(prime.generate_data(nbits*2))
-data_y.append(prime.generate_data(nbits))
+data_x, data_y = prime.generate_data(nbits)
 feed={x:data_x,y:data_y}
 #sess.run(pred,feed)
 
