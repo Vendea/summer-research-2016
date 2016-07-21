@@ -53,8 +53,11 @@ class Opserver:
             elif data[0]=="K":
                 break
             elif data[0]=="U":
-                data_x,data_y=data[1]
-                self.feed={self.x:data_x,self.y:data_y,self.keep_prob:1.0}
+                data_x,data_y,kp=data[1]
+                if kp:
+                    self.feed={self.x:data_x,self.y:data_y,self.keep_prob:1.0}
+                else:
+                    self.feed={self.x:data_x,self.y:data_y}
             elif data[0]=="W":
                 s=time.time()
                 self.update_var()

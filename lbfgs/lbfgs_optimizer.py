@@ -30,7 +30,7 @@ class lbfgs_optimizer:
             v.append(sess.run(t))
             self.assign_placeholders.append(tf.placeholder(shape=v[-1].shape,dtype="float32"))
             assign_op.append(t.assign(self.assign_placeholders[-1]))
-            self.assign=tf.group(*assign_op)
+        self.assign=tf.group(*assign_op)
         self.var=np.array(v)
         # self.var=np.load('var.npy')
         np.save('var.npy',self.var)
@@ -39,15 +39,22 @@ class lbfgs_optimizer:
         self.learningRate=learning_rate
         self.old_grad=None
 
-    def update(self,data_x,data_y,x,y,keep_prob):
+    def update(self,data_x,data_y,x,y,keep_prob=None):
         start=time.time()
         feed=[]
         s=len(data_x)/self.size
+        if keep_prob!=None:
+            kp=True
+        else:
+            kp=False
         for i in range(self.size):
-            feed.append(("U",(data_x[i*s:(i+1)*s],data_y[i*s:(i+1)*s])))
+            feed.append(("U",(data_x[i*s:(i+1)*s],data_y[i*s:(i+1)*s],kp)))
         data=self.comm.scatter(feed,root=self.rank)
-        data_x,data_y=data[1]
-        self.feed={x:data_x,y:data_y,keep_prob:1.0}
+        data_x,data_y,kp=data[1]
+        if kp:
+            self.feed={x:data_x,y:data_y,keep_prob:1.0}
+        else:
+            self.feed={x:data_x,y:data_y}
         print "Update Batch:", time.time()-start
 
 
@@ -129,7 +136,7 @@ class lbfgs_optimizer:
         for i in range(1,len(gradients)):
             ret=np.add(ret,gradients[i])
         e=time.time()
-        #print "Gradient Time:",e-s
+        print "Gradient Time:",e-s
         return ret/self.size
 
     def kill(self):

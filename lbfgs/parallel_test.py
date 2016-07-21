@@ -108,7 +108,7 @@ sess=tf.Session(config=config)
 sess.run(init)
 train_size=50000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=100
+bsize=4
 total_time=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
