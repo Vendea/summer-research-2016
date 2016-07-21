@@ -38,17 +38,29 @@ def generate_data(nbits):
     np.random.shuffle(nums)
     arr1 = nums[0:300]
     arr2 = nums[-301:-1]
+    arr3 = nums[300:600]
+    arr4 = nums[-601:-301]
     arr1.astype(int)
     arr2.astype(int)
+    arr3.astype(int)
+    arr4.astype(int)
     data_x = []
     data_y = []
+    test_x = []
+    test_y = []
     for a1 in arr1:
         for a2 in arr2:
             data_y.append(convert(a1+a2, nbits+1))
             data_x.append(np.concatenate((convert(a1, nbits), convert(a2, nbits)), 0))
+    for a3 in arr3:
+        for a4 in arr4:
+            test_y.append(convert(a3+a4, nbits+1))
+            test_x.append(np.concatenate((convert(a3, nbits), convert(a4, nbits)), 0))
     data_x = np.array(data_x)
     data_y = np.array(data_y)
-    return shuffle_in_unison(data_x, data_y)
+    test_x = np.array(test_x)
+    test_y = np.array(test_y)
+    return shuffle_in_unison(data_x, data_y), shuffle_in_unison(test_x, test_y)
 
 '''    primes = sieve(nbits)
     primes = np.array(primes)

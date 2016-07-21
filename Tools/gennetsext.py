@@ -78,15 +78,35 @@ saver = tf.train.Saver()
 
 # Graph initialization
 init = tf.initialize_all_variables()
-sess=tf.InteractiveSession()
+sess=tf.Session()
 sess.run(init)
 
 data_x=[]
 data_y=[]
 data_x, data_y = prime.generate_data(nbits)
 feed={x:data_x,y:data_y}
-#sess.run(pred,feed)
 
-correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
+mini=SPSA(cost,feed,[biases,weights],sess)
+for ep in range(1000):
+    o1,n1=mini.minimize(cost,ep)
+    f1=sess.run(cost,feed)
+    mini.set_var(o1)
+    o2,n2=mini.minimize(cost,ep)
+    f2=sess.run(cost,feed)
+    mini.set_var(o2)
+    o3,n3=mini.minimize(cost,ep)
+    f3=sess.run(cost,feed)
+    if f1<=f2 and f1<=f3:
+        mini.set_var(n1)
+    elif f2<=f3 and f2<=f1:
+        mini.set_var(n2)
+    else:
+        mini.set_var(n3)
+    print sess.run(cost,feed)
+    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+    print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
+
+'''correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print(sess.run(accuracy, feed_dict=feed))
+print(sess.run(accuracy, feed_dict=feed))'''
