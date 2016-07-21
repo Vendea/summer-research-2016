@@ -60,13 +60,5 @@ class Opserver:
                 self.update_var()
                 e=time.time()
                 #print "Update Time", e-s
-            elif data[0]=="I":
-                datax,datay=data[1]
-                ret=np.inner(datax,datay)
-                self.comm.gather(ret,root=self.root)
-            elif data[0]=="IS":
-                datax=data[1]
-                ret=np.inner(datax,datax)
-                self.comm.gather(ret,root=self.root)
         print "Core,", self.rank, "Finish"
 

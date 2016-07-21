@@ -4,8 +4,6 @@ import tensorflow as tf
 import numpy as np
 import math
 import time
-import flatten
-
 
 class lbfgs_optimizer:
     def __init__(self,learning_rate, cost,feed,sess,m,comm,size,rank):
@@ -32,27 +30,30 @@ class lbfgs_optimizer:
             v.append(sess.run(t))
             self.assign_placeholders.append(tf.placeholder(shape=v[-1].shape,dtype="float32"))
             assign_op.append(t.assign(self.assign_placeholders[-1]))
-        self.assign=tf.group(*assign_op)
+            self.assign=tf.group(*assign_op)
         self.var=np.array(v)
-        np.save('var',self.var)
+        # self.var=np.load('var.npy')
+        np.save('var.npy',self.var)
         comm.scatter(['Init' for i in range(size)],root=rank)
         self.gradient=tf.gradients(cost,tf.trainable_variables())
         self.learningRate=learning_rate
         self.old_grad=None
 
     def update(self,data_x,data_y,x,y,keep_prob):
+        start=time.time()
         feed=[]
         s=len(data_x)/self.size
         for i in range(self.size):
             feed.append(("U",(data_x[i*s:(i+1)*s],data_y[i*s:(i+1)*s])))
-        data=self.comm.scatter(feed,root=0)
+        data=self.comm.scatter(feed,root=self.rank)
         data_x,data_y=data[1]
         self.feed={x:data_x,y:data_y,keep_prob:1.0}
+        print "Update Batch:", time.time()-start
 
 
 
     def update_var(self,var=None):
-        l=[]
+        s=time.time()
         if var==None:
             var=self.var
         feed={}
@@ -60,82 +61,48 @@ class lbfgs_optimizer:
             feed[t]=v
         self.sess.run(self.assign,feed)
         np.save('var',var)
-        self.comm.scatter([("W",0) for i in range(self.size)])
+        self.comm.scatter([("W",0) for i in range(self.size)],root=self.rank)
+        #print "Update Var:", time.time()-s
 
     def var_self_inner(self,var_v1,useFlatten=False):
         start=time.time()
         self.innerEval=self.innerEval+1
-        if not useFlatten:
-            v=[]
-            for m in var_v1:
-                v=v+[x for x in np.nditer(m, op_flags=['readwrite'])]
-            v=np.array(v)
-
-            s=np.inner(v,v)
-            print "Inner Time",time.time()-start
-            return s
-        else:
-            v=np.array(flatten.flatten(var_v1)[0])
-            data=[]
-            size=len(v)/self.size
-            for i in range(self.size-1):
-                data.append(("IS",v[i*size:(i+1)*size]))
-            data.append(("IS",v[(self.size-1)*size:len(v)]))
-            self.comm.scatter(data,root=self.rank)
-            ss=np.inner(data[self.rank][1],data[self.rank][1])
-            ss=self.comm.gather(ss,root=self.rank)
-            print "Self Inner Time",time.time()-start
-            return np.sum(ss)
+        ret=0
+        for m in var_v1:
+            v=np.ravel(m)
+            ret=ret+np.inner(v,v)
+        return ret
 
     # Numpy unstructured inner product
     def var_inner(self,var_v1,var_v2, useFlatten=False):
-        start=time.time()
         self.innerEval=self.innerEval+1
-        if not useFlatten:
-            s=time.time()
-            v1=[]
-            v2=[]
-            for m1,m2 in zip(var_v1,var_v2):
-                v1=v1+[x for x in np.nditer(m1, op_flags=['readwrite'])]
-                v2=v2+[x for x in np.nditer(m2, op_flags=['readwrite'])]
-            e=time.time()
-            ret=np.inner(v1,v2)
-            print "Inner Time",time.time()-start
-            return ret
-        else:
-            v1=flatten.flatten(var_v1)[0]
-            v2=flatten.flatten(var_v2)[0]
-            data=[]
-            size=len(v1)/self.size
-            for i in range(self.size-1):
-                data.append(("I",(v1[i*size:(i+1)*size],v2[i*size:(i+1)*size])))
-            data.append(("I",(v1[(self.size-1)*size:len(v1)],v2[(self.size-1)*size:len(v1)+1])))
-            #print "Separate Time",time.time()-start
-            self.comm.scatter(data,root=self.rank)
-            ss=np.inner(data[self.rank][1][0],data[self.rank][1][1])
-            ss=self.comm.gather(ss,root=self.rank)
-            #print "Self Inner Time",time.time()-start
-            return np.sum(ss)
+        s=time.time()
+        ret=0
+        for m1,m2 in zip(var_v1,var_v2):
+             ret=ret+np.inner(np.ravel(m1),np.ravel(m2))
+        e=time.time()
+        #print "Inner product:", e-s
+        return ret
+
 
 
     def update_hessian(self,g,Hdiag):
         self.HessianEval=self.HessianEval+1
         s=time.time()
         d=-g
-        d,sh=flatten.flatten(d)
         d=np.array(d)
         al=np.zeros(self.memorySize)
         be=np.zeros(self.memorySize)
         for j in range(self.memorySize):
             i=self.memorySize-j-1
-            al[i]=(np.inner(self.S[i],d))/self.YS[i]
+            al[i]=(self.var_inner(self.S[i],d))/self.YS[i]
             d=d-al[i]*self.Y[i]
         d=Hdiag*d
         for i in range(self.memorySize):
-            be[i]=(np.inner(self.Y[i],d))/self.YS[i]
+            be[i]=(self.var_inner(self.Y[i],d))/self.YS[i]
             d=d+self.S[i]*(al[i]-be[i])
-        print "Hessian Update:", time.time()-s
-        return np.array(flatten.unflatten((d,sh)))
+        #print "Hessian Update:", time.time()-s
+        return d
 
 
 
@@ -155,12 +122,14 @@ class lbfgs_optimizer:
         self.update_var(var)
         self.comm.scatter([("G","var") for i in range(self.size)],root=self.rank)
         data=np.array(self.sess.run(self.gradient,self.feed))
+        #s=time.time()
         gradients=self.comm.gather(data,root=self.rank)
         ret=gradients[0]
+        #s=time.time()
         for i in range(1,len(gradients)):
             ret=np.add(ret,gradients[i])
         e=time.time()
-        print "Gradient Time:",e-s
+        #print "Gradient Time:",e-s
         return ret/self.size
 
     def kill(self):
@@ -177,7 +146,7 @@ class lbfgs_optimizer:
         for i in range(1,len(costs)):
             ret=np.add(ret,costs[i])
         e=time.time()
-        print "Function Time", e-s
+        #print "Function Time", e-s
         return ret/self.size
 
 
@@ -187,17 +156,17 @@ class lbfgs_optimizer:
                 self.old_grad=self.getGradient(self.var)
             else:
                 self.old_grad=self.old_grad
-            self.var=self.var-0.000001*self.old_grad
+            self.var=self.var-0.00001*self.old_grad
             grad=self.getGradient(self.var)
-            s=np.array(flatten.flatten(-0.000001*grad)[0])
-            y=np.array(flatten.flatten(grad-self.old_grad)[0])
+            s=-0.00001*grad
+            y=grad-self.old_grad
             self.S.append(s)
             self.Y.append(y)
-            self.YS.append(np.inner(self.S[-1],self.Y[-1]))
+            self.YS.append(self.var_inner(self.S[-1],self.Y[-1]))
             self.old_grad=grad
             self.memorySize=self.memorySize+1
             self.NumIter=self.NumIter+1
-	    return 0,0
+            return 0,0
         else:
             r=self.update_hessian(self.old_grad,1)
             if ls:
@@ -216,18 +185,18 @@ class lbfgs_optimizer:
                 gtd_prev=gtd0
                 done=False
                 while lsIter<lsIterMax:
-		    if np.isnan(f1):
-			z1=z1/10
+                    if np.isnan(f1):
+                        z1=z1/2.0
                     else:
-                    	if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
-                       	    bracket=np.array([z_prev,z1])
+                        if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
+                            bracket=np.array([z_prev,z1])
                             bracketF=np.array([f_prev,f1])
                             bracketG=np.array([g_prev,g1])
                             break
                         elif abs(gtd1)<=-0.9*gtd1:
-                            bracket=z1
-                            bracketF=f1
-                            bracketG=g1
+                            bracket=[z1]
+                            bracketF=[f1]
+                            bracketG=[g1]
                             done=True
                             break
                         elif gtd1>0:
@@ -244,6 +213,7 @@ class lbfgs_optimizer:
                     g_prev=g1
                     f1=self.getFunction(self.var+r*z1)
                     g1=self.getGradient(self.var+r*z1)
+                    #print "Forward search",f1
                     gtd_prev=gtd1
                     gtd1=self.var_inner(g1,r)
                     lsIter=lsIter+1
@@ -277,6 +247,7 @@ class lbfgs_optimizer:
                         insufProgress=False
                     f_new=self.getFunction(self.var+r*z1)
                     g_new=self.getGradient(self.var+r*z1)
+                    #print "Backtrack:", f_new
                     gtd_new=self.var_inner(g_new,r)
                     lsIter=lsIter+1
                     #print bracket
@@ -301,12 +272,20 @@ class lbfgs_optimizer:
                 f_Lo=np.min(bracketF)
                 LoPos=np.argmin(bracketF)
                 z1=bracket[LoPos]
-                self.var=self.var+z1*r
-                self.update_var()
-                d=z1*r
-                s=np.array(flatten.flatten(d)[0])
-                self.S.append(s)
-                self.last_z1=max(z1,0.0001)
+                if np.isnan(f_Lo):
+                    #print "Failed line search"
+                    self.var=self.var-g0*0.00001
+                    self.update_var()
+                    self.last_z1=0.00001
+                    s=g0*0.00001
+                    self.S.append(s)
+                else:
+                    self.var=self.var+z1*r
+                    self.update_var()
+                    d=z1*r
+                    s=d
+                    self.S.append(s)
+                    self.last_z1=max(z1,0.0001)
             else:
                 self.var=self.var+r*0.01
                 self.S.append(0.01*r)
@@ -315,12 +294,15 @@ class lbfgs_optimizer:
             self.S.remove(self.S[0])
             self.Y.remove(self.Y[0])
             self.YS.remove(self.YS[0])
-            y=np.array(flatten.flatten(grad-self.old_grad)[0])
+            y=grad-self.old_grad
             self.Y.append(y)
-            self.YS.append(np.inner(y,s))
+            self.YS.append(self.var_inner(y,s))
             self.old_grad=grad
             self.NumIter=self.NumIter+1
-            return z1,f_Lo
+            if z1<0.000001:
+                z1=self.learningRate
+            self.last_z1=z1
+            return f_Lo,z1
 
 
 

@@ -1,9 +1,11 @@
-__author__ = 'billywu'
+
 __author__ = 'billywu'
 
 from mpi4py import MPI
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+import matplotlib.pyplot as plt
+
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -106,27 +108,42 @@ sess=tf.Session(config=config)
 sess.run(init)
 train_size=50000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=2500
-
+bsize=100
+total_time=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(5):
+    for b in range(100):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y,keep_prob)
+        trainer.memorySize=0
+        trainer.NumIter=0
+        trainer.S=[]
+        trainer.Y=[]
+        trainer.YS=[]
         start=time.time()
-        for i in range(40):
+        i=0
+        while i<100:
             c,s= trainer.minimize()
-            if i%10==0 or i<=5:
+            i=i+1
+            print c,s
+            if i%10==0:
                 print "All Performance"
-                train=sess.run(accuracy,{x:tx[0:1000],y:ty[0:1000],keep_prob:1.0})
-                test= sess.run(accuracy,{x:mnist.test.images[0:1000],y:mnist.test.labels[0:1000],keep_prob:1.0})
+                time_cost=time.time()-start
+                total_time=time_cost+total_time
+                train=sess.run(accuracy,{x:data_x,y:data_y,keep_prob:1.0})
+                test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels,keep_prob:1.0})
                 train_cost=c
-		test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels,keep_prob:1.0})
                 f=trainer.functionEval
                 g=trainer.gradientEval
-                i=trainer.innerEval
-                print i, f, g, train, test,train_cost,test_cost,s
+                inner=trainer.innerEval
+                print total_time, time_cost, inner, f, g, train, test,train_cost,s
+                start=time.time()
+            if c<10 and not s==0:
+                print "Zero cost"
+                trainer.last_z1=trainer.learningRate
+                break
+
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob)
     opServer.run()
