@@ -7,6 +7,9 @@ from mpi4py import MPI
 import time
 from sys import path
 from os import getcwd
+p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
+path.append(p)
+import cifar100
 from lbfgs_optimizer import lbfgs_optimizer
 from Opserver import Opserver
 

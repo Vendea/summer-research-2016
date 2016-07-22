@@ -7,9 +7,9 @@ from mpi4py import MPI
 import time
 from sys import path
 from os import getcwd
-
 p = getcwd()[0:getcwd().rfind("/")]+"/SGD"
 path.append(p)
+import cifar10
 
 from ParamServer import ParamServer
 from ModelReplica import DPSGD

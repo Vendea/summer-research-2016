@@ -10,7 +10,7 @@ from os import getcwd
 
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
-
+import cifar100
 from Multi_try_Metropolis import MCMC
 
 
