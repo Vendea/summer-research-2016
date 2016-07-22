@@ -9,12 +9,12 @@ from sys import path
 from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
 path.append(p)
-import cifar10
+from cifar10 import read_data_sets
 from lbfgs_optimizer import lbfgs_optimizer
 from Opserver import Opserver
 
 
-
+NUM_CLASSES = 10
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
@@ -152,7 +152,7 @@ init = tf.initialize_all_variables()
 # Launch the graph
 sess=tf.Session()
 sess.run(init)
-
+print("loading data")
 cifar10 = read_data_sets("/tmp/data")
 bsize = cifar10.num_examples
 tx,ty = cifar10.train.images,cifar10.train.labels
