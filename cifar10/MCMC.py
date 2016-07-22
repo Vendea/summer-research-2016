@@ -7,54 +7,18 @@ from mpi4py import MPI
 import time
 from sys import path
 from os import getcwd
-from lbfgs_optimizer import lbfgs_optimizer
-from Opserver import Opserver
 
+p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
+path.append(p)
 
-def unpickle(file):
-    fo = open(file, 'rb')
-    dict = cPickle.load(fo)
-    fo.close()
-    return dict
+from Multi_try_Metropolis import MCMC
+
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
-NUM_CLASSES = 10
 
 
-datadir = getcwd()[0:getcwd().rfind("/")]+"/cifar10/cifar-10-batches-py"
-train  = [f for f in listdir(datadir) if isfile(join(datadir, f))]
-train.pop(train.index("batches.meta"))
-test = train.pop(train.index("test_batch"))
-train = [datadir+"/"+x for x in train]
-test = [datadir+"/"+x for x in [test]]
-
-train = [unpickle(x)for x in train]
-test  = [unpickle(x)for x in test]
-train_data = []
-test_data = []
-sess = tf.Session()
-total_size = 3
-for x in train:
-	x.pop("batch_label",None)
- 	x.pop("filenames",None)
- 	train_data.append(x.pop("data"))
-for x in test:
- 	x.pop("batch_label",None)
- 	x.pop("filenames",None)
- 	test_data.append(x.pop("data"))
-
-train_data = reduce(lambda x,y:np.array(list(x)+list(y)),train_data)
-train_data = tf.reshape(train_data,[-1])
-train_data = tf.transpose(tf.reshape(train_data,[50000, 3,32, 32]),[0,3,2,1])
-test_data = tf.reshape(test_data[0],[-1])
-test_data = tf.transpose(tf.reshape(test_data,[10000,3, 32, 32]),[0,3,2,1])
-
-reshaped_image = tf.cast(train_data, tf.float32)
-test_data = tf.cast(test_data, tf.float32)
-height = 24
-width = 24
 # Image processing for training the network. Note the many random
 # distortions applied to the image.
 
@@ -73,24 +37,6 @@ width = 24
 
 # # # Subtract off the mean and divide by the variance of the pixels.
 # train_data = tf.image.per_image_whitening(distorted_image)
-
-
-train_labels = []
-for x in range(len(train)):
-	temp = []
-	for y in train[x]["labels"]:
-		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
-	train_labels.append(temp)
-train_labels = tf.reshape(train_labels,[-1])
-train_labels = tf.reshape(train_labels,[50000,10])
-test_labels =[]
-for x in range(len(test)):
-	temp = []
-	for y in test[x]["labels"]:
-		temp.append(tf.sparse_to_dense([int(y)],[10],[1]))
-	test_labels.append(temp)
-test_labels = tf.reshape(test_labels,[-1])
-test_labels = tf.reshape(test_labels,[10000,10])
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -202,36 +148,25 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
 sess.run(init)
-bsize=50000
-tx = train_data.eval(session=sess)
-ty = train_labels.eval(session=sess)
-testx =  test_data.eval(session=sess)
-testy =  test_labels.eval(session=sess)
-if rank==0:
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
-        data_x=tx[bsize*b:bsize*(b+1)]
-        data_y=ty[bsize*b:bsize*(b+1)]
-        trainer.update(data_x,data_y,x,y)
-        start=time.time()
-        for i in range(50):
-            c = trainer.minimize()
-            if i%2==0:
-                train = sess.run(accuracy,{x:tx,y:ty})
-                test  = sess.run(accuracy,{x:testx,y:testy})
-                trainc=sess.run(cost,{x:tx,y:ty})
-                testc= sess.run(cost,{x:testx,y:testy})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                i=trainer.innerEval
-                print i, f, g, train, test, trainc, testc
+cifar10 = read_data_sets("/tmp/data")
+bsize = cifar10.num_examples
+tx,ty = cifar10.train.images,cifar10.train.labels
+testx,testy =  cifar10.test.images,cifar10.test.labels
 
-else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
-    opServer.run()
+feed={x:data_x,y:data_y}
 
+mini=MCMC(accuracy,{x: testx, y:testy},sess,0,MPI.COMM_WORLD)
+
+start = time.time()
+for ep in range(1000):
+    mini.optimize(stdev=0.04)
+    if rank ==0:
+        print time.time()-start
 
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+sudo apt-get update 
 sudo apt-get install -y python-pip python-dev
 export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
 #export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl

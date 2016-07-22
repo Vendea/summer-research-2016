@@ -7,8 +7,8 @@ from mpi4py import MPI
 import time
 from sys import path
 from os import getcwd
-from lbfgs_optimizer import lbfgs_optimizer
-from Opserver import Opserver
+from lbfgs_optimizer2 import lbfgs_optimizer
+from Opserver2 import Opserver
 
 
 def unpickle(file):
