@@ -11,6 +11,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 
 from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.python.framework import dtypes
+import gzip
 from tensorflow.python.platform import gfile
 import tensorflow as tf
 
@@ -46,7 +47,7 @@ class DataSet(object):
       images = images.astype(numpy.float32)
       images = numpy.multiply(images, 1.0 / 255.0)
     if one_hot:
-      dense_to_one_hot(labels,depth)
+      labels = dense_to_one_hot(labels,depth)
     self._images = images
     self._labels = labels
     self._epochs_completed = 0

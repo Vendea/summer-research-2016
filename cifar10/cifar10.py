@@ -1,5 +1,5 @@
 from tensorflow.contrib.learn.python.learn.datasets import base
-import gzip
+import tarfile
 from tensorflow.python.platform import gfile
 from sys import path
 from os import getcwd
@@ -9,6 +9,8 @@ from DataSet import DataSet
 from tensorflow.python.framework import dtypes
 import scipy.io as sio
 import numpy as np
+
+
 def unpickle(file):
     return cPickle.load(file)
 
@@ -22,17 +24,16 @@ def read_data_sets(data_dir):
     print('Extracting', filename)
     train_images,train_labels =[],[]
     test_images,test_labels =[],[]
-    with gfile.Open(filename, 'rb') as f, gzip.GzipFile(fileobj=f) as bytestream:
-        print(bytestream.name)
-        if "data" in bytestream.name:
-           i,l = _get_data(bytestream)
-           print(i)
-           train_images.extend(i.reshape((0,3,2,1)))
-           train_labels.extend(l) 
-        if "test" in bytestream.name:
-            i,l = _get_data(bytestream) 
-            test_images.extend(i.reshape((0,3,2,1)))
-            test_labels.extend(l)
+    with gfile.Open(filename, 'rb') as f, tarfile.open(fileobj=f) as tar:
+        for x in tar.getnames():
+            if "data_batch" in x:
+               i,l = _get_data(tar.extractfile(x))
+               train_images.extend(i.reshape((0,3,2,1)))
+               train_labels.extend(l) 
+            if "test_batch" in x:
+                i,l = _get_data(tar.extractfile(x)) 
+                test_images.extend(i.reshape((0,3,2,1)))
+                test_labels.extend(l)
 
     train_images = np.array(train_images)
     test_images = np.array(test_images)

@@ -1,4 +1,8 @@
 from tensorflow.contrib.learn.python.learn.datasets import base
+from sys import path
+from os import getcwd
+p = getcwd()[0:getcwd().rfind("/")]
+path.append(p)
 from DataSet import DataSet
 from tensorflow.python.framework import dtypes
 import scipy.io as sio
