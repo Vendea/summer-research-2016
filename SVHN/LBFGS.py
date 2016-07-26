@@ -1,3 +1,5 @@
+from sys import path
+from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/svhn"
 path.append(p)
 from svhn import read_data_sets
@@ -8,8 +10,6 @@ NUM_CLASSES = 10
 learning_rate = .001
 num_epochs = 100
 #End Parameters
-from sys import path
-from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
 path.append(p)
 

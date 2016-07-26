@@ -8,6 +8,8 @@ learning_rate = .001
 num_epochs = 100
 #batch_size = 24419 # 3 batches
 #End Parameters
+from sys import path
+from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
 

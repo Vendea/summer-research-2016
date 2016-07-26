@@ -19,7 +19,7 @@ p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
 import Logger
 logfile = Logger.DataLogger("CIFAR100_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
-
+NUM_CLASSES = 100
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()

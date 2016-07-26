@@ -23,6 +23,7 @@ from ModelReplica import DPSGD
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
+NUM_CLASSES = 100
 
 # Image processing for training the network. Note the many random
 # distortions applied to the image.

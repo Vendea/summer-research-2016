@@ -19,6 +19,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 
+NUM_CLASSES = 10
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
 import Logger

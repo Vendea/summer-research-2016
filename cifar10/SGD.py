@@ -17,6 +17,7 @@ import Logger
 logfile = Logger.DataLogger("SVHN_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
 
 
+NUM_CLASSES = 10
 from cifar10 import read_data_sets
 
 from ParamServer import ParamServer

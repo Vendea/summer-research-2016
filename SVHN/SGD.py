@@ -1,3 +1,7 @@
+from sys import path
+from os import
+p = getcwd()[0:getcwd().rfind("/")]+"/svhn"
+path.append(p)
 from svhn import read_data_sets
 import tensorflow as tf
 from mpi4py import MPI

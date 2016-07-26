@@ -16,10 +16,10 @@ logfile = Logger.DataLogger("CIFAR100_MCMC","Epoch,time,train_accuaracy,test_acc
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
 
-from cifar1000 import read_data_sets
+from cifar100 import read_data_sets
 
 from Multi_try_Metropolis import MCMC
-
+NUM_CLASSES = 100
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
