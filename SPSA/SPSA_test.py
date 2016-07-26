@@ -80,7 +80,7 @@ feed={x:data_x,y:data_y}
 mini=SPSA(cost,feed,sess)
 if rank==0:
     start=time.time()
-    for n in range(1000):
+    for n in range(100000):
         orig=mini.var
         g0=mini.getGrad(cost,n)
         g1=comm.recv(source=1,tag=11)
@@ -104,13 +104,13 @@ if rank==0:
             print sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
 
 elif rank==1:
-    for n in range(1000):
+    for n in range(100000):
         g=mini.getGrad(cost,n)
         comm.send(g,dest=0,tag=11)
         update=comm.bcast(None,root=0)
         mini.set_var(update)
 elif rank==2:
-    for n in range(1000):
+    for n in range(100000):
         orig=mini.var
         g0=mini.getGrad(cost,n)
         g1=comm.recv(source=3,tag=11)
@@ -122,7 +122,7 @@ elif rank==2:
         update=comm.bcast(None,root=0)
         mini.set_var(update)
 elif rank==3:
-    for n in range(1000):
+    for n in range(100000):
         g=mini.getGrad(cost,n)
         comm.send(g,dest=2,tag=11)
         update=comm.bcast(None,root=0)
