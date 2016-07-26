@@ -1,9 +1,26 @@
 from svhn import read_data_sets
-
+import tensorflow as tf
+from mpi4py import MPI
 #Parameters
+NUM_CLASSES = 10  
+learning_rate = .001
 num_epochs = 100
-batch_size = 24419 # 3 batches
 #End Parameters
+from sys import path
+from os import getcwd
+p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
+path.append(p)
+
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("SVHN_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+import timer
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -115,19 +132,36 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
-sess.run(init)
-
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
-
 svhn = read_data_sets("/tmp/data")
-runs = 0
-while svhn.train.epochs_completed < num_epochs:
-    data_x, data_y = svhn.train.next_batch(batch_size)
-    sess.run([optimizer, cost], feed_dict={x:data_x, y:data_y})
-    if runs % display_step == 0:
-        testa = sess.run(accuracy, {x:svhn.test.images, y:svhn.test.labels})
-        testc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        traina = sess.run(accuracy, {x:svhn.train.images, y:svhn.train.labels})
-        trainc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        print testa, testc, traina, trainc
+
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
+sess.run(init)
+tx,ty = svhn.train.images,svhn.train.labels
+train_size =  len(tx)
+bsize=train_size
+start = time.time()
+if rank==0:
+    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
+    for b in range(5):
+        data_x=tx[bsize*b:bsize*(b+1)]
+        data_y=ty[bsize*b:bsize*(b+1)]
+        trainer.update(data_x,data_y,x,y)
+        start=time.time()
+        for i in range(40):
+            c = trainer.minimize()
+            train=sess.run(accuracy,{x:tx,y:ty})
+            test= sess.run(accuracy,{x:svhn.test.images,y:svhn.test.labels})
+            train_cost=c
+            test_cost= sess.run(cost,{x:svhn.test.images,y:svhn.test.labels})
+            #f=trainer.functionEval
+            #g=trainer.gradientEval
+            #i=trainer.innerEval
+            #print i, f, g, train, test,train_cost,test_cost
+            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+else:
+    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
+    opServer.run()
+

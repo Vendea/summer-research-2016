@@ -9,6 +9,7 @@ from DataSet import DataSet
 from tensorflow.python.framework import dtypes
 import scipy.io as sio
 import numpy as np
+import cPickle
 
 def unpickle(file):
     return cPickle.load(file)
@@ -24,15 +25,15 @@ def read_data_sets(data_dir):
     print('Extracting', filename)
     train_images,train_labels =[],[]
     test_images,test_labels =[],[]
-    with gfile.Open(filename, 'rb') as f, tarfile.open(fileobj=f) as tar:
+    with gfile.Open(data_dir+"/"+filename, 'rb') as f, tarfile.open(fileobj=f) as tar:
         for x in tar.getnames():
-            if "train" in x:
+            if "data_batch" in x:
                i,l = _get_data(tar.extractfile(x))
-               train_images.extend(i.reshape((0,3,2,1)))
+               train_images.extend(i.reshape((i.shape[0],32,32,3)))
                train_labels.extend(l) 
-            if "test" in x:
+            if "test_batch" in x:
                 i,l = _get_data(tar.extractfile(x)) 
-                test_images.extend(i.reshape((0,3,2,1)))
+                test_images.extend(i.reshape((i.shape[0],32,32,3)))
                 test_labels.extend(l)
 
     train_images = np.array(train_images)
@@ -49,6 +50,6 @@ def read_data_sets(data_dir):
 
 def _get_data(file):
     dict = unpickle(file)
-    return dict.pop("data",None),dict.pop("batch_label",None)
+    return dict.pop("data",None),dict.pop("labels",None)
 
 

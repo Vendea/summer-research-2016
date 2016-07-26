@@ -28,11 +28,11 @@ def read_data_sets(data_dir):
         for x in tar.getnames():
             if "data_batch" in x:
                i,l = _get_data(tar.extractfile(x))
-               train_images.extend(i.reshape((i.shape[0],32,32,3)))
+               train_images.extend(i.reshape((i.shape[0],3,32,32)).transpose(0,1,2,3))
                train_labels.extend(l) 
             if "test_batch" in x:
                 i,l = _get_data(tar.extractfile(x)) 
-                test_images.extend(i.reshape((i.shape[0],32,32,3)))
+                test_images.extend(i.reshape((i.shape[0],3,32,32)).transpose(0,1,2,3))
                 test_labels.extend(l)
 
     train_images = np.array(train_images)

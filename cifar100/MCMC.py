@@ -8,9 +8,16 @@ import time
 from sys import path
 from os import getcwd
 
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("CIFAR100_MCMC","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
-import cifar100
+
+from cifar1000 import read_data_sets
+
 from Multi_try_Metropolis import MCMC
 
 
@@ -148,25 +155,28 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
+cifar100 = read_data_sets("/tmp/data")
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-cifar10 = read_data_sets("/tmp/data")
-bsize = cifar10.num_examples
-tx,ty = cifar10.train.images,cifar10.train.labels
-testx,testy =  cifar10.test.images,cifar10.test.labels
-
+data_x, data_y = cifar100.train.images,cifar100.train.labels
 feed={x:data_x,y:data_y}
 
-mini=MCMC(accuracy,{x: testx, y:testy},sess,0,MPI.COMM_WORLD)
+mini=MCMC(accuracy,{x: cifar100.test.images, y:cifar100.test.labels},sess,0,MPI.COMM_WORLD)
 
 start = time.time()
-for ep in range(1000):
+for ep in range(100):
     mini.optimize(stdev=0.04)
-    if rank ==0:
-        print time.time()-start
+    if rank == 0:
+        train=sess.run(accuracy,{x:cifar100.train.images,y:cifar100.train.labels})
+        test= sess.run(accuracy,{x:cifar100.test.images,y:cifar100.test.labels})
+        train_cost=sess.run(cost,{x:cifar100.train.images,y:cifar100.train.labels})
+        test_cost= sess.run(cost,{x:cifar100.test.images,y:cifar100.test.labels})
+        
+        logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+        
 
 
 

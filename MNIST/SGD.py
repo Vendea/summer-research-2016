@@ -6,11 +6,17 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 from mpi4py import MPI
 
-p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
+p = getcwd()[0:getcwd().rfind("/")]+"/SGD"
 path.append(p)
 
-from lbfgs_optimizer2 import lbfgs_optimizer
-from Opserver2 import Opserver
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("MNIST_SGD","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
+from ParamServer import ParamServer
+from ModelReplica import DPSGD
+
 
 
 
@@ -64,6 +70,7 @@ pred = multilayer_perceptron(x, weights, biases)
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
 
+train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
 # Initializing the variables
 init = tf.initialize_all_variables()
@@ -76,31 +83,29 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-tx,ty = mnist.train.images,mnist.train.labels
-train_size =  len(tx)
-bsize=train_size
+data_x, data_y = mnist.train.images,mnist.train.labels
+training_size = len(data_x)
+param=[]
 
+for t in tf.trainable_variables():
+    param.append(t.eval(session=sess))
 if rank==0:
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(5):
-        data_x=tx[bsize*b:bsize*(b+1)]
-        data_y=ty[bsize*b:bsize*(b+1)]
-        trainer.update(data_x,data_y,x,y)
-        start=time.time()
-        for i in range(40):
-            c = trainer.minimize()
-            if i%10==0 or i<=5:
-                print "All Performance"
-                train=sess.run(accuracy,{x:tx,y:ty})
-                test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
-                train_cost=c
-                test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                i=trainer.innerEval
-                print i, f, g, train, test,train_cost,test_cost
+    server=ParamServer(param,comm)
+    while True:
+        core,data=server.next_request([x for x in range(1,size)])
+        server.handle_request(core,data)
+        
 else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
-    opServer.run()
-
-
+    data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
+    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: mnist.test.images, y:mnist.test.labels})
+    start=time.time()
+    while True:
+        for i in range(100):
+            worker.optimize()
+            worker.publish()
+            train=sess.run(accuracy,{x:data[0],y:data[1]})
+            test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
+            train_cost=sess.run(cost,{x:data[0],y:data[1]})
+            test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels})
+            
+            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))

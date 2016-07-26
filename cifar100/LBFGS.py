@@ -9,9 +9,16 @@ from sys import path
 from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/lbfgs"
 path.append(p)
-import cifar100
+
+from cifar100 import read_data_sets
 from lbfgs_optimizer import lbfgs_optimizer
 from Opserver import Opserver
+
+
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("CIFAR100_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
 
 
 comm = MPI.COMM_WORLD
@@ -149,39 +156,38 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
+cifar100 = read_data_sets("/tmp/data")
+
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
 sess.run(init)
-
-cifar10 = read_data_sets("/tmp/data")
-bsize = cifar10.num_examples
-tx,ty = cifar10.train.images,cifar10.train.labels
-testx,testy =  cifar10.test.images,cifar10.test.labels
-
+tx,ty = cifar100.train.images,cifar100.train.labels
+train_size =  len(tx)
+bsize=train_size
+start = time.time()
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
+    for b in range(5):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(50):
+        for i in range(40):
             c = trainer.minimize()
-            if i%2==0:
-                train = sess.run(accuracy,{x:tx,y:ty})
-                test  = sess.run(accuracy,{x:testx,y:testy})
-                trainc=sess.run(cost,{x:tx,y:ty})
-                testc= sess.run(cost,{x:testx,y:testy})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                i=trainer.innerEval
-                print i, f, g, train, test, trainc, testc
-
+            train=sess.run(accuracy,{x:tx,y:ty})
+            test= sess.run(accuracy,{x:cifar100.test.images,y:cifar100.test.labels})
+            train_cost=c
+            test_cost= sess.run(cost,{x:cifar100.test.images,y:cifar100.test.labels})
+            #f=trainer.functionEval
+            #g=trainer.gradientEval
+            #i=trainer.innerEval
+            #print i, f, g, train, test,train_cost,test_cost
+            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
     opServer.run()
-
-
-
 
 
 

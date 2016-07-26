@@ -1,11 +1,28 @@
 from svhn import read_data_sets
 import tensorflow as tf
+from mpi4py import MPI
 NUM_CLASSES = 10  
 learning_rate = .001
 #Parameters
 num_epochs = 100
-batch_size = 24419 # 3 batches
+#batch_size = 24419 # 3 batches
 #End Parameters
+
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("SVHN_SGD","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
+p = getcwd()[0:getcwd().rfind("/")]+"/SGD"
+path.append(p)
+from ParamServer import ParamServer
+from ModelReplica import DPSGD
+
+
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -117,20 +134,37 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
-sess.run(init)
-
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 
 svhn = read_data_sets("/tmp/data")
-runs = 0
-while svhn.train.epochs_completed < num_epochs:
-    data_x, data_y = svhn.train.next_batch(batch_size)
-    sess.run([optimizer, cost], feed_dict={x:data_x, y:data_y})
-    if runs % display_step == 0:
-        testa = sess.run(accuracy, {x:svhn.test.images, y:svhn.test.labels})
-        testc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        traina = sess.run(accuracy, {x:svhn.train.images, y:svhn.train.labels})
-        trainc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        print testa, testc, traina, trainc
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
+sess.run(init)
+data_x, data_y = svhn.train.images,svhn.train.labels
+training_size = len(data_x)
+param=[]
+
+for t in tf.trainable_variables():
+    param.append(t.eval(session=sess))
+if rank==0:
+    server=ParamServer(param,comm)
+    while True:
+        core,data=server.next_request([x for x in range(1,size)])
+        server.handle_request(core,data)
+        
+else:
+    data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
+    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: svhn.test.images, y:svhn.test.labels})
+    start=time.time()
+    while True:
+        for i in range(10):
+            worker.optimize()
+            worker.publish()
+            train=sess.run(accuracy,{x:data[0],y:data[1]})
+            test= sess.run(accuracy,{x:svhn.test.images,y:svhn.test.labels})
+            train_cost=sess.run(cost,{x:data[0],y:data[1]})
+            test_cost= sess.run(cost,{x:svhn.test.images,y:svhn.test.labels})
+            
+            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
 

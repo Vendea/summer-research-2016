@@ -8,9 +8,14 @@ import time
 from sys import path
 from os import getcwd
 
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("CIFAR100_SGD","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
 p = getcwd()[0:getcwd().rfind("/")]+"/SGD"
 path.append(p)
-import cifar100
+from cifar100 import read_data_sets
 from ParamServer import ParamServer
 from ModelReplica import DPSGD
 
@@ -148,16 +153,14 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
+cifar100 = read_data_sets("/temp/data")
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-
-cifar10 = read_data_sets("/tmp/data")
-data_x,data_y = cifar10.train.images,cifar10.train.labels
-testx,testy =  cifar10.test.images,cifar10.test.labels
-training_size = cifar10.num_examples
+data_x, data_y = cifar100.train.images[0:10],cifar100.train.labels[0:10]
+training_size = len(data_x)
 param=[]
 
 for t in tf.trainable_variables():
@@ -170,13 +173,17 @@ if rank==0:
         
 else:
     data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
-    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x:testx, y:testy})
+    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: cifar100.test.images, y:cifar100.test.labels})
     start=time.time()
     while True:
-        for i in range(10):
+        for i in range(100):
             worker.optimize()
-        now=time.time()
-        print now-start, worker.publish()
-
+            worker.publish()
+            train=sess.run(accuracy,{x:data[0],y:data[1]})
+            test= sess.run(accuracy,{x:cifar100.test.images,y:cifar100.test.labels})
+            train_cost=sess.run(cost,{x:data[0],y:data[1]})
+            test_cost= sess.run(cost,{x:cifar100.test.images,y:cifar100.test.labels})
+            
+            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
 
 

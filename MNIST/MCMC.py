@@ -9,6 +9,15 @@ from mpi4py import MPI
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
 
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("MNIST_MCMC","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
+
+
+
+
 from Multi_try_Metropolis import MCMC
 
 
@@ -79,8 +88,13 @@ feed={x:data_x,y:data_y}
 mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
 
 start = time.time()
-for ep in range(1000):
+for ep in range(100):
     mini.optimize(stdev=0.04)
-    if rank ==0:
-        print time.time()-start
-   
+    if rank == 0:
+        train=sess.run(accuracy,{x:mnist.train.images,y:mnist.train.labels})
+        test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
+        train_cost=sess.run(cost,{x:mnist.train.images,y:mnist.train.labels})
+        test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels})
+        
+        logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+        

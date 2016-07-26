@@ -1,9 +1,25 @@
 from svhn import read_data_sets
-
+import tensorflow as tf
+NUM_CLASSES = 10  
+learning_rate = .001
 #Parameters
 num_epochs = 100
-batch_size = 24419 # 3 batches
+#batch_size = 24419 # 3 batches
 #End Parameters
+p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
+path.append(p)
+
+from Multi_try_Metropolis import MCMC
+
+p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
+path.append(p)
+import Logger
+logfile = Logger.DataLogger("SVHN_MCMC","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+
 
 def _variable_on_cpu(name, shape, initializer):
   """Helper to create a Variable stored on CPU memory.
@@ -115,19 +131,27 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-sess=tf.Session()
-sess.run(init)
 
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 
 svhn = read_data_sets("/tmp/data")
-runs = 0
-while svhn.train.epochs_completed < num_epochs:
-    data_x, data_y = svhn.train.next_batch(batch_size)
-    sess.run([optimizer, cost], feed_dict={x:data_x, y:data_y})
-    if runs % display_step == 0:
-        testa = sess.run(accuracy, {x:svhn.test.images, y:svhn.test.labels})
-        testc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        traina = sess.run(accuracy, {x:svhn.train.images, y:svhn.train.labels})
-        trainc = sess.run(cost, {x:svhn.test.images, y:svhn.test.labels})
-        print testa, testc, traina, trainc
+config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
+                            inter_op_parallelism_threads=1,
+                            intra_op_parallelism_threads=1)
+sess=tf.Session(config=config)
+sess.run(init)
+data_x, data_y = svhn.train.images,svhn.train.labels
+feed={x:data_x,y:data_y}
+
+mini=MCMC(accuracy,{x: svhn.test.images, y:svhn.test.labels},sess,0,MPI.COMM_WORLD)
+
+start = time.time()
+for ep in range(100):
+    mini.optimize(stdev=0.04)
+    if rank == 0:
+        train=sess.run(accuracy,{x:svhn.train.images,y:svhn.train.labels})
+        test= sess.run(accuracy,{x:svhn.test.images,y:svhn.test.labels})
+        train_cost=sess.run(cost,{x:svhn.train.images,y:svhn.train.labels})
+        test_cost= sess.run(cost,{x:svhn.test.images,y:svhn.test.labels})
+        
+        logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+        
