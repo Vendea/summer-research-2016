@@ -19,7 +19,7 @@ from cifar100 import read_data_sets
 from ParamServer import ParamServer
 from ModelReplica import DPSGD
 
-
+batch_size = 100
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
@@ -154,7 +154,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar100 = read_data_sets("/temp/data")
+cifar100 = read_data_sets("/tmp/data")
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
                             intra_op_parallelism_threads=1)
@@ -163,7 +163,7 @@ sess.run(init)
 data_x, data_y = cifar100.train.images[0:10],cifar100.train.labels[0:10]
 training_size = len(data_x)
 param=[]
-
+batch_size = training_size
 for t in tf.trainable_variables():
     param.append(t.eval(session=sess))
 if rank==0:

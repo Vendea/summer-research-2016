@@ -1,3 +1,5 @@
+from sys import path
+from os import
 p = getcwd()[0:getcwd().rfind("/")]+"/svhn"
 path.append(p)
 from svhn import read_data_sets
@@ -8,8 +10,7 @@ learning_rate = .001
 num_epochs = 100
 #batch_size = 24419 # 3 batches
 #End Parameters
-from sys import path
-from os import getcwd
+ getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/MCMC"
 path.append(p)
 

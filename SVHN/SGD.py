@@ -9,6 +9,7 @@ NUM_CLASSES = 10
 learning_rate = .001
 #Parameters
 num_epochs = 100
+batch_size = 100
 #batch_size = 24419 # 3 batches
 #End Parameters
 

@@ -15,7 +15,7 @@ p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
 import Logger
 logfile = Logger.DataLogger("SVHN_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
-
+batch_size = 100
 
 NUM_CLASSES = 10
 from cifar10 import read_data_sets
@@ -157,7 +157,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar10 = read_data_sets("/temp/data")
+cifar10 = read_data_sets("/tmp/data")
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
                             intra_op_parallelism_threads=1)
@@ -166,7 +166,7 @@ sess.run(init)
 data_x, data_y = cifar10.train.images,cifar10.train.labels
 training_size = len(data_x)
 param=[]
-
+batch_size = training_size
 for t in tf.trainable_variables():
     param.append(t.eval(session=sess))
 if rank==0:
