@@ -108,7 +108,7 @@ sess=tf.Session(config=config)
 sess.run(init)
 train_size=50000
 tx,ty=batch_xs, batch_ys = mnist.train.next_batch(train_size)
-bsize=4
+bsize=10000
 total_time=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
@@ -141,6 +141,17 @@ if rank==0:
                 start=time.time()
             if c<10 and not s==0:
                 print "Zero cost"
+                print "All Performance"
+                time_cost=time.time()-start
+                total_time=time_cost+total_time
+                train=sess.run(accuracy,{x:data_x,y:data_y,keep_prob:1.0})
+                test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels,keep_prob:1.0})
+                train_cost=c
+                f=trainer.functionEval
+                g=trainer.gradientEval
+                inner=trainer.innerEval
+                print total_time, time_cost, inner, f, g, train, test,train_cost,s
+                start=time.time()
                 trainer.last_z1=trainer.learningRate
                 break
 
