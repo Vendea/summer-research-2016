@@ -6,7 +6,7 @@ import time
 
 
 class Opserver:
-    def __init__(self,learning_rate, cost,feed,sess,comm,size,rank,root,x,y,keep_prob):
+    def __init__(self,learning_rate, cost,feed,sess,comm,size,rank,root,x,y,keep_prob=None):
         self.cost=cost
         self.feed=feed
         self.sess=sess

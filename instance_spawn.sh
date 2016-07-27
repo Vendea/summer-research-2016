@@ -31,9 +31,7 @@ for i in `seq 2 $instance_count`; do
       instances="$instances instance-$i"
 done
 
-startup="#! /bin/bash\n\nsudo apt-get install -y git\n\ngit clone https://github.com/Vendea/summer-research-2016.git\ncd summer-research-2016\n./VM-setup.sh"
-echo -e $startup>>"start_up.sh"
-chmod +x ./start_up.sh
+
 
 ram_size=$ram_size"GiB"
 
@@ -42,6 +40,5 @@ gcloud compute instances create $instances \
 	--image-project ubuntu-os-cloud \
 	--custom-cpu $cpu_count \
 	--custom-memory $ram_size \
-    --metadata-from-file startup-script=./start_up.sh \
 	--zone us-east1-c
 
