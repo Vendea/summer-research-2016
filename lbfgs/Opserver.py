@@ -6,7 +6,7 @@ import time
 
 
 class Opserver:
-    def __init__(self,learning_rate, cost,feed,sess,comm,size,rank,root,x,y,keep_prob=None):
+    def __init__(self,learning_rate, cost,feed,sess,comm,size,rank,root,x,y,keep_prob):
         self.cost=cost
         self.feed=feed
         self.sess=sess
@@ -32,7 +32,6 @@ class Opserver:
         self.keep_prob=keep_prob
 
     def update_var(self,var=None):
-        var=np.load('var.npy')
         feed={}
         for t,v in zip(self.assign_placeholders,var):
             feed[t]=v
@@ -60,7 +59,7 @@ class Opserver:
                     self.feed={self.x:data_x,self.y:data_y}
             elif data[0]=="W":
                 s=time.time()
-                self.update_var()
+                self.update_var(data[1])
                 e=time.time()
                 #print "Update Time", e-s
         print "Core,", self.rank, "Finish"

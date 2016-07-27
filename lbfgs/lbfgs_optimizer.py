@@ -67,8 +67,7 @@ class lbfgs_optimizer:
         for t,v in zip(self.assign_placeholders,var):
             feed[t]=v
         self.sess.run(self.assign,feed)
-        np.save('var',var)
-        self.comm.scatter([("W",0) for i in range(self.size)],root=self.rank)
+        self.comm.scatter([("W",var) for i in range(self.size)],root=self.rank)
         #print "Update Var:", time.time()-s
 
     def var_self_inner(self,var_v1,useFlatten=False):
@@ -185,7 +184,7 @@ class lbfgs_optimizer:
                 g1=self.getGradient(self.var+z1*r)
                 gtd1=self.var_inner(g1,r)
                 lsIter=0
-                lsIterMax=10
+                lsIterMax=20
                 f_prev=f0
                 g_prev=self.old_grad
                 z_prev=0
@@ -228,8 +227,11 @@ class lbfgs_optimizer:
                     bracket=np.array([0,z1])
                     bracketF=np.array([f0,f1])
                     bracketG=np.array([g0,g1])
-                #print "Forward Track:",lsIter
+                print "Forward Track:",lsIter
                 insufProgress=False
+                lsV=True
+                if lsIter==10:
+                    lsV=False
                 while not done and lsIter<lsIterMax:
                     f_Lo=np.min(bracketF)
                     LoPos=np.argmin(bracketF)
@@ -279,7 +281,7 @@ class lbfgs_optimizer:
                 f_Lo=np.min(bracketF)
                 LoPos=np.argmin(bracketF)
                 z1=bracket[LoPos]
-                if np.isnan(f_Lo):
+                if np.isnan(f_Lo) or lsV==False or z1==0:
                     #print "Failed line search"
                     self.var=self.var-g0*0.00001
                     self.update_var()
@@ -292,7 +294,7 @@ class lbfgs_optimizer:
                     d=z1*r
                     s=d
                     self.S.append(s)
-                    self.last_z1=max(z1,0.0001)
+                    self.last_z1=min(max(z1,0.000001),0.0001)
             else:
                 self.var=self.var+r*0.01
                 self.S.append(0.01*r)
@@ -306,9 +308,6 @@ class lbfgs_optimizer:
             self.YS.append(self.var_inner(y,s))
             self.old_grad=grad
             self.NumIter=self.NumIter+1
-            if z1<0.000001:
-                z1=self.learningRate
-            self.last_z1=z1
             return f_Lo,z1
 
 
