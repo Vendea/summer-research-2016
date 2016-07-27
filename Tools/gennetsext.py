@@ -20,29 +20,30 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 nbits=11
-n_layer=3
 n_nodes=8
+n_out = nbits+1
+n_layer=nbits
+
 
 # Specifying the inputs into the graph
-y = tf.placeholder('float', [None, nbits+1])
+y = tf.placeholder('float', [None, n_out])
 x = tf.placeholder('float', [None, nbits*2])
 
 # Defining and initializing the trainable Variables
-weights = [tf.Variable(tf.random_normal([nbits*2, n_nodes]))]
+weights = [tf.Variable(tf.random_normal([nbits*2, n_out]))]
 biases = []
 for i in range(1, n_layer):
-    biases.append(tf.Variable(tf.random_normal([n_nodes])))
-    weights.append(tf.Variable(tf.random_normal([n_nodes, n_nodes])))
+    biases.append(tf.Variable(tf.random_normal([n_out])))
+    weights.append(tf.Variable(tf.random_normal([n_out, n_out])))
 
-weights.append(tf.Variable(tf.random_normal([n_nodes, nbits+1])))
-biases.append(tf.Variable(tf.random_normal([n_nodes])))
-biases.append(tf.Variable(tf.random_normal([nbits+1])))
+weights.append(tf.Variable(tf.random_normal([n_out, n_out])))
+biases.append(tf.Variable(tf.random_normal([n_out])))
 base=2
 add_layer=[]
 inc_layer=[]
-for i in range(n_nodes/2):
+for i in range(n_out):
     add_layer.append(Adder(base))
-    inc_layer.append((Incrementer(base)))
+    #inc_layer.append((Incrementer(base)))
 
 # Constructing the hidden and output layers
 def multilayer_perceptron(x, weights, biases):
@@ -54,18 +55,18 @@ def multilayer_perceptron(x, weights, biases):
         else:
             aes, bes = tf.split(1, 2, layer[len(layer)-1])
             temp = []
-            if i%2 == 1:
-                for i in range(n_nodes/2):
-                    a,b =  add_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1]))
-                    temp.append(a)
-                    temp.append(b)
-                layer.append(tf.concat(1, temp))
-            else:
-                for i in range(n_nodes/2):
-                    a,b =  inc_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1]))
-                    temp.append(a)
-                    temp.append(b)
-                layer.append(tf.concat(1,temp))
+            #if i%2 == 1:
+            for i in range(n_nodes/2):
+                a,b =  add_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1]))
+                temp.append(a)
+                temp.append(b)
+            layer.append(tf.concat(1, temp))
+            #else:
+#                for i in range(n_nodes/2):
+ #                   a,b =  inc_layer[i].ex(tf.slice(aes, [0,i], [0,1]), tf.slice(bes, [0,i], [0,1]))
+  #                  temp.append(a)
+   #                 temp.append(b)
+    #            layer.append(tf.concat(1,temp))
     return layer[-1]
 
 # Defining the output
@@ -141,27 +142,3 @@ elif rank==3:
         comm.send(g,dest=2,tag=11)
         update=comm.bcast(None,root=0)
         mini.set_var(update)
-        
-'''for ep in range(1000):
-    o1,n1=mini.minimize(cost,ep)
-    f1=sess.run(cost,feed)
-    mini.set_var(o1)
-    o2,n2=mini.minimize(cost,ep)
-    f2=sess.run(cost,feed)
-    mini.set_var(o2)
-    o3,n3=mini.minimize(cost,ep)
-    f3=sess.run(cost,feed)
-    if f1<=f2 and f1<=f3:
-        mini.set_var(n1)
-    elif f2<=f3 and f2<=f1:
-        mini.set_var(n2)
-    else:
-        mini.set_var(n3)
-    print sess.run(cost,feed)
-    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-    print "Accuracy:", accuracy.eval({x: test_x, y: test_y},session=sess)
-
-correct_prediction = tf.equal(tf.argmax(pred,1), tf.argmax(y,1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print(sess.run(accuracy, feed_dict=feed))'''
