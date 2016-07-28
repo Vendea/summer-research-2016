@@ -163,7 +163,7 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-tx,ty = cifar100.train.images,cifar100.train.labels
+tx,ty = cifar100.train.images[0:30],cifar100.train.labels[0:30]
 train_size =  len(tx)
 bsize=train_size
 start = time.time()

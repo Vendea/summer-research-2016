@@ -161,7 +161,7 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-data_x, data_y = cifar100.train.images,cifar100.train.labels
+data_x, data_y = cifar100.train.images[0:30],cifar100.train.labels[0:30]
 feed={x:data_x,y:data_y}
 
 mini=MCMC(accuracy,{x: cifar100.test.images, y:cifar100.test.labels},sess,0,MPI.COMM_WORLD)
