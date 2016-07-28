@@ -177,7 +177,7 @@ if rank==0:
         
 else:
     data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
-    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: cifar10.test.images, y:cifar10.test.labels})
+    worker=DPSGD(param,data,batch_size,comm,cost,sess,x,y,cost,rank,0,accuracy,{x: cifar10.test.images, y:cifar10.test.labels})
     start=time.time()
     while True:
         for i in range(100):
