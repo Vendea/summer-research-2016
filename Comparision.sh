@@ -1,3 +1,5 @@
+python GetData.py
+
 cd cifar10
 echo cifar10
 mpirun -np 4 python LBFGS.py

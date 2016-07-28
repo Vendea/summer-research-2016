@@ -83,7 +83,7 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-data_x, data_y = mnist.train.images,mnist.train.labels
+data_x, data_y = mnist.train.images[0:30],mnist.train.labels[0:30]
 training_size = len(data_x)
 param=[]
 
