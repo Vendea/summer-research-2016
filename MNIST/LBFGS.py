@@ -106,7 +106,7 @@ if rank==0:
             #print i, f, g, train, test,train_cost,test_cost
             logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
 else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
+    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=0.0)
     opServer.run()
 
 

@@ -99,13 +99,11 @@ else:
     data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
     worker=DPSGD(param,data,batch_size,comm,cost,sess,x,y,cost,rank,0,accuracy,{x: mnist.test.images, y:mnist.test.labels})
     start=time.time()
-    while True:
-        for i in range(100):
-            worker.optimize()
-            worker.publish()
-            train=sess.run(accuracy,{x:data[0],y:data[1]})
-            test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
-            train_cost=sess.run(cost,{x:data[0],y:data[1]})
-            test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels})
-            
-            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+    for i in range(1000):
+        worker.optimize()
+        print time.time()-start,worker.publish()
+        train=sess.run(accuracy,{x:data[0],y:data[1]})
+        test= sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
+        train_cost=sess.run(cost,{x:data[0],y:data[1]})
+        test_cost= sess.run(cost,{x:mnist.test.images,y:mnist.test.labels})
+        logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))

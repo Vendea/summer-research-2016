@@ -1,5 +1,5 @@
 from sys import path
-from os import
+from os import getcwd
 p = getcwd()[0:getcwd().rfind("/")]+"/svhn"
 path.append(p)
 from svhn import read_data_sets
