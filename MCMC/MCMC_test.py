@@ -12,9 +12,10 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 import tensorflow as tf
 import time
-from Multi_try_Metropolis import MCMC
+from Metropolis_Hastings import MCMC
 import matplotlib.pyplot as plt
 from mpi4py import MPI
+import math
 
 master = MPI.COMM_WORLD.Get_rank() == 0
 
@@ -77,29 +78,27 @@ data_x, data_y = mnist.train.next_batch(10000)
 feed={x:data_x,y:data_y}
 correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-#mini=MCMC(cost,feed,sess)
-mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
+mini=MCMC(accuracy, {x: mnist.test.images, y:mnist.test.labels}, sess, stdev=0.035, t0=2, c=50, maximize=True)
+#mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
 costs = []
 costs.append(mini.prev_cost)
 timestamps = [0]
 start = time.time()
-for ep in range(1000):
-    mini.optimize(stdev=0.04)
+while time.time()-start < 300: #for ep in range(1000):
+    mini.optimize()
     timestamps.append(time.time() - start)
     costs.append(mini.prev_cost)
     if master:
         print time.time()-start, mini.prev_cost
-    if time.time()-start > 300:
-        break
+    #if time.time()-start > 300:
+    #    break
     #print sess.run(cost, feed)
-    #correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-    #accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     #print "Accuracy:", accuracy.eval({x: mnist.test.images, y:mnist.test.labels},session=sess)
 
 #print timestamps
 #print costs
 if master:
-    plt.plot(timestamps, costs, label='')
+    plt.plot(timestamps, costs, label='MH')
     plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
     plt.grid(True)
-    plt.show()
+    plt.savefig('metro_stdev'+str(mini.stdev)[2:]+'_c'+str(mini.c)+'_t'+str(mini.t0)+'.png')
