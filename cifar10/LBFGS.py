@@ -162,27 +162,28 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-tx,ty = cifar10.train.images[0:30],cifar10.train.labels[0:30]
+tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=1000
+bsize=10000
 start = time.time()
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
+    for b in range(5):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
         for i in range(100):
             c = trainer.minimize()
+            if 
             train=sess.run(accuracy,{x:data_x,y:data_y})
             test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
             train_cost=c
             test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
             f=trainer.functionEval
             g=trainer.gradientEval
-            i=trainer.innerEval
-            print i, f, g, train, test,train_cost,test_cost
+            inner=trainer.innerEval
+            print inner, f, g, train, test,train_cost,test_cost
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
