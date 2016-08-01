@@ -155,7 +155,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar10 = read_data_sets("/tmp/data")
+cifar10 = read_data_sets("/lustre/mwu12348")
 
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,

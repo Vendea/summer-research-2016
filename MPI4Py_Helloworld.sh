@@ -2,7 +2,7 @@
 
 #SBATCH --ntasks=8
 #SBATCH -t 00:00:30
-
+#SBATCH --gres=gpu
 . ~/.profile
 
 module load gcc/6.1.0
