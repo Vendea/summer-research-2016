@@ -166,6 +166,7 @@ tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
 bsize=10000
 start = time.time()
+totaltime=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
     for b in range(5):
@@ -177,14 +178,16 @@ if rank==0:
             ts=time.time()
             c = trainer.minimize()
             te=time.time()
-            train=sess.run(accuracy,{x:data_x,y:data_y})
-            test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-            train_cost=c
-            test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-            f=trainer.functionEval
-            g=trainer.gradientEval
-            i=trainer.innerEval
-            print i, f, g, train, test,train_cost,test_cost
+            totaltime=totaltime+te-ts
+            if i%10==0:
+                train=sess.run(accuracy,{x:data_x,y:data_y})
+                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                train_cost=c
+                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                f=trainer.functionEval
+                g=trainer.gradientEval
+                inner=trainer.innerEval
+                print inner, f, g, train, test,train_cost,test_cost
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
