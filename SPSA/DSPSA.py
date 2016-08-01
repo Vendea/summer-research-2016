@@ -108,4 +108,16 @@ class DLBFGS(DTrainer):
 		    opServer=Opserver(self.lr, self.cost,[],self.sess,comm,size,rank,0,self.x,self.y,keep_prob=None)
 		    opServer.run()
 class DMCMC(DTrainer):
+	def __init__(self,,cost,x,y,sess,test,train,batch_size,learning_rate = 0.001,file_name="Error"):
+        super(DTrainer, self).__init__(cost,x,y,sess,test,train,batch_size,learning_rate,file_name)
+        data_x,data_y = self._train
+        feed={self.x:data_x,self.y:data_y}
+        self.mini=SPSA(self.cost,feed,self.sess)
+    def train_step():
+		if rank==0:
+		    trainer=lbfgs_optimizer(self.lr, self.cost,[],self.sess,1,comm,size,rank)   
+	        c = trainer.minimize()
+		else:
+		    opServer=Opserver(self.lr, self.cost,[],self.sess,comm,size,rank,0,self.x,self.y,keep_prob=None)
+		    opServer.run()
 class DSGD(DTrainer):

@@ -155,7 +155,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar10 = read_data_sets("/lustre/mwu12348")
+cifar10 = read_data_sets("/lustre/mwu12348/data")
 
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
@@ -164,29 +164,36 @@ sess=tf.Session(config=config)
 sess.run(init)
 tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=10000
+bsize=1000
 start = time.time()
+totaltime=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(5):
+    for b in range(1):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(100):
+        for i in range(40):
+            ts=time.time()
             c = trainer.minimize()
-            if 
-            train=sess.run(accuracy,{x:data_x,y:data_y})
-            test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-            train_cost=c
-            test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-            f=trainer.functionEval
-            g=trainer.gradientEval
-            inner=trainer.innerEval
-            print inner, f, g, train, test,train_cost,test_cost
+            te=time.time()
+            totaltime=totaltime+te-ts
+            if i%10==0:
+                train=sess.run(accuracy,{x:data_x,y:data_y})
+                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                train_cost=c
+                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                f=trainer.functionEval
+                g=trainer.gradientEval
+                inner=trainer.innerEval
+                print inner, f, g, train, test,train_cost,test_cost
+    trainer.kill()
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
+
+
 
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --ntasks=100
-#SBATCH -t 01:00:00
+#SBATCH --ntasks=20
+#SBATCH -t 00:10:00
 #SBATCH --gres=gpu
 . ~/.profile
 
