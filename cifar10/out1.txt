@@ -1,0 +1,40 @@
+--------------------------------------------------------------------------
+[[22670,1],8]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: instance-2
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data
+getting data

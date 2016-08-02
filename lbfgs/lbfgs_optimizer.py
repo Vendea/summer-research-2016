@@ -36,7 +36,7 @@ class lbfgs_optimizer:
         # self.var=np.load('var.npy')
         np.save('var.npy',self.var)
         comm.scatter(['Init' for i in range(size)],root=rank)
-        self.gradient=tf.gradients(cost,tf.trainable_variables())
+        self.gradient=tf.gradients(cost,tf.trainable_variables(),gate_gradients=True)
         self.learningRate=learning_rate
         self.old_grad=None
 
@@ -57,7 +57,7 @@ class lbfgs_optimizer:
             self.feed={x:data_x,y:data_y,keep_prob:1.0}
         else:
             self.feed={x:data_x,y:data_y}
-        print "Update Batch:", time.time()-start
+        #print "Update Batch:", time.time()-start
 
 
 
@@ -81,7 +81,7 @@ class lbfgs_optimizer:
             v=np.ravel(m)
             ret=ret+np.inner(v,v)
         e=time.time()
-        #print "Inner product:", e-s
+        print "Inner product:", e-s
         return ret
 
     # Numpy unstructured inner product
@@ -129,32 +129,34 @@ class lbfgs_optimizer:
 
     def getGradient(self,var):
         self.gradientEval=self.gradientEval+1
-        s=time.time()
         self.update_var(var)
+        s=time.time()
         self.comm.bcast("G",root=self.rank)
         data=np.array(self.sess.run(self.gradient,self.feed))
-        #s=time.time()
+        #print "Gradient Master Computation Time", time.time()-s
         ret=[]
+        ss=time.time()
         for gr in data:
             y = self.comm.reduce(gr, op=MPI.SUM,root=self.rank)
             ret.append(y/self.size)
         ret=np.array(ret)
         e=time.time()
-        print "Gradient Time:",e-s
+        #print "Gradient Time:",e-s, e-ss
         return ret
 
     def kill(self):
-        self.comm.scatter("K",root=self.rank)
+        self.comm.bcast("K",root=self.rank)
 
     def getFunction(self,var):
         self.functionEval=self.functionEval+1
-        s=time.time()
         self.update_var(var)
+        s=time.time()
         self.comm.bcast("C",root=self.rank)
         data=self.sess.run(self.cost,self.feed)
+        #print "Function Master Computation", time.time()-s
         y = self.comm.reduce(data, op=MPI.SUM,root=self.rank)
         e=time.time()
-        print "Function Time", e-s
+        #print "Function Time", e-s
         return y/self.size
 
 
@@ -189,12 +191,13 @@ class lbfgs_optimizer:
                 g1=self.getGradient(self.var+z1*r)
                 gtd1=self.var_inner(g1,r)
                 lsIter=0
-                lsIterMax=20
+                lsIterMax=10
                 f_prev=f0
                 g_prev=self.old_grad
                 z_prev=0
                 gtd_prev=gtd0
                 done=False
+                lsV=True
                 while lsIter<lsIterMax:
                     if np.isnan(f1):
                         z1=z1/2.0
@@ -224,20 +227,22 @@ class lbfgs_optimizer:
                     g_prev=g1
                     f1=self.getFunction(self.var+r*z1)
                     g1=self.getGradient(self.var+r*z1)
-                    #print "Forward search",f1
+                    print "Forward search",f1
+                    if f1==f_prev and z1<0.0001:
+                       lsV=False 
+                       break
                     gtd_prev=gtd1
                     gtd1=self.var_inner(g1,r)
                     lsIter=lsIter+1
-                if lsIter==lsIterMax:
+                if lsIter==lsIterMax or not lsV:
                     bracket=np.array([0,z1])
                     bracketF=np.array([f0,f1])
                     bracketG=np.array([g0,g1])
-                #print "Forward Track:",lsIter
+                print "Forward Track:",lsIter
                 insufProgress=False
-                lsV=True
-                if lsIter==10:
+                if lsIter==lsIterMax:
                     lsV=False
-                while not done and lsIter<lsIterMax:
+                while not done and lsIter<lsIterMax and (lsV):
                     f_Lo=np.min(bracketF)
                     LoPos=np.argmin(bracketF)
                     HiPos=1-LoPos
@@ -264,8 +269,8 @@ class lbfgs_optimizer:
                     #print "Backtrack:", f_new
                     gtd_new=self.var_inner(g_new,r)
                     lsIter=lsIter+1
-                    #print bracket
-                    #print bracketF
+                    print bracket
+                    print bracketF
                     armijo = f_new < f0 + 0.0001*z1*gtd0
                     if ~armijo or f_new >= f_Lo:
                         bracket[HiPos] = z1
@@ -301,8 +306,11 @@ class lbfgs_optimizer:
                     self.S.append(s)
                     self.last_z1=min(max(z1,0.000001),0.0001)
             else:
-                self.var=self.var+r*0.01
-                self.S.append(0.01*r)
+                self.var=self.var+r*0.0001
+                s=0.0001*r
+                self.S.append(r)
+                f_Lo=self.getFunction(self.var)
+                z1=0.0001
                 self.update_var()
             grad=self.getGradient(self.var+r*z1)
             self.S.remove(self.S[0])

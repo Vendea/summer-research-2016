@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 from os import listdir
 from os.path import isfile, join
@@ -56,8 +57,7 @@ def _variable_on_cpu(name, shape, initializer):
   Returns:
     Variable Tensor
   """
-  with tf.device('/cpu:0'):
-    var = tf.get_variable(name, shape, initializer=initializer)
+  var = tf.get_variable(name, shape, initializer=initializer)
   return var
 
 def _variable_with_weight_decay(name, shape, stddev, wd):
@@ -143,7 +143,7 @@ with tf.variable_scope('softmax_linear') as scope:
                                           stddev=1/192.0, wd=0.0)
     biases = _variable_on_cpu('biases', [NUM_CLASSES],
                               tf.constant_initializer(0.0))
-    pred = tf.nn.relu(tf.matmul(local4, weights)+ biases, name=scope.name)
+    pred = tf.add(tf.matmul(local4, weights), biases, name=scope.name)
     
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
@@ -155,7 +155,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar10 = read_data_sets("/lustre/mwu12348/data")
+cifar10 = read_data_sets("/tmp/data")
 
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
@@ -164,36 +164,56 @@ sess=tf.Session(config=config)
 sess.run(init)
 tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=1000
+bsize=300
 start = time.time()
 totaltime=0
 if rank==0:
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(1):
+    totaltime=0
+    trainer=lbfgs_optimizer(0.0001, cost,[],sess,3,comm,size,rank)
+    for b in range(30):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(40):
+        for i in range(10):
             ts=time.time()
             c = trainer.minimize()
             te=time.time()
+	    print c
             totaltime=totaltime+te-ts
-            if i%10==0:
-                train=sess.run(accuracy,{x:data_x,y:data_y})
+            if (i+1)%10==0:
+                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
                 test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
                 train_cost=c
                 test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
                 f=trainer.functionEval
                 g=trainer.gradientEval
                 inner=trainer.innerEval
-                print inner, f, g, train, test,train_cost,test_cost
-    trainer.kill()
+                print totaltime,inner, f, g, train, test,train_cost,test_cost
+    bsize=6000
+    for b in range(2):
+        data_x=tx[bsize*b:bsize*(b+1)]
+        data_y=ty[bsize*b:bsize*(b+1)]
+        trainer.update(data_x,data_y,x,y)
+        start=time.time()
+        for i in range(10):
+            ts=time.time()
+            c = trainer.minimize()
+            te=time.time()
+            print c
+            totaltime=totaltime+te-ts
+            if (i+1)%10==0:
+                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
+                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                train_cost=c
+                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                f=trainer.functionEval
+                g=trainer.gradientEval
+                inner=trainer.innerEval
+                print totaltime,inner, f, g, train, test,train_cost,test_cost
 else:
     opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
-
-
 
 
 

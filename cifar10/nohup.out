@@ -1,0 +1,319 @@
+--------------------------------------------------------------------------
+[[5052,1],7]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: instance-2
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+getting data
+('Extracting', 'cifar-10-python.tar.gz')
+[instance-2:17658] 29 more processes have sent help message help-mpi-btl-base.txt / btl:no-nics
+[instance-2:17658] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+/home/wumingsheng0118/summer-research-2016/lbfgs/lbfgs_optimizer.py:66: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  if var==None:
+(0, 0)
+/home/wumingsheng0118/summer-research-2016/lbfgs/lbfgs_optimizer.py:165: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  if self.old_grad==None:
+(0, 0)
+(0, 0)
+Forward search 2.28622538249
+Forward Track: 1
+[ 0.0002      0.00023227]
+[ 2.28653514  2.28622538]
+(2.2862162272135418, 0.00022785603661667827)
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28619791667
+Forward search 2.28611450195
+Forward Track: 10
+(2.2861145019531248, 0.0011111111111111111)
+Forward search 2.28620147705
+Forward search 2.28616434733
+Forward search 2.28596293132
+Forward search 2.28541056315
+Forward search 2.28493906657
+Forward search 2.28484700521
+Forward search 2.28483072917
+Forward search 2.28482284546
+Forward search 2.28481648763
+Forward search 2.31366577148
+Forward Track: 10
+(2.2862096150716145, 0.0)
+Forward search 2.28618062337
+Forward search 2.28608194987
+Forward search 2.28590520223
+Forward search 2.28556009928
+Forward search 2.28532816569
+Forward search 2.28517201742
+Forward search 2.28457387288
+Forward Track: 7
+[ 0.00397867  0.02188859]
+[ 2.28517202  2.28457387]
+(2.2845626831054688, 0.01613715040075106)
+Forward search 2.28452097575
+Forward search 2.28436304728
+Forward search 2.28421986898
+Forward search 2.28416671753
+Forward search 2.28416366577
+Forward search 2.28416341146
+Forward search 2.28416646322
+Forward Track: 7
+[ 0.01986469  0.02185929]
+[ 2.28416341  2.28416646]
+[ 0.01986469  0.02025347]
+[ 2.28416341  2.28416341]
+[ 0.01986469  0.02003831]
+[ 2.28416341  2.28416341]
+(2.2841634114583331, 0.019864689626944942)
+Forward search 2.28413314819
+Forward search 2.28388214111
+Forward search 2.28260523478
+Forward search 2.28201014201
+Forward search 2.40097045898
+Forward Track: 5
+[ 0.09581007  0.52715624]
+[ 2.28201014  2.40097046]
+(2.2818272908528647, 0.12490696010854913)
+Forward search 2.28176727295
+Forward search 2.28123982747
+Forward search 2.27801844279
+Forward search 2.27429402669
+Forward search 2.27413533529
+Forward Track: 5
+[ 0.13682159  0.15776488]
+[ 2.27429403  2.27413534]
+(2.2741315205891928, 0.15405553485725385)
+109.348227262 132 66 70 0.15 0.094 (2.2741315205891928, 0.15405553485725385) 2.39463
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31414718628
+Forward search 2.31405487061
+Forward Track: 10
+(2.3140548706054687, 0.0011125827924937674)
+Forward search 2.31326090495
+Forward search 2.30990854899
+Forward search 2.30100962321
+Forward search 2.30081939697
+Forward search 2.30896759033
+Forward Track: 5
+[ 0.00392147  0.02157063]
+[ 2.3008194   2.30896759]
+[ 0.00392147  0.00503528]
+[ 2.3008194   2.30118154]
+(2.3008031209309894, 0.0041203951772122108)
+Forward search 2.3004099528
+Forward search 2.29878158569
+Forward search 2.29460144043
+Forward search 2.28469848633
+Forward search 21.9893595378
+Forward Track: 5
+[ 0.18962507  1.89625067]
+[  2.28469849  21.98935954]
+(2.2842208862304689, 0.19611166962596083)
+Forward search 2.28406321208
+Forward search 2.28334655762
+Forward search 2.28097686768
+Forward Track: 3
+[ 0.00111101  0.00775316]
+[ 2.28334656  2.28097687]
+(2.280823008219401, 0.0066600620415076181)
+Forward search 2.28016688029
+Forward search 2.2776105245
+Forward search 2.27119216919
+Forward search 2.26843185425
+Forward search 2.26799926758
+Forward Track: 5
+[ 0.019189    0.02345054]
+[ 2.26843185  2.26799927]
+(2.2679499308268229, 0.022595948435589465)
+Forward search 2.26733474731
+Forward search 2.26495259603
+Forward search 2.26374562581
+Forward search 2.26340637207
+Forward search 2.26283416748
+Forward Track: 5
+[ 0.012796    0.07039012]
+[ 2.26340637  2.26283417]
+(2.2622187296549479, 0.043189153376552727)
+Forward search 2.26089172363
+Forward search 2.2550684611
+Forward search 2.24447860718
+Forward search 2.2348815918
+Forward search 2.78120803833
+Forward Track: 5
+[ 0.03472566  0.19107644]
+[ 2.23488159  2.78120804]
+(2.2179361979166665, 0.081767829134953937)
+Forward search 2.21759236654
+Forward search 2.21686960856
+Forward Track: 2
+[ 0.000202    0.00111101]
+[ 2.21759237  2.21686961]
+(2.2168619791666666, 0.0010507760171156531)
+Forward search 2.21305084229
+Forward search 2.19841283162
+Forward search 2.19182535807
+Forward search 2.19165242513
+Forward search 2.9954363505
+Forward Track: 5
+[ 0.01154897  0.06352314]
+[ 2.19165243  2.99543635]
+(2.1916412353515624, 0.011705539205538289)
+Forward search 2.1823928833
+Forward search 2.15461629232
+Forward search 2.15231018066
+Forward search 2.15034840902
+Forward search 2.14954528809
+Forward search 2.14954528809
+Forward search 2.14954528809
+Forward search 2.14954528809
+Forward search 2.14954528809
+Forward search 2.14954528809
+Forward Track: 10
+(2.1495452880859376, 0.010172409886313976)
+243.65410161 304 150 154 0.203333 0.148 (2.1495452880859376, 0.010172409886313976) 2.20853
+Forward search 2.24627990723
+Forward search 2.24584248861
+Forward search 2.24483744303
+Forward Track: 3
+[ 0.00038792  0.00213497]
+[ 2.24584249  2.24483744]
+(2.2447087605794271, 0.0017310109841333621)
+Forward search 2.24029286702
+Forward search 2.21433436076
+Forward search 2.21263376872
+Forward search 2.40944773356
+Forward Track: 4
+[ 0.00791223  0.0435239 ]
+[ 2.21263377  2.40944773]
+(2.2115661621093752, 0.0092770784419528157)
+Forward search 2.20706888835
+Forward search 2.19618784587
+Forward search 2.19487406413
+Forward search 2.19483032227
+Forward Track: 4
+[ 0.00595138  0.00630324]
+[ 2.19487406  2.19483032]
+(2.1948282877604166, 0.0062409459373793151)
+Forward search 2.19246114095
+Forward search 2.18390579224
+Forward search 2.22565994263
+Forward Track: 3
+[ 0.00606     0.03335482]
+[ 2.18390579  2.22565994]
+(2.1779134114583334, 0.014037849409959995)
+Forward search 2.17406005859
+Forward search 2.15879058838
+Forward search 2.14092763265
+Forward search 2.1369837443
+Forward search 2.13689804077
+Forward Track: 5
+[ 0.02228216  0.02357705]
+[ 2.13698374  2.13689804]
+(2.1368909200032551, 0.023304336643131383)
+Forward search 2.13078613281
+Forward search 2.1156636556
+Forward search 2.1149529775
+Forward search 2.11495259603
+Forward search 2.11495234172
+Forward search 2.58773193359
+Forward Track: 6
+[ 0.00736396  0.04050179]
+[ 2.11495234  2.58773193]
+[ 0.00736396  0.00823784]
+[ 2.11495234  2.11532008]
+(2.1149509429931639, 0.0074513436677356056)
+Forward search 2.0972782135
+Forward search 2.09727681478
+Forward Track: 2
+[ 0.001101    0.00111001]
+[ 2.09727821  2.09727681]
+[ 0.00110827  0.00111001]
+[ 2.09727681  2.09727681]
+[ 0.00110827  0.00110942]
+[ 2.09727681  2.09727681]
+(2.0972766876220703, 0.0011085743879832876)
+Forward search 2.09246673584
+Forward search 2.09716377258
+Forward Track: 2
+[ 0.001101  0.00606 ]
+[ 2.09246674  2.09716377]
+(2.0893379211425782, 0.0029931954358332841)
+Forward search 2.08380711873
+Forward search 2.06099306742
+Forward search 2.03999989827
+Forward search 2.03851292928
+Forward Track: 4
