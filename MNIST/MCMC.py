@@ -88,7 +88,7 @@ feed={x:data_x,y:data_y}
 mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
 
 start = time.time()
-for ep in range(100):
+for i in range(100):
     mini.optimize(stdev=0.04)
     if rank == 0:
         train=sess.run(accuracy,{x:mnist.train.images,y:mnist.train.labels})

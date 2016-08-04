@@ -3,6 +3,7 @@ __author__ = 'billywu'
 import tensorflow as tf
 import numpy as np
 import time
+from mpi4py import MPI
 
 
 class Opserver:
@@ -22,7 +23,7 @@ class Opserver:
             self.assign_placeholders.append(tf.placeholder(shape=v[-1].shape,dtype="float32"))
             assign_op.append(t.assign(self.assign_placeholders[-1]))
         self.assign=tf.group(*assign_op)
-        self.gradient=tf.gradients(cost,tf.trainable_variables())
+        self.gradient=tf.gradients(cost,tf.trainable_variables(),gate_gradients=True)
         comm.scatter(['Init' for i in range(size)],root=root)
         self.var=np.load('var.npy')
         self.learningRate=learning_rate
@@ -39,28 +40,32 @@ class Opserver:
 
     def run(self):
         while (True):
-            data=self.comm.scatter(['None' for x in range(self.size)],root=self.root)
-            if data[0]=="G":
+            data=self.comm.bcast('None',root=self.root)
+            if data=="G":
                 s=time.time()
+                #print len(self.feed[self.x])
                 g=np.array(self.sess.run(self.gradient,self.feed))
-                e=time.time()
+                #print "Rank",self.rank, "Server Gradient Compute Time" ,time.time()-s
+	        for gr in g:
+                    y = self.comm.reduce(gr, op=MPI.SUM,root=self.root)
+                #e=time.time()
                 #print "Gradient Server Compute",e-s
-                self.comm.gather(g,root=self.root)
-            elif data[0]=="C":
+            elif data=="C":
                 c=self.sess.run(self.cost,self.feed)
-                self.comm.gather(c,root=self.root)
-            elif data[0]=="K":
+                y = self.comm.reduce(c, op=MPI.SUM,root=self.root)
+            elif data=="K":
                 break
-            elif data[0]=="U":
-                data_x,data_y,kp=data[1]
+            elif data=="U":
+                fdata=self.comm.scatter([],root=self.root)
+                data_x,data_y,kp=fdata
+                #print len(data_x)
                 if kp:
                     self.feed={self.x:data_x,self.y:data_y,self.keep_prob:1.0}
                 else:
                     self.feed={self.x:data_x,self.y:data_y}
             elif data[0]=="W":
-                s=time.time()
-                self.update_var(data[1])
-                e=time.time()
+                #s=time.time()
+                fdata=self.comm.bcast([],root=self.root)
+                self.update_var(fdata)
                 #print "Update Time", e-s
         print "Core,", self.rank, "Finish"
-

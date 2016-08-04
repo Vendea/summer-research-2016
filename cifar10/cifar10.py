@@ -3,13 +3,18 @@ import tarfile
 from tensorflow.python.platform import gfile
 from sys import path
 from os import getcwd
+import os.path
 p = getcwd()[0:getcwd().rfind("/")]
 path.append(p)
 from DataSet import DataSet
 from tensorflow.python.framework import dtypes
-import scipy.io as sio
 import numpy as np
 import cPickle
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
 
 def unpickle(file):
     return cPickle.load(file)
@@ -18,7 +23,11 @@ def read_data_sets(data_dir):
     filename = "cifar-10-python.tar.gz"
     print("getting data")
     SOURCE_URL = 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
-    local_file = base.maybe_download(filename, data_dir, SOURCE_URL)
+    if rank == 0:
+        local_file = base.maybe_download(filename, data_dir, SOURCE_URL)
+    else:
+        while not os.path.isfile(data_dir+"/"+filename):
+            pass
     
    
     print('Extracting', filename)
