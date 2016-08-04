@@ -1,4 +1,3 @@
-
 import tensorflow as tf
 from os import listdir
 from os.path import isfile, join
@@ -164,45 +163,24 @@ sess=tf.Session(config=config)
 sess.run(init)
 tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=300
+bsize=6000
 start = time.time()
 totaltime=0
 if rank==0:
     totaltime=0
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,3,comm,size,rank)
-    for b in range(30):
+    for b in range(4):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(10):
+        for i in range(1000):
             ts=time.time()
-            c = trainer.minimize()
+            c = trainer.minimize(ls=False)
             te=time.time()
-	    print c
+	    print "Batch", b, "Iter", i, "Cost, Step:",c, "Time", te-ts
             totaltime=totaltime+te-ts
-            if (i+1)%10==0:
-                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
-                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-                train_cost=c
-                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                inner=trainer.innerEval
-                print totaltime,inner, f, g, train, test,train_cost,test_cost
-    bsize=6000
-    for b in range(2):
-        data_x=tx[bsize*b:bsize*(b+1)]
-        data_y=ty[bsize*b:bsize*(b+1)]
-        trainer.update(data_x,data_y,x,y)
-        start=time.time()
-        for i in range(10):
-            ts=time.time()
-            c = trainer.minimize()
-            te=time.time()
-            print c
-            totaltime=totaltime+te-ts
-            if (i+1)%10==0:
+            if (i+1)%100==0:
                 train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
                 test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
                 train_cost=c

@@ -65,7 +65,7 @@ class Opserver:
                     self.feed={self.x:data_x,self.y:data_y}
             elif data[0]=="W":
                 #s=time.time()
-                fdata=self.comm.scatter([],root=self.root)
+                fdata=self.comm.bcast([],root=self.root)
                 self.update_var(fdata)
                 #print "Update Time", e-s
         print "Core,", self.rank, "Finish"

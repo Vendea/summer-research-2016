@@ -15,11 +15,13 @@ class lbfgs_optimizer:
         self.sess=sess
         self.NumIter=0
         self.m=m
+        self.counter=0
         self.gradientEval=0
         self.functionEval=0
+        self.last_func=0
         self.innerEval=0
         self.HessianEval=0
-        self.last_z1=learning_rate
+        self.last_z1=0.01
         self.memorySize=0
         self.rank=rank
         self.comm=comm
@@ -66,7 +68,7 @@ class lbfgs_optimizer:
         if var==None:
             var=self.var
         self.comm.bcast("W")
-        self.comm.scatter([var for i in range(self.size)],root=self.rank)
+        self.comm.bcast(var,root=self.rank)
         feed={}
         for t,v in zip(self.assign_placeholders,var):
             feed[t]=v
@@ -191,7 +193,7 @@ class lbfgs_optimizer:
                 g1=self.getGradient(self.var+z1*r)
                 gtd1=self.var_inner(g1,r)
                 lsIter=0
-                lsIterMax=10
+                lsIterMax=40
                 f_prev=f0
                 g_prev=self.old_grad
                 z_prev=0
@@ -202,7 +204,7 @@ class lbfgs_optimizer:
                     if np.isnan(f1):
                         z1=z1/2.0
                     else:
-                        if f1>f0+0.001*z1*gtd0 or (lsIter>1 and f1>f_prev):
+                        if f1>f0+0.0001*z1*gtd0 or (lsIter>1 and f1>f_prev):
                             bracket=np.array([z_prev,z1])
                             bracketF=np.array([f_prev,f1])
                             bracketG=np.array([g_prev,g1])
@@ -220,17 +222,14 @@ class lbfgs_optimizer:
                             break
                     temp=z_prev
                     z_prev=z1
-                    minStep=z1+0.01*(z1-temp)
+                    minStep=z1+0.1*(z1-temp)
                     maxStep=10*z1
                     z1=self.poly(temp,z1,f_prev,f1,gtd_prev,gtd1,minStep,maxStep)
                     f_prev=f1
                     g_prev=g1
                     f1=self.getFunction(self.var+r*z1)
                     g1=self.getGradient(self.var+r*z1)
-                    print "Forward search",f1
-                    if f1==f_prev and z1<0.0001:
-                       lsV=False 
-                       break
+                    print "Forward search",z1,f1
                     gtd_prev=gtd1
                     gtd1=self.var_inner(g1,r)
                     lsIter=lsIter+1
@@ -242,6 +241,7 @@ class lbfgs_optimizer:
                 insufProgress=False
                 if lsIter==lsIterMax:
                     lsV=False
+                lsIter=0
                 while not done and lsIter<lsIterMax and (lsV):
                     f_Lo=np.min(bracketF)
                     LoPos=np.argmin(bracketF)
@@ -266,6 +266,11 @@ class lbfgs_optimizer:
                         insufProgress=False
                     f_new=self.getFunction(self.var+r*z1)
                     g_new=self.getGradient(self.var+r*z1)
+                    if np.abs(f_new-f_Lo)<0.000000000001 and f_new<f0:
+                        bracket[LoPos]=z1
+                        bracketF[LoPos]=f_new
+                        bracketG[LoPos]=g_new
+			break
                     #print "Backtrack:", f_new
                     gtd_new=self.var_inner(g_new,r)
                     lsIter=lsIter+1
@@ -306,19 +311,84 @@ class lbfgs_optimizer:
                     self.S.append(s)
                     self.last_z1=min(max(z1,0.000001),0.0001)
             else:
-                self.var=self.var+r*0.0001
-                s=0.0001*r
-                self.S.append(r)
-                f_Lo=self.getFunction(self.var)
-                z1=0.0001
-                self.update_var()
-            grad=self.getGradient(self.var+r*z1)
+                z1=self.last_z1*10
+                gn=self.var_inner(self.old_grad,self.old_grad)
+                print "Gradient Norm:", gn
+                dr=math.sqrt(self.var_inner(r,r))
+                while np.isinf(dr):
+                    r=np.divide(r,1000)
+                    dr=math.sqrt(self.var_inner(r,r))
+                #print "r_norm",dr
+		#print "r is saved at", self.counter,"r.npy"
+                #np.save(str(self.counter)+"r",r)
+                self.counter=self.counter+1
+                saddle=False
+                if gn>0.001 or self.counter<10:
+                    r=r/dr
+                else:
+                    dn=[]
+                    for parts in r:
+                        dn.append(np.random.random(parts.shape)*0.001)
+                    dn=np.array(dn)
+                    print "Added Noise Energy:", self.var_inner(dn,dn)
+                    r=r/dr+dn 
+                dr=math.sqrt(self.var_inner(r,r))
+                print dr
+                if not self.last_func==0:
+                    f0=self.last_func
+                else:
+                    f0=self.getFunction(self.var)
+                f1=self.getFunction(self.var+z1*r)
+                print "LS", f1, z1
+                limit=10
+                count=0
+                gtd=self.var_inner(r,self.old_grad)
+                seen_dec=False
+                print "Target:", f0+z1*gtd
+                retract=False
+                while f1>f0+gtd*z1 and count<limit:
+                   count=count+1
+                   z1=z1/2
+                   f_old=f1
+                   f1=self.getFunction(self.var+z1*r)
+                   if f1<f0:
+                       seen_dec=True
+                   if seen_dec and f1>f_old:
+                       print "LS",f1,z1, "Retract"
+                       f1=f_old
+                       z1=z1*2
+                       break
+                   print "LS", f1,z1
+                   print "Target:", f0+z1*gtd 
+                if count==limit:
+                   z1=0.0001
+                   f1=self.getFunction(self.var+z1*r)
+                else:
+                   temp=z1
+                   a=(f1-f0-gtd*z1)/z1/z1
+                   b=gtd
+                   z1=-b/2/a
+                   f2=self.getFunction(self.var+z1*r)
+                   if f2>f1:
+                       z1=temp
+                self.var=self.var+r*z1
+                s=z1*r
+                f_Lo=f1
+                #print "S_Norm",self.var_inner(s,s)
+                self.S.append(s)
+           	self.last_z1=z1 
+            grad=self.getGradient(self.var)
+            y=grad-self.old_grad
             self.S.remove(self.S[0])
             self.Y.remove(self.Y[0])
             self.YS.remove(self.YS[0])
             y=grad-self.old_grad
+            #print "Y_Norm", self.var_inner(y,y)
+            #print "S_Norm", self.var_inner(s,s)
             self.Y.append(y)
-            self.YS.append(self.var_inner(y,s))
+	    ys=self.var_inner(y,s)
+	    #print ys
+            self.YS.append(ys)
             self.old_grad=grad
             self.NumIter=self.NumIter+1
             return f_Lo,z1

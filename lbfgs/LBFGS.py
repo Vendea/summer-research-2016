@@ -164,17 +164,17 @@ sess=tf.Session(config=config)
 sess.run(init)
 tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=990
+bsize=6000
 start = time.time()
 totaltime=0
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(50):
+    for b in range(8):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(10):
+        for i in range(100):
             ts=time.time()
             c = trainer.minimize()
             te=time.time()
