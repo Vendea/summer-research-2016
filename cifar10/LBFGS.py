@@ -167,7 +167,7 @@ if rank==0:
     train_size =  len(tx)
     tx,ty=comm.bcast((tx,ty),root=0)
 else:
-    tx,ty=comm.bcast((tx,ty),root=0)
+    tx,ty=comm.bcast([],root=0)
 bsize=6000
 start = time.time()
 totaltime=0
