@@ -135,7 +135,7 @@ class lbfgs_optimizer:
         s=time.time()
         self.comm.bcast("G",root=self.rank)
         data=np.array(self.sess.run(self.gradient,self.feed))
-        #print "Gradient Master Computation Time", time.time()-s
+        print "Gradient Master Computation Time", time.time()-s
         ret=[]
         ss=time.time()
         for gr in data:
@@ -143,7 +143,7 @@ class lbfgs_optimizer:
             ret.append(y/self.size)
         ret=np.array(ret)
         e=time.time()
-        #print "Gradient Time:",e-s, e-ss
+        print "Gradient Time:",e-s, e-ss
         return ret
 
     def kill(self):
@@ -155,10 +155,10 @@ class lbfgs_optimizer:
         s=time.time()
         self.comm.bcast("C",root=self.rank)
         data=self.sess.run(self.cost,self.feed)
-        #print "Function Master Computation", time.time()-s
+        print "Function Master Computation", time.time()-s
         y = self.comm.reduce(data, op=MPI.SUM,root=self.rank)
         e=time.time()
-        #print "Function Time", e-s
+        print "Function Time", e-s
         return y/self.size
 
 

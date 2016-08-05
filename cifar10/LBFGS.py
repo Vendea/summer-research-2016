@@ -168,29 +168,41 @@ start = time.time()
 totaltime=0
 if rank==0:
     totaltime=0
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,3,comm,size,rank)
-    for b in range(4):
-        data_x=tx[bsize*b:bsize*(b+1)]
-        data_y=ty[bsize*b:bsize*(b+1)]
-        trainer.update(data_x,data_y,x,y)
-        start=time.time()
-        for i in range(1000):
-            ts=time.time()
-            c = trainer.minimize(ls=False)
-            te=time.time()
-	    print "Batch", b, "Iter", i, "Cost, Step:",c, "Time", te-ts
-            totaltime=totaltime+te-ts
-            if (i+1)%100==0:
-                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
-                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-                train_cost=c
-                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
-                f=trainer.functionEval
-                g=trainer.gradientEval
-                inner=trainer.innerEval
-                print totaltime,inner, f, g, train, test,train_cost,test_cost
+    trainer=lbfgs_optimizer(0.01, cost,[],sess,3,comm,size,rank)
+    for w in range(4):	
+	for b in range(8):
+            data_x=tx[bsize*b:bsize*(b+1)]
+            data_y=ty[bsize*b:bsize*(b+1)]
+            trainer.update(data_x,data_y,x,y)
+            start=time.time()
+            for i in range(40/(w+1)):
+                ts=time.time()
+                c = trainer.minimize(ls=False)
+                te=time.time()
+	        print "Batch", b, "Iter", i, "Cost, Step:",c, "Time", te-ts
+                totaltime=totaltime+te-ts
+                if (i+1)%10==0:
+                    print "Evaluating=============================================="
+                    train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
+                    print "Training:",train
+                    test1= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                    print "Test1:", test1
+                    test2= sess.run(accuracy,{x:cifar10.test.images[1000:2000],y:cifar10.test.labels[1000:2000]})
+                    print "Test2:", test2
+                    test3= sess.run(accuracy,{x:cifar10.test.images[2000:3000],y:cifar10.test.labels[2000:3000]})
+                    print "Test3:", test3
+                    test4= sess.run(accuracy,{x:cifar10.test.images[3000:4000],y:cifar10.test.labels[3000:4000]})
+                    print "Test4:", test4
+                    test=(test1+test2+test3+test4)/4
+                    train_cost=c
+                    test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                    f=trainer.functionEval
+                    g=trainer.gradientEval
+                    inner=trainer.innerEval
+                    print totaltime,inner, f, g, train, test,train_cost,test_cost
+                    print "========================================================"
 else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
+    opServer=Opserver(0.01, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
 
 
