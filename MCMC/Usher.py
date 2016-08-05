@@ -4,7 +4,7 @@ import random
 import math
 
 class MCMC:
-    def __init__(self, cost, feed, sess, stdev, t0, c, maximize=False):
+    def __init__(self, cost, feed, sess, stdev, maximize=False):
         self.cost = cost
         self.feed = feed
         self.var_t = tf.trainable_variables()
@@ -15,14 +15,10 @@ class MCMC:
         self.prev_cost = sess.run(cost, feed)
         self.stdev = stdev
         self.maximize=maximize
-        self.t0 = t0
-        self.t = t0 - 1
-        self.c = c
 
     def optimize(self, stdev=None):
         if stdev != None:
             self.stdev = stdev
-        self.t += 1
         var_new = []
         for v,t in zip(self.var,self.var_t):
             v_n = []
@@ -33,19 +29,16 @@ class MCMC:
             self.sess.run(t.assign(v_n))
         new_cost = self.sess.run(self.cost, self.feed)
         if self.maximize:
-            if min(1, self.scale_cost(new_cost)/self.scale_cost(self.prev_cost)) > random.random():
+            if new_cost > self.prev_cost:
                 self.prev_cost = new_cost
                 self.var = var_new
             else:
                 for v,t in zip(self.var,self.var_t):
                     self.sess.run(t.assign(v))
         else:
-            if min(1, self.scale_cost(self.prev_cost)/self.scale_cost(new_cost)) > random.random():
+            if new_cost < self.prev_cost:
                 self.prev_cost = new_cost
                 self.var = var_new
             else:
                 for v,t in zip(self.var,self.var_t):
                     self.sess.run(t.assign(v))
-
-    def scale_cost(self, x):
-        return math.exp(self.c * x * math.log(self.t))
