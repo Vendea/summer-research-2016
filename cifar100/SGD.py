@@ -160,7 +160,7 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-data_x, data_y = cifar100.train.images[0:10],cifar100.train.labels[0:10]
+data_x, data_y = cifar100.train.images[0:30],cifar100.train.labels[0:30]
 training_size = len(data_x)
 param=[]
 batch_size = training_size
@@ -174,7 +174,7 @@ if rank==0:
         
 else:
     data=data_x[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)],data_y[training_size/(size-1)*(rank-1):training_size/(size-1)*(rank)]
-    worker=DPSGD(param,data,batch_size,comm,train_step,sess,x,y,cost,rank,0,accuracy,{x: cifar100.test.images, y:cifar100.test.labels})
+    worker=DPSGD(param,data,batch_size,comm,cost,sess,x,y,cost,rank,0,accuracy,{x: cifar100.test.images, y:cifar100.test.labels})
     start=time.time()
     while True:
         for i in range(100):

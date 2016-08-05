@@ -15,8 +15,6 @@ from Opserver import Opserver
 
 p = getcwd()[0:getcwd().rfind("/")]+"/Logger"
 path.append(p)
-import Logger
-logfile = Logger.DataLogger("CIFAR10_LBFGS","Epoch,time,train_accuaracy,test_accuaracy,train_cost,test_cost")
 
 
 
@@ -58,8 +56,7 @@ def _variable_on_cpu(name, shape, initializer):
   Returns:
     Variable Tensor
   """
-  with tf.device('/cpu:0'):
-    var = tf.get_variable(name, shape, initializer=initializer)
+  var = tf.get_variable(name, shape, initializer=initializer)
   return var
 
 def _variable_with_weight_decay(name, shape, stddev, wd):
@@ -166,28 +163,34 @@ sess=tf.Session(config=config)
 sess.run(init)
 tx,ty = cifar10.train.images,cifar10.train.labels
 train_size =  len(tx)
-bsize=train_size
+bsize=6000
 start = time.time()
+totaltime=0
 if rank==0:
-    trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(5):
+    totaltime=0
+    trainer=lbfgs_optimizer(0.0001, cost,[],sess,3,comm,size,rank)
+    for b in range(4):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(40):
-            c = trainer.minimize()
-            train=sess.run(accuracy,{x:tx,y:ty})
-            test= sess.run(accuracy,{x:cifar10.test.images,y:cifar10.test.labels})
-            train_cost=c
-            test_cost= sess.run(cost,{x:cifar10.test.images,y:cifar10.test.labels})
-            #f=trainer.functionEval
-            #g=trainer.gradientEval
-            #i=trainer.innerEval
-            #print i, f, g, train, test,train_cost,test_cost
-            logfile.writeData((i,time.time()-start, train, test,train_cost,test_cost))
+        for i in range(1000):
+            ts=time.time()
+            c = trainer.minimize(ls=False)
+            te=time.time()
+	    print "Batch", b, "Iter", i, "Cost, Step:",c, "Time", te-ts
+            totaltime=totaltime+te-ts
+            if (i+1)%100==0:
+                train=sess.run(accuracy,{x:data_x[0:1000],y:data_y[0:1000]})
+                test= sess.run(accuracy,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                train_cost=c
+                test_cost= sess.run(cost,{x:cifar10.test.images[0:1000],y:cifar10.test.labels[0:1000]})
+                f=trainer.functionEval
+                g=trainer.gradientEval
+                inner=trainer.innerEval
+                print totaltime,inner, f, g, train, test,train_cost,test_cost
 else:
-    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y)
+    opServer=Opserver(0.0001, cost,[],sess,comm,size,rank,0,x,y,keep_prob=None)
     opServer.run()
 
 

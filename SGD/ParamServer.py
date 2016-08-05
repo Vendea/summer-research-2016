@@ -11,9 +11,10 @@ class ParamServer:
 
     def next_request(self,cores):
         waiting=True
-        core=None
         while  (waiting):
             for core in cores:
+                if  self.comm.Iprobe(source=1, tag=13):
+                    return  0,0
                 waiting=not self.comm.Iprobe(source=core, tag=11)
                 if not waiting:
                     break
@@ -23,4 +24,3 @@ class ParamServer:
     def handle_request(self,core,data):
         self.update(data)
         self.comm.send(self.param,core,tag=11)
-

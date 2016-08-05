@@ -82,13 +82,13 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-data_x, data_y = mnist.train.images,mnist.train.labels
+data_x, data_y = mnist.train.images[0:30],mnist.train.labels[0:30]
 feed={x:data_x,y:data_y}
 
 mini=MCMC(accuracy,{x: mnist.test.images, y:mnist.test.labels},sess,0,MPI.COMM_WORLD)
 
 start = time.time()
-for ep in range(100):
+for i in range(100):
     mini.optimize(stdev=0.04)
     if rank == 0:
         train=sess.run(accuracy,{x:mnist.train.images,y:mnist.train.labels})

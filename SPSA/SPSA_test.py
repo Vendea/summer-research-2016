@@ -1,11 +1,3 @@
-'''
-A Multilayer Perceptron implementation example using TensorFlow library.
-This example is using the MNIST database of handwritten digits
-(http://yann.lecun.com/exdb/mnist/)
-Author: Aymeric Damien
-Project: https://github.com/aymericdamien/TensorFlow-Examples/
-'''
-
 # Import MINST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
@@ -15,10 +7,14 @@ from mpi4py import MPI
 import time
 import numpy as np
 from SPSA import SPSA
+import numpy
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
+num_groups = 2
 
+group =   [x for x in range(size) if x% num_groups == rank%num_groups]
+parents = list(set([x% num_groups for x in range(size)]))
 # Parameters
 learning_rate = 0.001
 training_epochs = 15
@@ -82,49 +78,34 @@ if rank==0:
     start=time.time()
     for n in range(100000):
         orig=mini.var
-        g0=mini.getGrad(cost,n)
-        g1=comm.recv(source=1,tag=11)
-        g=[]
-        for m1,m2 in zip(g0,g1):
-            g.append((m1+m2)/2)
-        f,update0=mini.minimize(g,orig,n)
-        a0=sess.run(accuracy,feed)
-        f0=sess.run(cost,feed)
-        update1=comm.recv(source=2,tag=11)
-        mini.set_var(update1)
-        a1=sess.run(accuracy,feed)
-        f1=sess.run(cost,feed)
-        print time.time()-start,f1,f0,a1,a0
-        if a1>a0:
-            update=comm.bcast(update1,root=0)
-        else:
-            update=comm.bcast(update0,root=0)
+        g=[[mini.getGrad(cost,n)]]
+        group.remove(rank)
+        for x in group:
+            g.append([comm.recv(source=x,tag=11)]) 
+        g = np.average(g,axis=0)
+        c,update0=mini.minimize(g[0],orig,n)
+        updates = [(update0,c)]
+        for x in parents:
+            updates.append(comm.recv(source=x,tag=11))
+        c,updates = updates
+        update=comm.bcast(updates[c.index(min(c))],root=0)
         mini.set_var(update)
-        if n%10==0:
-            print sess.run(accuracy,{x:mnist.test.images,y:mnist.test.labels})
-
-elif rank==1:
-    for n in range(100000):
-        g=mini.getGrad(cost,n)
-        comm.send(g,dest=0,tag=11)
-        update=comm.bcast(None,root=0)
-        mini.set_var(update)
-elif rank==2:
+elif rank in parents:
     for n in range(100000):
         orig=mini.var
-        g0=mini.getGrad(cost,n)
-        g1=comm.recv(source=3,tag=11)
-        g=[]
-        for m1,m2 in zip(g0,g1):
-            g.append((m1+m2)/2)
-        f,update=mini.minimize(g,orig,n)
-        comm.send(update,dest=0,tag=11)
+        g=[[mini.getGrad(cost,n)]]
+        group.remove(rank)
+        for x in group:
+            g.append(comm.recv(source=x,tag=11))
+        g = np.average(g,axis=0)
+        f,update=mini.minimize(g[0],orig,n)
+        comm.send((update,f),dest=0,tag=11)
         update=comm.bcast(None,root=0)
         mini.set_var(update)
-elif rank==3:
+else :
     for n in range(100000):
         g=mini.getGrad(cost,n)
-        comm.send(g,dest=2,tag=11)
+        comm.send(g,dest=rank%num_groups,tag=11)
         update=comm.bcast(None,root=0)
         mini.set_var(update)
 

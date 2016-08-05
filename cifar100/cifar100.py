@@ -19,7 +19,7 @@ def read_data_sets(data_dir):
     print("getting data")
     SOURCE_URL = 'https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz'
 
-    local_file = base.maybe_download(TRAIN_DATA, data_dir, SOURCE_URL)
+    local_file = base.maybe_download(filename, data_dir, SOURCE_URL)
     
    
     print('Extracting', filename)

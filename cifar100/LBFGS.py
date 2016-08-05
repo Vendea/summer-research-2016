@@ -144,7 +144,7 @@ with tf.variable_scope('softmax_linear') as scope:
                                           stddev=1/192.0, wd=0.0)
     biases = _variable_on_cpu('biases', [NUM_CLASSES],
                               tf.constant_initializer(0.0))
-    pred = tf.add(tf.matmul(local4, weights), biases, name=scope.name)
+    pred = tf.nn.relu(tf.matmul(local4, weights)+ biases, name=scope.name)
     
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y))
@@ -163,18 +163,18 @@ config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-tx,ty = cifar100.train.images,cifar100.train.labels
+tx,ty = cifar100.train.images[0:30],cifar100.train.labels[0:30]
 train_size =  len(tx)
 bsize=train_size
 start = time.time()
 if rank==0:
     trainer=lbfgs_optimizer(0.0001, cost,[],sess,1,comm,size,rank)
-    for b in range(5):
+    for b in range(1):
         data_x=tx[bsize*b:bsize*(b+1)]
         data_y=ty[bsize*b:bsize*(b+1)]
         trainer.update(data_x,data_y,x,y)
         start=time.time()
-        for i in range(40):
+        for i in range(100):
             c = trainer.minimize()
             train=sess.run(accuracy,{x:tx,y:ty})
             test= sess.run(accuracy,{x:cifar100.test.images,y:cifar100.test.labels})
