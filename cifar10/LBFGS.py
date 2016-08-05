@@ -155,7 +155,7 @@ init = tf.initialize_all_variables()
 
 # Launch the graph
 if rank==0:
-    cifar10 = read_data_sets("/tmp/data")
+    cifar10 = read_data_sets("")
 
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
