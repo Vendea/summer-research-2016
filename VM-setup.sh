@@ -10,10 +10,13 @@ sudo apt-get install -y openmpi-bin openmpi-doc libopenmpi-dev
 sudo pip install mpi4py
 git config --global user.email "tdhst231@mail.rmu.edu"
 git config --global user.name "Trae Hurley"
-cd
-cd .ssh 
-sudo su -root
-ssh-keygen -t dsa -f id_dsa -N ""
-cd
-cd summer-research-2016
-chmod -R guo+rw ./
+#cd
+#cd .ssh 
+#sudo su -root
+#ssh-keygen -t dsa -f id_dsa -N ""
+#cd
+#cd summer-research-2016
+#chmod -R guo+rw ./
+
+
+
