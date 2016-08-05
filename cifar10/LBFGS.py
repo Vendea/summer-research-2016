@@ -154,15 +154,20 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 init = tf.initialize_all_variables()
 
 # Launch the graph
-cifar10 = read_data_sets("/tmp/data")
+if rank==0:
+    cifar10 = read_data_sets("/tmp/data")
 
 config = tf.ConfigProto(device_count={"CPU": 1, "GPU": 0},
                             inter_op_parallelism_threads=1,
                             intra_op_parallelism_threads=1)
 sess=tf.Session(config=config)
 sess.run(init)
-tx,ty = cifar10.train.images,cifar10.train.labels
-train_size =  len(tx)
+if rank==0:
+    tx,ty = cifar10.train.images,cifar10.train.labels
+    train_size =  len(tx)
+    tx,ty=comm.bcast((tx,ty),root=0)
+else:
+    tx,ty=comm.bcast((tx,ty),root=0)
 bsize=6000
 start = time.time()
 totaltime=0
