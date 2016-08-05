@@ -13,13 +13,15 @@ class MCMC:
         for t in self.var_t:
             self.var.append(t.eval(session=sess))
         self.prev_cost = sess.run(cost, feed)
-	self.stdev = stdev
+        self.stdev = stdev
         self.maximize=maximize
-	self.t0 = t0
+        self.t0 = t0
         self.t = t0 - 1
         self.c = c
 
-    def optimize(self):
+    def optimize(self, stdev=None):
+        if stdev != None:
+            self.stdev = stdev
         self.t += 1
         var_new = []
         for v,t in zip(self.var,self.var_t):
