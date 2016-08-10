@@ -13,6 +13,8 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 import tensorflow as tf
 import time
 from Usher import MCMC
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from mpi4py import MPI
 import math
@@ -86,7 +88,7 @@ timestamps = [0]
 start = time.time()
 runs = 1
 num_epochs_unchanged = 0
-while time.time()-start < 25200: #for ep in range(1000):
+while time.time()-start < 10: #for ep in range(1000):
     if num_epochs_unchanged == 500:
         mini.optimize(mini.stdev / 2.0)
         num_epochs_unchanged = 0
@@ -108,8 +110,7 @@ while time.time()-start < 25200: #for ep in range(1000):
 
 #print timestamps
 #print costs
-if master:
-    plt.plot(timestamps, costs, label='MH')
-    plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
-    plt.grid(True)
-    plt.savefig('usher_stdev'+str(mini.stdev)[2:]+'.png')
+plt.plot(timestamps, costs, label='Usher')
+plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
+plt.grid(True)
+plt.savefig('usher_stdev'+MPI.COMM_WORLD.Get_rank()+str(mini.stdev)[2:]+'.png')
