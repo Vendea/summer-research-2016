@@ -113,4 +113,4 @@ while time.time()-start < 10: #for ep in range(1000):
 plt.plot(timestamps, costs, label='Usher')
 plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
 plt.grid(True)
-plt.savefig('usher_stdev'+MPI.COMM_WORLD.Get_rank()+str(mini.stdev)[2:]+'.png')
+plt.savefig('../pics/usher/usher_stdev'+str(mini.stdev)[2:]+'_'+str(MPI.COMM_WORLD.Get_rank())+'.png')

@@ -8,17 +8,17 @@ class MCMC:
         self.cost = cost
         self.feed = feed
         self.var_t = tf.trainable_variables()
-
-		self.pl = [tf.placeholder(x.shape) for x in self.var_t]
-		self.single_assign = []
-		for t, p in zip(self.var_t, self.pl):
-			self.single_assign.append(t.assign(p))
-
-        self.var = []
+	self.var = []
         self.sess = sess
         for t in self.var_t:
             self.var.append(t.eval(session=sess))
         self.prev_cost = sess.run(cost, feed)
+
+	self.pl = [tf.placeholder(tf.float32, x.shape) for x in self.var]
+	self.single_assign = []
+	for t, p in zip(self.var_t, self.pl):
+		self.single_assign.append(t.assign(p))
+
         self.stdev = stdev
         self.maximize=maximize
 
@@ -32,7 +32,7 @@ class MCMC:
                 v_n.append(random.gauss(x, self.stdev))
             v_n = np.reshape(v_n, v.shape)
             var_new.append(v_n)
-			self.sess.run(sa, {p: v_n})
+	    self.sess.run(sa, {p: v_n})
         new_cost = self.sess.run(self.cost, self.feed)
         if self.maximize:
             if new_cost > self.prev_cost:
