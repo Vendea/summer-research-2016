@@ -88,7 +88,7 @@ timestamps = [0]
 start = time.time()
 runs = 1
 num_epochs_unchanged = 0
-while time.time()-start < 10: #for ep in range(1000):
+while time.time()-start < 72000: #for ep in range(1000):
     if num_epochs_unchanged == 500:
         mini.optimize(mini.stdev / 2.0)
         num_epochs_unchanged = 0
