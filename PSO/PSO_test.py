@@ -99,8 +99,7 @@ while time.time()-start < 3600: #for ep in range(1000):
 
 #print timestamps
 #print costs
-if master:
-    plt.plot(timestamps, costs, label='PSO')
-    plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
-    plt.grid(True)
-    plt.savefig('../pics/pso/pso_basic_o'+str(mini.omega)+'_p'+str(mini.phi_p)+'_g'+str(mini.phi_g)+'_'+str(MPI.COMM_WORLD.Get_rank())+'.png')
+plt.plot(timestamps, costs, label='PSO')
+plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
+plt.grid(True)
+plt.savefig('../pics/pso/pso_basic_o'+str(mini.omega)+'_p'+str(mini.phi_p)+'_g'+str(mini.phi_g)+'_'+str(MPI.COMM_WORLD.Get_rank())+'.png')
