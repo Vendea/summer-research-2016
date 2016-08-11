@@ -81,15 +81,15 @@ data_x, data_y = mnist.train.next_batch(10000)
 feed={x:data_x,y:data_y}
 correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-mini=PSO(MPI.COMM_WORLD, accuracy, {x: mnist.test.images, y:mnist.test.labels}, sess, b_up, b_lo, omega=0.6, phi_p=0.2, phi_g=0.2)
+mini=PSO(MPI.COMM_WORLD, accuracy, {x: mnist.test.images, y:mnist.test.labels}, sess, b_up, b_lo, omega=0.2, phi_p=0.4, phi_g=0.4)
 costs = []
 costs.append(mini.eval_g_best)
 timestamps = [0]
 start = time.time()
-while time.time()-start < 10: #for ep in range(1000):
+while time.time()-start < 3600: #for ep in range(1000):
     mini.optimize()
     timestamps.append(time.time() - start)
-    costs.append(mini.eval_g_best)
+    costs.append(mini.eval_my_best)
     if master:
         print time.time()-start, mini.eval_g_best
     #if time.time()-start > 300:
