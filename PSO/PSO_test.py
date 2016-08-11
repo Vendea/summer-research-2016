@@ -1,3 +1,15 @@
+'''
+A Multilayer Perceptron implementation example using TensorFlow library.
+This example is using the MNIST database of handwritten digits
+(http://yann.lecun.com/exdb/mnist/)
+Author: Aymeric Damien
+Project: https://github.com/aymericdamien/TensorFlow-Examples/
+'''
+
+# Import MINST data
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+
 import tensorflow as tf
 import numpy as np
 from mpi4py import MPI
@@ -6,6 +18,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import time
 from PSO_basic import PSO
+
+master = MPI.COMM_WORLD.Get_rank() == 0
 
 # Parameters
 learning_rate = 0.001
@@ -77,7 +91,7 @@ while time.time()-start < 10: #for ep in range(1000):
     timestamps.append(time.time() - start)
     costs.append(mini.eval_g_best)
     if master:
-        print time.time()-start, mini.prev_cost
+        print time.time()-start, mini.eval_g_best
     #if time.time()-start > 300:
     #    break
     #print sess.run(cost, feed)
@@ -85,8 +99,8 @@ while time.time()-start < 10: #for ep in range(1000):
 
 #print timestamps
 #print costs
-if MPI.COMM_WORLD.Get_rank():
+if master:
     plt.plot(timestamps, costs, label='PSO')
     plt.legend(bbox_to_anchor=(.9,.5), bbox_transform=plt.gcf().transFigure)
     plt.grid(True)
-    plt.savefig('pso_basic_o'+str(mini.omega)+'_p'+str(mini.phi_p)+'_g'+str(mini.phi_g)+'.png')
+    plt.savefig('../pics/pso/pso_basic_o'+str(mini.omega)+'_p'+str(mini.phi_p)+'_g'+str(mini.phi_g)+'_'+str(MPI.COMM_WORLD.Get_rank())+'.png')
