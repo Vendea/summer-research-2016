@@ -54,14 +54,14 @@ class PSO:
 			self.sess.run(sa, {ph: v_n})
 		self.var = copy.deepcopy(var_new)
 		self.eval_curr = self.sess.run(self.cost, self.feed)
-		if self.eval_curr > self.eval_my_best:									# change for min/max-ing
+		if self.eval_curr < self.eval_my_best:									# change for min/max-ing
 			self.my_best = copy.deepcopy(self.var)
 			self.eval_my_best = self.eval_curr
 		self.update_group_best()
 
 	def update_group_best(self):
 		if self.comm.Get_rank() == 0:
-			best_index = np.argmax(self.comm.gather(self.eval_my_best, root=0))		# change for min/max-ing
+			best_index = np.argmin(self.comm.gather(self.eval_my_best, root=0))		# change for min/max-ing
 			self.comm.bcast(best_index, root=0)
 		else:
 			self.comm.gather(self.eval_my_best, root=0)
